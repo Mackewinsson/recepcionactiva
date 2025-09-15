@@ -4,6 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
+    "dev:full": "./scripts/dev.sh",
+    "db:start": "./scripts/start-db.sh",
+    "db:stop": "./scripts/stop-db.sh",
+    "db:restore": "./scripts/restore-db.sh",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint"

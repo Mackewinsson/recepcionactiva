@@ -1,36 +1,156 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MotosMuñoz - Sistema de Recepción Activa
 
-## Getting Started
+Sistema de gestión para el taller de motocicletas MotosMuñoz, integrado con base de datos SQL Server y autenticación de usuarios.
 
-First, run the development server:
+## 🚀 Inicio Rápido
+
+### Opción 1: Scripts Automatizados (Recomendado)
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Iniciar todo el entorno de desarrollo (base de datos + aplicación)
+npm run dev:full
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Opción 2: Docker Compose
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+# Iniciar base de datos
+npm run docker:up
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Iniciar aplicación (en otra terminal)
+npm run dev
+```
 
-## Learn More
+### Opción 3: Manual
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+# Terminal 1: Iniciar base de datos
+npm run db:start
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Terminal 2: Iniciar aplicación
+npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📊 Base de Datos
 
-## Deploy on Vercel
+### Conexión a DBeaver
+- **Host**: `localhost`
+- **Puerto**: `1433`
+- **Base de datos**: `MotosMunozDatos`
+- **Usuario**: `sa`
+- **Contraseña**: `sa2006Strong!`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Scripts Disponibles
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+# Iniciar base de datos
+npm run db:start
+
+# Detener base de datos
+npm run db:stop
+
+# Restaurar base de datos desde backup
+npm run db:restore
+
+# Docker Compose
+npm run docker:up    # Iniciar
+npm run docker:down  # Detener
+```
+
+## 🔐 Autenticación
+
+### Usuarios Disponibles:
+1. **MOTOS MUÑOZ S.C (Nivel 6)** - Administrador principal
+2. **Allianz (Nivel 3)** - Gestor de seguros
+3. **Usuario 2040 (Nivel 1)** - Usuario básico
+
+### Contraseñas Válidas:
+- `sa2006`
+- `admin`
+- `123456`
+
+## 🛠️ Desarrollo
+
+### Estructura del Proyecto
+```
+src/
+├── app/
+│   ├── api/
+│   │   ├── auth/login/     # Autenticación
+│   │   ├── users/          # Gestión de usuarios
+│   │   └── orders/search/  # Búsqueda de órdenes
+│   ├── dashboard/          # Panel principal
+│   ├── login/              # Página de login
+│   └── layout.tsx          # Layout principal
+├── lib/
+│   └── prisma.ts           # Cliente Prisma
+└── store/
+    └── auth.ts             # Estado de autenticación
+```
+
+### Tecnologías
+- **Next.js 15** - Framework React
+- **TypeScript** - Tipado estático
+- **Tailwind CSS** - Estilos
+- **Prisma** - ORM para SQL Server
+- **Zustand** - Gestión de estado
+- **Docker** - Contenedorización de base de datos
+
+## 📋 Comandos Disponibles
+
+```bash
+# Desarrollo
+npm run dev          # Solo aplicación
+npm run dev:full     # Base de datos + aplicación
+
+# Base de datos
+npm run db:start     # Iniciar SQL Server
+npm run db:stop      # Detener SQL Server
+npm run db:restore   # Restaurar desde backup
+
+# Docker
+npm run docker:up    # Iniciar con Docker Compose
+npm run docker:down  # Detener Docker Compose
+
+# Producción
+npm run build        # Construir aplicación
+npm run start        # Iniciar en producción
+npm run lint         # Verificar código
+```
+
+## 🔧 Configuración
+
+### Variables de Entorno
+El archivo `.env` contiene la configuración de la base de datos:
+```
+DATABASE_URL="sqlserver://localhost:1433;database=MotosMunozDatos;user=sa;password=sa2006Strong!;trustServerCertificate=true"
+```
+
+### Base de Datos
+- **SQL Server 2022** en Docker
+- **188 tablas** del sistema MotosMuñoz
+- **Datos de usuarios, vehículos, órdenes de trabajo**
+
+## 🚨 Solución de Problemas
+
+### Base de datos no conecta
+```bash
+# Verificar contenedor
+docker ps
+
+# Ver logs
+docker logs sql1
+
+# Reiniciar contenedor
+npm run db:stop
+npm run db:start
+```
+
+### Error de permisos en scripts
+```bash
+chmod +x scripts/*.sh
+```
+
+## 📞 Soporte
+
+Para problemas o dudas sobre el sistema MotosMuñoz, contactar al equipo de desarrollo.
