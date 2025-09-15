@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    // Get detailed order information
+    // Get detailed order information including vehicle data
     const orderDetails = await prisma.$queryRaw`
       SELECT 
         c.NUMCAB as numeroOrden,
@@ -41,9 +41,16 @@ export async function GET(request: NextRequest) {
         e.NCOENT as cliente,
         e.NIFENT as nifCliente,
         e.TNIENT as telefonoCliente,
+        v.MATVEH as matricula,
+        v.NOMVEH as nombreVehiculo,
+        v.BASVEH as bastidor,
+        v.MOTVEH as motor,
+        v.ESTVEH as estadoVehiculo,
+        v.COSVEH as costeVehiculo,
         u.ACCUSU as nivelUsuario
       FROM CAB c
       LEFT JOIN ENT e ON c.ENTCAB = e.IDEENT
+      LEFT JOIN VEH v ON c.ENTCAB = v.ENTVEH
       LEFT JOIN USU u ON c.USUCAB = u.ENTUSU
       WHERE c.NUMCAB = ${numero}
     `

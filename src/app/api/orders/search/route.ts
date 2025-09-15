@@ -12,18 +12,22 @@ export async function GET(request: NextRequest) {
       return NextResponse.json([])
     }
 
-    // Search orders by number or client name using raw SQL
+    // Search orders by matricula (license plate) using raw SQL
     const orders = await prisma.$queryRaw`
       SELECT TOP 20
         c.NUMCAB as numeroOrden,
         c.FECCAB as fecha,
         c.ESTCAB as estado,
         c.TOTCAB as total,
-        e.NCOENT as cliente
+        c.BITCAB as subtotal,
+        e.NCOENT as cliente,
+        v.MATVEH as matricula,
+        v.NOMVEH as nombreVehiculo,
+        v.BASVEH as bastidor
       FROM CAB c
       LEFT JOIN ENT e ON c.ENTCAB = e.IDEENT
-      WHERE c.NUMCAB LIKE ${'%' + query + '%'} 
-         OR e.NCOENT LIKE ${'%' + query + '%'}
+      LEFT JOIN VEH v ON c.ENTCAB = v.ENTVEH
+      WHERE v.MATVEH LIKE ${'%' + query + '%'}
       ORDER BY c.FECCAB DESC
     `
 

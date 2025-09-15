@@ -11,6 +11,12 @@ interface Order {
   observaciones: string | null
   cliente: string | null
   nivelUsuario: number
+  matricula: string | null
+  nombreVehiculo: string | null
+  bastidor: string | null
+  motor: string | null
+  estadoVehiculo: number | null
+  costeVehiculo: number | null
 }
 
 interface SearchResult {
@@ -19,6 +25,10 @@ interface SearchResult {
   fecha: string
   estado: number
   total: number
+  subtotal: number
+  matricula: string | null
+  nombreVehiculo: string | null
+  bastidor: string | null
 }
 
 export default function OrdersPage() {
@@ -93,13 +103,13 @@ export default function OrdersPage() {
         {/* Header */}
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-gray-900">Órdenes de Trabajo</h1>
-          <p className="text-gray-600">Busca y consulta las órdenes de trabajo de MotosMuñoz</p>
+          <p className="text-gray-600">Busca órdenes por matrícula de vehículo</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Search Panel */}
           <div className="bg-white rounded-lg shadow-sm border p-6">
-            <h2 className="text-lg font-semibold mb-4">🔍 Buscar Órdenes</h2>
+            <h2 className="text-lg font-semibold mb-4">🔍 Buscar por Matrícula</h2>
             
             <form onSubmit={handleSearch} className="mb-4">
               <div className="flex gap-2">
@@ -107,7 +117,7 @@ export default function OrdersPage() {
                   type="text"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  placeholder="Número de orden, cliente..."
+                  placeholder="Ej: 2500CCC, 5422CCC..."
                   className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <button
@@ -127,7 +137,7 @@ export default function OrdersPage() {
             {/* Search Results */}
             {searchResults.length > 0 && (
               <div className="space-y-2">
-                <h3 className="font-medium text-gray-700">Resultados ({searchResults.length})</h3>
+                <h3 className="font-medium text-gray-700">Órdenes encontradas ({searchResults.length})</h3>
                 <div className="max-h-96 overflow-y-auto space-y-2">
                   {searchResults.map((order) => (
                     <div
@@ -136,9 +146,15 @@ export default function OrdersPage() {
                       className="p-3 border rounded-md hover:bg-gray-50 cursor-pointer transition-colors"
                     >
                       <div className="flex justify-between items-start">
-                        <div>
+                        <div className="flex-1">
                           <div className="font-medium text-gray-900">{order.numeroOrden}</div>
                           <div className="text-sm text-gray-600">{order.cliente || 'Sin cliente'}</div>
+                          <div className="text-sm text-blue-600 font-medium">
+                            🚗 {order.matricula || 'Sin matrícula'}
+                          </div>
+                          {order.nombreVehiculo && (
+                            <div className="text-xs text-gray-500">{order.nombreVehiculo}</div>
+                          )}
                           <div className="text-xs text-gray-500">
                             {new Date(order.fecha).toLocaleDateString('es-ES')}
                           </div>
@@ -189,6 +205,33 @@ export default function OrdersPage() {
                 <div>
                   <label className="text-sm font-medium text-gray-500">Cliente</label>
                   <div className="text-gray-900">{selectedOrder.cliente || 'Sin cliente'}</div>
+                </div>
+
+                {/* Vehicle Information */}
+                <div className="bg-blue-50 p-4 rounded-md">
+                  <h3 className="text-sm font-medium text-blue-900 mb-2">🚗 Información del Vehículo</h3>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-xs font-medium text-blue-700">Matrícula</label>
+                      <div className="text-sm font-bold text-blue-900">{selectedOrder.matricula || 'Sin matrícula'}</div>
+                    </div>
+                    <div>
+                      <label className="text-xs font-medium text-blue-700">Vehículo</label>
+                      <div className="text-sm text-blue-900">{selectedOrder.nombreVehiculo || 'Sin información'}</div>
+                    </div>
+                  </div>
+                  {selectedOrder.bastidor && (
+                    <div className="mt-2">
+                      <label className="text-xs font-medium text-blue-700">Bastidor</label>
+                      <div className="text-sm text-blue-900">{selectedOrder.bastidor}</div>
+                    </div>
+                  )}
+                  {selectedOrder.motor && (
+                    <div className="mt-2">
+                      <label className="text-xs font-medium text-blue-700">Motor</label>
+                      <div className="text-sm text-blue-900">{selectedOrder.motor}</div>
+                    </div>
+                  )}
                 </div>
 
                 <div>
