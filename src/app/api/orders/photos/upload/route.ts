@@ -7,6 +7,78 @@ import { v4 as uuidv4 } from 'uuid'
 
 const prisma = new PrismaClient()
 
+// Environment detection
+const isProduction = process.env.NODE_ENV === 'production'
+
+// Function to get the network path from PRM table
+async function getNetworkImagePath(): Promise<string | null> {
+  try {
+    const result = await prisma.$queryRaw`
+      SELECT VALPRM FROM PRM WHERE NOMPRM = 'Carpetalmagenes'
+    ` as any[]
+    
+    if (result.length > 0 && result[0].VALPRM) {
+      // Remove single quotes if present and return the path
+      return result[0].VALPRM.replace(/'/g, '')
+    }
+    return null
+  } catch (error) {
+    console.error('Error reading PRM table:', error)
+    return null
+  }
+}
+
+// Function to create directory path based on environment
+async function createUploadPath(orderNumber: string): Promise<{ uploadPath: string; publicUrl: string }> {
+  console.log(`Environment: ${isProduction ? 'production' : 'development'}`)
+  
+  if (isProduction) {
+    // Try to get network path from PRM table
+    const networkPath = await getNetworkImagePath()
+    console.log(`Network path from PRM table: ${networkPath}`)
+    
+    if (networkPath) {
+      try {
+        // Create order-specific folder in network path
+        const orderFolder = join(networkPath, orderNumber)
+        console.log(`Creating order folder at: ${orderFolder}`)
+        
+        // Check if directory exists, create if not
+        if (!existsSync(orderFolder)) {
+          await mkdir(orderFolder, { recursive: true })
+          console.log(`Created directory: ${orderFolder}`)
+        } else {
+          console.log(`Directory already exists: ${orderFolder}`)
+        }
+        
+        return {
+          uploadPath: orderFolder,
+          publicUrl: `/network-images/${orderNumber}` // We'll serve these through a different endpoint
+        }
+      } catch (error) {
+        console.error('Error accessing network path, falling back to local storage:', error)
+        // Fall back to local storage
+      }
+    } else {
+      console.log('No network path found in PRM table, using local storage')
+    }
+  }
+  
+  // Development or fallback: use local storage
+  const uploadsDir = join(process.cwd(), 'public', 'uploads', 'orders', orderNumber)
+  console.log(`Using local storage path: ${uploadsDir}`)
+  
+  if (!existsSync(uploadsDir)) {
+    await mkdir(uploadsDir, { recursive: true })
+    console.log(`Created local directory: ${uploadsDir}`)
+  }
+  
+  return {
+    uploadPath: uploadsDir,
+    publicUrl: `/uploads/orders/${orderNumber}`
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData()
@@ -47,20 +119,17 @@ export async function POST(request: NextRequest) {
     const fileExtension = file.name.split('.').pop()
     const uniqueFilename = `${uuidv4()}.${fileExtension}`
     
-    // Create uploads directory if it doesn't exist
-    const uploadsDir = join(process.cwd(), 'public', 'uploads', 'orders', orderNumber)
-    if (!existsSync(uploadsDir)) {
-      await mkdir(uploadsDir, { recursive: true })
-    }
+    // Create upload path based on environment
+    const { uploadPath, publicUrl: basePublicUrl } = await createUploadPath(orderNumber)
 
     // Save file to filesystem
-    const filePath = join(uploadsDir, uniqueFilename)
+    const filePath = join(uploadPath, uniqueFilename)
     const bytes = await file.arrayBuffer()
     const buffer = Buffer.from(bytes)
     await writeFile(filePath, buffer)
 
     // Generate public URL
-    const publicUrl = `/uploads/orders/${orderNumber}/${uniqueFilename}`
+    const publicUrl = `${basePublicUrl}/${uniqueFilename}`
 
     // Store photo reference in database
     // For now, we'll store it in a simple way. In a real app, you might want to create a dedicated photos table
