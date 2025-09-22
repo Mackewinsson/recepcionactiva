@@ -1,156 +1,174 @@
-# MotosMuñoz - Sistema de Recepción Activa
+# 🚀 Recepción Activa - Sistema de Gestión de Órdenes de Trabajo
 
-Sistema de gestión para el taller de motocicletas MotosMuñoz, integrado con base de datos SQL Server y autenticación de usuarios.
+Sistema web moderno para la gestión de órdenes de trabajo con funcionalidad de carga de imágenes y integración con base de datos SQL Server.
 
-## 🚀 Inicio Rápido
+## 📋 Requisitos Previos
 
-### Opción 1: Scripts Automatizados (Recomendado)
+- **Windows Server** (Windows 10/11 o Windows Server 2016+)
+- **Node.js 18+** - [Descargar desde nodejs.org](https://nodejs.org) (versión LTS recomendada)
+- **SQL Server** con la base de datos existente
+- **Acceso a red** para el almacenamiento de imágenes
 
-```bash
-# Iniciar todo el entorno de desarrollo (base de datos + aplicación)
-npm run dev:full
+## ⚡ Instalación Rápida
+
+### Paso 1: Instalar Node.js
+1. Descargue Node.js desde [nodejs.org](https://nodejs.org)
+2. Instale la versión LTS (Long Term Support)
+3. Verifique la instalación abriendo CMD y ejecutando:
+   ```cmd
+   node --version
+   npm --version
+   ```
+
+### Paso 2: Ejecutar el Instalador
+1. Clone o descargue este repositorio
+2. Navegue a la carpeta del proyecto
+3. **Ejecute el instalador automático:**
+   ```cmd
+   setup.bat
+   ```
+
+### Paso 3: Configurar Base de Datos
+1. Cuando se abra el archivo `.env` en Notepad, configure:
+   ```env
+   NODE_ENV=production
+   DATABASE_URL="sqlserver://sa:su_password@192.168.1.30:1433;database=MotosMunozDatos;trustServerCertificate=true;encrypt=true"
+   PORT=3000
+   APP_URL=http://192.168.1.30:3000
+   ```
+2. Guarde el archivo y cierre Notepad
+
+## 🎯 ¡Listo! El sistema estará funcionando
+
+Después de ejecutar `setup.bat`, el sistema estará disponible en:
+- **Acceso local:** http://localhost:3000
+- **Acceso en red:** http://[IP_DEL_SERVIDOR]:3000
+
+## 🔧 Configuración de Almacenamiento de Imágenes
+
+### Opción A: Ruta de Red (Recomendado)
+1. Asegúrese de que la ruta de red `\\192.168.1.30\Mw_Imagenes` sea accesible
+2. Verifique que la tabla PRM tenga el registro correcto:
+   ```sql
+   SELECT * FROM PRM WHERE NOMPRM = 'CarpetaImagenes'
+   -- Debe retornar: VALPRM = '\\192.168.1.30\Mw_Imagenes'
+   ```
+
+### Opción B: Ruta Local de Windows
+1. Cree el directorio: `C:\Mw_Imagenes`
+2. Actualice la tabla PRM:
+   ```sql
+   UPDATE PRM SET VALPRM = 'C:\Mw_Imagenes' WHERE NOMPRM = 'CarpetaImagenes'
+   ```
+
+## 🛠️ Comandos Útiles
+
+```cmd
+# Ver estado de la aplicación
+pm2 status
+
+# Ver logs en tiempo real
+pm2 logs
+
+# Reiniciar aplicación
+pm2 restart all
+
+# Detener aplicación
+pm2 stop all
+
+# Iniciar aplicación
+pm2 start all
+
+# Monitorear recursos
+pm2 monit
 ```
 
-### Opción 2: Docker Compose
+## 🔥 Configuración de Firewall
 
-```bash
-# Iniciar base de datos
-npm run docker:up
-
-# Iniciar aplicación (en otra terminal)
-npm run dev
-```
-
-### Opción 3: Manual
-
-```bash
-# Terminal 1: Iniciar base de datos
-npm run db:start
-
-# Terminal 2: Iniciar aplicación
-npm run dev
-```
-
-## 📊 Base de Datos
-
-### Conexión a DBeaver
-- **Host**: `localhost`
-- **Puerto**: `1433`
-- **Base de datos**: `MotosMunozDatos`
-- **Usuario**: `sa`
-- **Contraseña**: `sa2006Strong!`
-
-### Scripts Disponibles
-
-```bash
-# Iniciar base de datos
-npm run db:start
-
-# Detener base de datos
-npm run db:stop
-
-# Restaurar base de datos desde backup
-npm run db:restore
-
-# Docker Compose
-npm run docker:up    # Iniciar
-npm run docker:down  # Detener
-```
-
-## 🔐 Autenticación
-
-### Usuarios Disponibles:
-1. **MOTOS MUÑOZ S.C (Nivel 6)** - Administrador principal
-2. **Allianz (Nivel 3)** - Gestor de seguros
-3. **Usuario 2040 (Nivel 1)** - Usuario básico
-
-### Contraseñas Válidas:
-- `sa2006`
-- `admin`
-- `123456`
-
-## 🛠️ Desarrollo
-
-### Estructura del Proyecto
-```
-src/
-├── app/
-│   ├── api/
-│   │   ├── auth/login/     # Autenticación
-│   │   ├── users/          # Gestión de usuarios
-│   │   └── orders/search/  # Búsqueda de órdenes
-│   ├── dashboard/          # Panel principal
-│   ├── login/              # Página de login
-│   └── layout.tsx          # Layout principal
-├── lib/
-│   └── prisma.ts           # Cliente Prisma
-└── store/
-    └── auth.ts             # Estado de autenticación
-```
-
-### Tecnologías
-- **Next.js 15** - Framework React
-- **TypeScript** - Tipado estático
-- **Tailwind CSS** - Estilos
-- **Prisma** - ORM para SQL Server
-- **Zustand** - Gestión de estado
-- **Docker** - Contenedorización de base de datos
-
-## 📋 Comandos Disponibles
-
-```bash
-# Desarrollo
-npm run dev          # Solo aplicación
-npm run dev:full     # Base de datos + aplicación
-
-# Base de datos
-npm run db:start     # Iniciar SQL Server
-npm run db:stop      # Detener SQL Server
-npm run db:restore   # Restaurar desde backup
-
-# Docker
-npm run docker:up    # Iniciar con Docker Compose
-npm run docker:down  # Detener Docker Compose
-
-# Producción
-npm run build        # Construir aplicación
-npm run start        # Iniciar en producción
-npm run lint         # Verificar código
-```
-
-## 🔧 Configuración
-
-### Variables de Entorno
-El archivo `.env` contiene la configuración de la base de datos:
-```
-DATABASE_URL="sqlserver://localhost:1433;database=MotosMunozDatos;user=sa;password=sa2006Strong!;trustServerCertificate=true"
-```
-
-### Base de Datos
-- **SQL Server 2022** en Docker
-- **188 tablas** del sistema MotosMuñoz
-- **Datos de usuarios, vehículos, órdenes de trabajo**
+Para permitir acceso desde otros equipos:
+1. Abra **Windows Defender Firewall**
+2. Haga clic en **Configuración avanzada**
+3. Seleccione **Reglas de entrada** → **Nueva regla**
+4. Elija **Puerto** → **TCP** → **Puerto específico: 3000**
+5. Permita la conexión
 
 ## 🚨 Solución de Problemas
 
-### Base de datos no conecta
-```bash
-# Verificar contenedor
-docker ps
+### Error de Conexión a Base de Datos
+- ✅ Verifique que SQL Server esté ejecutándose
+- ✅ Confirme la cadena de conexión en el archivo `.env`
+- ✅ Asegúrese de que SQL Server permita conexiones TCP/IP
 
-# Ver logs
-docker logs sql1
+### Error al Cargar Imágenes
+- ✅ Verifique la accesibilidad de la ruta de red
+- ✅ Confirme la configuración de la tabla PRM
+- ✅ Asegúrese de los permisos del directorio
 
-# Reiniciar contenedor
-npm run db:stop
-npm run db:start
+### Puerto ya en Uso
+```cmd
+# Encontrar proceso usando puerto 3000
+netstat -ano | findstr :3000
+
+# Terminar el proceso
+taskkill /PID [id_del_proceso] /F
 ```
 
-### Error de permisos en scripts
-```bash
-chmod +x scripts/*.sh
+### Problemas con PM2
+```cmd
+# Reiniciar aplicación
+pm2 restart all
+
+# Ver logs detallados
+pm2 logs
+
+# Detener y iniciar desde cero
+pm2 stop all
+pm2 start all
 ```
+
+## 📁 Estructura del Proyecto
+
+```
+recepcionactiva/
+├── src/                    # Código fuente de la aplicación
+├── public/                 # Archivos públicos
+├── prisma/                 # Configuración de base de datos
+├── ecosystem.config.js     # Configuración de PM2
+├── setup.bat              # Instalador automático
+├── env.example            # Plantilla de variables de entorno
+└── README.md              # Este archivo
+```
+
+## 🔄 Actualizaciones
+
+Para actualizar el sistema:
+1. Detenga la aplicación: `pm2 stop all`
+2. Actualice el código: `git pull` (si usa Git)
+3. Reinstale dependencias: `npm install`
+4. Recompile: `npm run build`
+5. Reinicie: `pm2 start all`
 
 ## 📞 Soporte
 
-Para problemas o dudas sobre el sistema MotosMuñoz, contactar al equipo de desarrollo.
+Si encuentra problemas:
+1. Verifique los logs: `pm2 logs`
+2. Confirme la configuración del archivo `.env`
+3. Verifique la conectividad de red y base de datos
+4. Consulte la sección de solución de problemas arriba
+
+## ✅ Lista de Verificación Final
+
+- [ ] Node.js instalado
+- [ ] Conexión a base de datos funcionando
+- [ ] Variables de entorno configuradas
+- [ ] Aplicación compilada exitosamente
+- [ ] PM2 ejecutando la aplicación
+- [ ] Firewall configurado
+- [ ] Carga de imágenes probada
+- [ ] Auto-inicio configurado
+
+---
+
+**¡El sistema está listo para usar!** 🎉
+
+Para cualquier consulta o problema, revise esta documentación o contacte al administrador del sistema.
