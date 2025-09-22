@@ -43,7 +43,10 @@ async function createUploadPath(orderNumber: string): Promise<string> {
     
     try {
       // Create order-specific folder in network path
-      const orderFolder = join(networkPath, orderNumber)
+      // Handle Windows paths properly - use backslashes for Windows
+      const orderFolder = networkPath.endsWith('\\') 
+        ? `${networkPath}${orderNumber}`
+        : `${networkPath}\\${orderNumber}`
       console.log(`Creating order folder at: ${orderFolder}`)
       
       // Check if directory exists, create if not
@@ -130,7 +133,10 @@ export async function POST(request: NextRequest) {
     }
 
     // Save file to filesystem
-    const filePath = join(uploadPath, uniqueFilename)
+    // Handle Windows paths properly for file saving too
+    const filePath = uploadPath.endsWith('\\') 
+      ? `${uploadPath}${uniqueFilename}`
+      : `${uploadPath}\\${uniqueFilename}`
     const bytes = await file.arrayBuffer()
     const buffer = Buffer.from(bytes)
     await writeFile(filePath, buffer)
@@ -180,6 +186,3 @@ export async function POST(request: NextRequest) {
     )
   }
 }
-
-
-
