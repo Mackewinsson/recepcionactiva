@@ -14,8 +14,8 @@ const isProduction = process.env.NODE_ENV === 'production'
 async function getNetworkImagePath(): Promise<string | null> {
   try {
     const result = await prisma.$queryRaw`
-      SELECT VALPRM FROM PRM WHERE NOMPRM = 'Carpetalmagenes'
-    ` as any[]
+      SELECT VALPRM FROM PRM WHERE NOMPRM = 'CarpetaImagenes'
+    ` as { VALPRM: string }[]
     
     if (result.length > 0 && result[0].VALPRM) {
       // Remove single quotes if present and return the path
@@ -29,7 +29,7 @@ async function getNetworkImagePath(): Promise<string | null> {
 }
 
 // Function to create directory path based on environment
-async function createUploadPath(orderNumber: string): Promise<{ uploadPath: string; publicUrl: string }> {
+async function createUploadPath(orderNumber: string): Promise<string> {
   console.log(`Environment: ${isProduction ? 'production' : 'development'}`)
   
   if (isProduction) {
@@ -37,34 +37,31 @@ async function createUploadPath(orderNumber: string): Promise<{ uploadPath: stri
     const networkPath = await getNetworkImagePath()
     console.log(`Network path from PRM table: ${networkPath}`)
     
-    if (networkPath) {
-      try {
-        // Create order-specific folder in network path
-        const orderFolder = join(networkPath, orderNumber)
-        console.log(`Creating order folder at: ${orderFolder}`)
-        
-        // Check if directory exists, create if not
-        if (!existsSync(orderFolder)) {
-          await mkdir(orderFolder, { recursive: true })
-          console.log(`Created directory: ${orderFolder}`)
-        } else {
-          console.log(`Directory already exists: ${orderFolder}`)
-        }
-        
-        return {
-          uploadPath: orderFolder,
-          publicUrl: `/network-images/${orderNumber}` // We'll serve these through a different endpoint
-        }
-      } catch (error) {
-        console.error('Error accessing network path, falling back to local storage:', error)
-        // Fall back to local storage
+    if (!networkPath) {
+      throw new Error('Network image path not configured in PRM table. Please add a record with NOMPRM = "CarpetaImagenes"')
+    }
+    
+    try {
+      // Create order-specific folder in network path
+      const orderFolder = join(networkPath, orderNumber)
+      console.log(`Creating order folder at: ${orderFolder}`)
+      
+      // Check if directory exists, create if not
+      if (!existsSync(orderFolder)) {
+        await mkdir(orderFolder, { recursive: true })
+        console.log(`Created directory: ${orderFolder}`)
+      } else {
+        console.log(`Directory already exists: ${orderFolder}`)
       }
-    } else {
-      console.log('No network path found in PRM table, using local storage')
+      
+      return orderFolder
+    } catch (error) {
+      console.error('Error accessing network path:', error)
+      throw new Error(`Cannot access network image path: ${networkPath}. Please check network connectivity and permissions.`)
     }
   }
   
-  // Development or fallback: use local storage
+  // Development: use local storage
   const uploadsDir = join(process.cwd(), 'public', 'uploads', 'orders', orderNumber)
   console.log(`Using local storage path: ${uploadsDir}`)
   
@@ -73,10 +70,7 @@ async function createUploadPath(orderNumber: string): Promise<{ uploadPath: stri
     console.log(`Created local directory: ${uploadsDir}`)
   }
   
-  return {
-    uploadPath: uploadsDir,
-    publicUrl: `/uploads/orders/${orderNumber}`
-  }
+  return uploadsDir
 }
 
 export async function POST(request: NextRequest) {
@@ -120,7 +114,20 @@ export async function POST(request: NextRequest) {
     const uniqueFilename = `${uuidv4()}.${fileExtension}`
     
     // Create upload path based on environment
-    const { uploadPath, publicUrl: basePublicUrl } = await createUploadPath(orderNumber)
+    let uploadPath: string
+    
+    try {
+      uploadPath = await createUploadPath(orderNumber)
+    } catch (error) {
+      console.error('Upload path creation error:', error)
+      return NextResponse.json(
+        { 
+          message: error instanceof Error ? error.message : 'Failed to create upload path',
+          error: 'NETWORK_PATH_ERROR'
+        },
+        { status: 500 }
+      )
+    }
 
     // Save file to filesystem
     const filePath = join(uploadPath, uniqueFilename)
@@ -128,8 +135,10 @@ export async function POST(request: NextRequest) {
     const buffer = Buffer.from(bytes)
     await writeFile(filePath, buffer)
 
-    // Generate public URL
-    const publicUrl = `${basePublicUrl}/${uniqueFilename}`
+    // Generate file path for database storage
+    const filePathForDB = isProduction 
+      ? filePath // Store full network path in production
+      : `/uploads/orders/${orderNumber}/${uniqueFilename}` // Store relative path in development
 
     // Store photo reference in database
     // For now, we'll store it in a simple way. In a real app, you might want to create a dedicated photos table
@@ -138,7 +147,7 @@ export async function POST(request: NextRequest) {
     // Get the order's entity ID to link the photo
     const orderDetails = await prisma.$queryRaw`
       SELECT ENTCAB FROM CAB WHERE NUMCAB = ${orderNumber}
-    ` as any[]
+    ` as { ENTCAB: number }[]
 
     if (orderDetails.length === 0) {
       return NextResponse.json(
@@ -152,13 +161,14 @@ export async function POST(request: NextRequest) {
     // Insert photo record into FOT table
     const photoId = await prisma.$executeRaw`
       INSERT INTO FOT (ENTFOT, FEAFOT, NOTFOT, ALMFOT, PUEFOT)
-      VALUES (${entityId}, GETDATE(), ${publicUrl}, 1, 1)
+      VALUES ((SELECT ISNULL(MAX(ENTFOT), 0) + 1 FROM FOT), GETDATE(), ${filePathForDB}, 1, 1)
     `
 
     return NextResponse.json({
-      id: photoId,
-      url: publicUrl,
+      success: true,
+      message: 'Image uploaded successfully',
       filename: file.name,
+      filePath: filePathForDB,
       uploadedAt: new Date().toISOString()
     })
 

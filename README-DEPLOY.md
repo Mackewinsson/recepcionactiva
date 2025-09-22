@@ -1,0 +1,239 @@
+# 🚀 Deploy de Recepción Activa en Windows
+
+Guía completa para desplegar la aplicación Recepción Activa en un entorno Windows usando PM2.
+
+---
+
+## ✅ Requisitos previos
+
+1. **Node.js** (versión LTS recomendada)  
+   👉 [Descargar Node.js](https://nodejs.org)
+
+2. **Acceso a la base de datos SQL Server** con los datos de conexión
+
+3. **Permisos de red** para acceder a la carpeta de imágenes (si aplica)
+
+---
+
+## 🗂️ Archivos de configuración
+
+### `ecosystem.config.js`
+Configuración de PM2 para gestionar la aplicación:
+- Nombre: `recepcionactiva`
+- Puerto: `3000`
+- Logs en carpeta `./logs/`
+- Reinicio automático habilitado
+
+### `env.example`
+Plantilla de variables de entorno que debe copiarse a `.env`:
+- Configuración de base de datos
+- Configuración de red para imágenes
+- Variables de entorno de la aplicación
+
+### `setup.bat`
+Script de instalación automatizada que:
+- Verifica Node.js y npm
+- Instala PM2 globalmente
+- Instala dependencias del proyecto
+- Configura archivo `.env`
+- Compila la aplicación
+- Inicia la aplicación con PM2
+
+---
+
+## 🚀 Instalación paso a paso
+
+### Opción 1: Instalación automática (Recomendada)
+
+1. **Ejecutar el instalador:**
+   ```bash
+   # Doble clic en setup.bat
+   # O desde línea de comandos:
+   setup.bat
+   ```
+
+2. **Configurar variables de entorno:**
+   - El script abrirá automáticamente el archivo `.env`
+   - Complete los datos de conexión a la base de datos
+   - Configure la ruta de red para imágenes (si aplica)
+
+3. **Verificar instalación:**
+   - La aplicación estará disponible en `http://localhost:3000`
+   - Acceso desde red: `http://[IP-DEL-SERVIDOR]:3000`
+
+### Opción 2: Instalación manual
+
+1. **Instalar PM2:**
+   ```bash
+   npm install -g pm2
+   ```
+
+2. **Instalar dependencias:**
+   ```bash
+   npm install
+   ```
+
+3. **Configurar entorno:**
+   ```bash
+   copy env.example .env
+   # Editar .env con los datos correctos
+   ```
+
+4. **Compilar aplicación:**
+   ```bash
+   npm run build
+   ```
+
+5. **Iniciar con PM2:**
+   ```bash
+   pm2 start ecosystem.config.js
+   pm2 save
+   ```
+
+---
+
+## 🌐 Acceso desde red local
+
+### Obtener IP del servidor:
+```bash
+ipconfig
+```
+
+### Acceder desde otros dispositivos:
+```
+http://[IP-DEL-SERVIDOR]:3000
+```
+
+**Ejemplo:**
+- IP del servidor: `192.168.1.30`
+- URL de acceso: `http://192.168.1.30:3000`
+
+---
+
+## 🛠️ Comandos PM2 útiles
+
+```bash
+# Ver estado de la aplicación
+pm2 status
+
+# Ver logs en tiempo real
+pm2 logs recepcionactiva
+
+# Reiniciar aplicación
+pm2 restart recepcionactiva
+
+# Detener aplicación
+pm2 stop recepcionactiva
+
+# Eliminar aplicación de PM2
+pm2 delete recepcionactiva
+
+# Ver monitoreo en tiempo real
+pm2 monit
+```
+
+---
+
+## ⚙️ Configuración de variables de entorno
+
+### Variables principales en `.env`:
+
+```env
+# Entorno de ejecución
+NODE_ENV=production
+
+# Base de datos (Prisma)
+DATABASE_URL="sqlserver://sa:su_password@192.168.1.30:1433;database=RecepcionActiva;trustServerCertificate=true"
+
+# Base de datos (configuración individual - opcional)
+DB_HOST=192.168.1.30
+DB_PORT=1433
+DB_USER=sa
+DB_PASS=su_password
+DB_NAME=RecepcionActiva
+
+# Red para imágenes (opcional)
+NETWORK_IMAGE_PATH=\\192.168.1.30\Imagenes\
+
+# Configuración de aplicación
+PORT=3000
+APP_URL=http://192.168.1.30:3000
+```
+
+---
+
+## 🔧 Configuración de inicio automático
+
+Para que la aplicación se inicie automáticamente al arrancar Windows:
+
+```bash
+# Configurar PM2 para inicio automático
+pm2 startup
+
+# Guardar configuración actual
+pm2 save
+```
+
+---
+
+## 📁 Estructura de logs
+
+Los logs se guardan en la carpeta `./logs/`:
+- `err.log` - Errores
+- `out.log` - Salida estándar
+- `combined.log` - Logs combinados
+
+---
+
+## 🚨 Solución de problemas
+
+### Error: "Node.js no encontrado"
+- Instalar Node.js desde [nodejs.org](https://nodejs.org)
+- Reiniciar la terminal después de la instalación
+
+### Error: "Puerto 3000 en uso"
+- Cambiar el puerto en `ecosystem.config.js`
+- O detener la aplicación que usa el puerto 3000
+
+### Error de conexión a base de datos
+- Verificar datos en archivo `.env`
+- Comprobar conectividad de red al servidor de BD
+- Verificar permisos de usuario de BD
+
+### Error de acceso a carpeta de red
+- Verificar permisos de red
+- Comprobar que la ruta existe
+- Verificar credenciales de red
+
+---
+
+## 📞 Soporte
+
+Para soporte técnico o reportar problemas:
+1. Revisar logs en `./logs/`
+2. Verificar configuración en `.env`
+3. Comprobar estado con `pm2 status`
+
+---
+
+## ✅ Verificación de instalación
+
+Después de la instalación, verificar:
+
+1. **Estado de la aplicación:**
+   ```bash
+   pm2 status
+   ```
+
+2. **Acceso web:**
+   - Local: `http://localhost:3000`
+   - Red: `http://[IP]:3000`
+
+3. **Logs sin errores:**
+   ```bash
+   pm2 logs recepcionactiva --lines 50
+   ```
+
+---
+
+**¡Instalación completada! 🎉**

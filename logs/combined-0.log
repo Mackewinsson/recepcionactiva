@@ -1,0 +1,313 @@
+2025-09-22T17:27:30:  ⨯ Failed to start server
+2025-09-22T17:27:30:  ⨯ Failed to start server
+2025-09-22T17:27:31:  ⨯ Failed to start server
+2025-09-22T17:27:31:  ⨯ Failed to start server
+2025-09-22T17:27:31:  ⨯ Failed to start server
+2025-09-22T17:27:31:  ⨯ Failed to start server
+2025-09-22T17:27:32:  ⨯ Failed to start server
+2025-09-22T17:27:32:  ⨯ Failed to start server
+2025-09-22T17:27:32:  ⨯ Failed to start server
+2025-09-22T17:27:32:  ⨯ Failed to start server
+2025-09-22T17:27:33:  ⨯ Failed to start server
+2025-09-22T17:27:33:  ⨯ Failed to start server
+2025-09-22T17:27:33:  ⨯ Failed to start server
+2025-09-22T17:27:34:  ⨯ Failed to start server
+2025-09-22T17:27:34:  ⨯ Failed to start server
+2025-09-22T17:27:34:  ⨯ Failed to start server
+2025-09-22T17:29:29:  ⨯ Failed to start server
+2025-09-22T17:29:29:  ⨯ Failed to start server
+2025-09-22T17:29:30:  ⨯ Failed to start server
+2025-09-22T17:29:30:  ⨯ Failed to start server
+2025-09-22T17:29:30:  ⨯ Failed to start server
+2025-09-22T17:29:30:  ⨯ Failed to start server
+2025-09-22T17:29:31:  ⨯ Failed to start server
+2025-09-22T17:29:31:  ⨯ Failed to start server
+2025-09-22T17:29:31:  ⨯ Failed to start server
+2025-09-22T17:29:31:  ⨯ Failed to start server
+2025-09-22T17:29:32:  ⨯ Failed to start server
+2025-09-22T17:29:32:  ⨯ Failed to start server
+2025-09-22T17:29:32:  ⨯ Failed to start server
+2025-09-22T17:29:32:  ⨯ Failed to start server
+2025-09-22T17:29:33:  ⨯ Failed to start server
+2025-09-22T17:29:33:  ⨯ Failed to start server
+2025-09-22T17:31:27:  ⨯ Failed to start server
+2025-09-22T17:31:27:  ⨯ Failed to start server
+2025-09-22T17:31:28:  ⨯ Failed to start server
+2025-09-22T17:31:28:  ⨯ Failed to start server
+2025-09-22T17:31:28:  ⨯ Failed to start server
+2025-09-22T17:31:28:  ⨯ Failed to start server
+2025-09-22T17:31:29:  ⨯ Failed to start server
+2025-09-22T17:31:29:  ⨯ Failed to start server
+2025-09-22T17:31:29:  ⨯ Failed to start server
+2025-09-22T17:31:29:  ⨯ Failed to start server
+2025-09-22T17:31:30:  ⨯ Failed to start server
+2025-09-22T17:31:30:  ⨯ Failed to start server
+2025-09-22T17:31:30:  ⨯ Failed to start server
+2025-09-22T17:31:30:  ⨯ Failed to start server
+2025-09-22T17:31:31:  ⨯ Failed to start server
+2025-09-22T17:31:31:  ⨯ Failed to start server
+2025-09-22T17:32:38:    ▲ Next.js 15.5.3
+2025-09-22T17:32:38:    - Local:        http://localhost:3000
+2025-09-22T17:32:38:    - Network:      http://192.168.1.69:3000
+2025-09-22T17:32:38: 
+2025-09-22T17:32:38:  ✓ Starting...
+2025-09-22T17:32:39: [TypeError: routesManifest.dataRoutes is not iterable]
+2025-09-22T17:32:39:    ▲ Next.js 15.5.3
+2025-09-22T17:32:39:    - Local:        http://localhost:3000
+2025-09-22T17:32:39:    - Network:      http://192.168.1.69:3000
+2025-09-22T17:32:39: 
+2025-09-22T17:32:39:  ✓ Starting...
+2025-09-22T17:32:39: [TypeError: routesManifest.dataRoutes is not iterable]
+2025-09-22T17:32:39:    ▲ Next.js 15.5.3
+2025-09-22T17:32:39:    - Local:        http://localhost:3000
+2025-09-22T17:32:39:    - Network:      http://192.168.1.69:3000
+2025-09-22T17:32:39: 
+2025-09-22T17:32:39:  ✓ Starting...
+2025-09-22T17:32:40: [TypeError: routesManifest.dataRoutes is not iterable]
+2025-09-22T17:32:40:    ▲ Next.js 15.5.3
+2025-09-22T17:32:40:    - Local:        http://localhost:3000
+2025-09-22T17:32:40:    - Network:      http://192.168.1.69:3000
+2025-09-22T17:32:40: 
+2025-09-22T17:32:40:  ✓ Starting...
+2025-09-22T17:32:40: [TypeError: routesManifest.dataRoutes is not iterable]
+2025-09-22T17:32:40:    ▲ Next.js 15.5.3
+2025-09-22T17:32:40:    - Local:        http://localhost:3000
+2025-09-22T17:32:40:    - Network:      http://192.168.1.69:3000
+2025-09-22T17:32:40: 
+2025-09-22T17:32:40:  ✓ Starting...
+2025-09-22T17:32:40: [TypeError: routesManifest.dataRoutes is not iterable]
+2025-09-22T17:32:41:    ▲ Next.js 15.5.3
+2025-09-22T17:32:41:    - Local:        http://localhost:3000
+2025-09-22T17:32:41:    - Network:      http://192.168.1.69:3000
+2025-09-22T17:32:41: 
+2025-09-22T17:32:41:  ✓ Starting...
+2025-09-22T17:32:41: [TypeError: routesManifest.dataRoutes is not iterable]
+2025-09-22T17:32:41:    ▲ Next.js 15.5.3
+2025-09-22T17:32:41:    - Local:        http://localhost:3000
+2025-09-22T17:32:41:    - Network:      http://192.168.1.69:3000
+2025-09-22T17:32:41: 
+2025-09-22T17:32:41:  ✓ Starting...
+2025-09-22T17:32:41: [TypeError: routesManifest.dataRoutes is not iterable]
+2025-09-22T17:32:41:    ▲ Next.js 15.5.3
+2025-09-22T17:32:41:    - Local:        http://localhost:3000
+2025-09-22T17:32:41:    - Network:      http://192.168.1.69:3000
+2025-09-22T17:32:41: 
+2025-09-22T17:32:41:  ✓ Starting...
+2025-09-22T17:32:42: [TypeError: routesManifest.dataRoutes is not iterable]
+2025-09-22T17:32:42:    ▲ Next.js 15.5.3
+2025-09-22T17:32:42:    - Local:        http://localhost:3000
+2025-09-22T17:32:42:    - Network:      http://192.168.1.69:3000
+2025-09-22T17:32:42: 
+2025-09-22T17:32:42:  ✓ Starting...
+2025-09-22T17:32:42: [TypeError: routesManifest.dataRoutes is not iterable]
+2025-09-22T17:32:42:    ▲ Next.js 15.5.3
+2025-09-22T17:32:42:    - Local:        http://localhost:3000
+2025-09-22T17:32:42:    - Network:      http://192.168.1.69:3000
+2025-09-22T17:32:42: 
+2025-09-22T17:32:42:  ✓ Starting...
+2025-09-22T17:32:43: [TypeError: routesManifest.dataRoutes is not iterable]
+2025-09-22T17:32:43:    ▲ Next.js 15.5.3
+2025-09-22T17:32:43:    - Local:        http://localhost:3000
+2025-09-22T17:32:43:    - Network:      http://192.168.1.69:3000
+2025-09-22T17:32:43: 
+2025-09-22T17:32:43:  ✓ Starting...
+2025-09-22T17:32:43: [TypeError: routesManifest.dataRoutes is not iterable]
+2025-09-22T17:32:43:    ▲ Next.js 15.5.3
+2025-09-22T17:32:43:    - Local:        http://localhost:3000
+2025-09-22T17:32:43:    - Network:      http://192.168.1.69:3000
+2025-09-22T17:32:43: 
+2025-09-22T17:32:43:  ✓ Starting...
+2025-09-22T17:32:43: [TypeError: routesManifest.dataRoutes is not iterable]
+2025-09-22T17:32:44:    ▲ Next.js 15.5.3
+2025-09-22T17:32:44:    - Local:        http://localhost:3000
+2025-09-22T17:32:44:    - Network:      http://192.168.1.69:3000
+2025-09-22T17:32:44: 
+2025-09-22T17:32:44:  ✓ Starting...
+2025-09-22T17:32:44: [TypeError: routesManifest.dataRoutes is not iterable]
+2025-09-22T17:32:44:    ▲ Next.js 15.5.3
+2025-09-22T17:32:44:    - Local:        http://localhost:3000
+2025-09-22T17:32:44:    - Network:      http://192.168.1.69:3000
+2025-09-22T17:32:44: 
+2025-09-22T17:32:44:  ✓ Starting...
+2025-09-22T17:32:44: [TypeError: routesManifest.dataRoutes is not iterable]
+2025-09-22T17:32:45:    ▲ Next.js 15.5.3
+2025-09-22T17:32:45:    - Local:        http://localhost:3000
+2025-09-22T17:32:45:    - Network:      http://192.168.1.69:3000
+2025-09-22T17:32:45: 
+2025-09-22T17:32:45:  ✓ Starting...
+2025-09-22T17:32:45: [TypeError: routesManifest.dataRoutes is not iterable]
+2025-09-22T17:32:45:    ▲ Next.js 15.5.3
+2025-09-22T17:32:45:    - Local:        http://localhost:3000
+2025-09-22T17:32:45:    - Network:      http://192.168.1.69:3000
+2025-09-22T17:32:45: 
+2025-09-22T17:32:45:  ✓ Starting...
+2025-09-22T17:32:45: [TypeError: routesManifest.dataRoutes is not iterable]
+2025-09-22T17:33:07:    ▲ Next.js 15.5.3
+2025-09-22T17:33:07:    - Local:        http://localhost:3000
+2025-09-22T17:33:07:    - Network:      http://192.168.1.69:3000
+2025-09-22T17:33:07: 
+2025-09-22T17:33:07:  ✓ Starting...
+2025-09-22T17:33:07:  ✓ Ready in 347ms
+2025-09-22T17:53:15: Environment: production
+2025-09-22T17:53:15: Network path from PRM table: null
+2025-09-22T17:53:15: No network path found in PRM table, using local storage
+2025-09-22T17:53:15: Using local storage path: /Users/mackewinsson/projects/recepcionactiva/public/uploads/orders/~7169306
+2025-09-22T17:53:15: Created local directory: /Users/mackewinsson/projects/recepcionactiva/public/uploads/orders/~7169306
+2025-09-22T17:53:16:  ⨯ The requested resource isn't a valid image for /uploads/orders/~7169306/ec3b5175-530a-4316-afd9-38143ca6552e.png received null
+2025-09-22T17:55:37: Environment: production
+2025-09-22T17:55:37: Network path from PRM table: null
+2025-09-22T17:55:37: No network path found in PRM table, using local storage
+2025-09-22T17:55:37: Using local storage path: /Users/mackewinsson/projects/recepcionactiva/public/uploads/orders/O1000002
+2025-09-22T17:55:37: Created local directory: /Users/mackewinsson/projects/recepcionactiva/public/uploads/orders/O1000002
+2025-09-22T17:55:37: Photo upload error: Error [PrismaClientKnownRequestError]: 
+Invalid `prisma.$executeRaw()` invocation:
+
+
+Raw query failed. Code: `2627`. Message: `Violation of PRIMARY KEY constraint 'ENTFOT_PK'. Cannot insert duplicate key in object 'dbo.FOT'. The duplicate key value is (213).`
+    at rS.handleRequestError (.next/server/chunks/[root-of-the-server]__881f1b83._.js:132:7858)
+    at rS.handleAndLogRequestError (.next/server/chunks/[root-of-the-server]__881f1b83._.js:132:6918)
+    at rS.request (.next/server/chunks/[root-of-the-server]__881f1b83._.js:132:6625)
+    at async t (.next/server/chunks/[root-of-the-server]__881f1b83._.js:144:7467)
+    at async j (.next/server/chunks/[root-of-the-server]__496e1228._.js:5:112)
+    at async u (.next/server/chunks/[root-of-the-server]__496e1228._.js:8:2863)
+    at async i (.next/server/chunks/[root-of-the-server]__496e1228._.js:8:3895) {
+  code: 'P2010',
+  meta: [Object],
+  clientVersion: '6.16.1'
+}
+2025-09-22T17:56:31:    ▲ Next.js 15.5.3
+2025-09-22T17:56:31:    - Local:        http://localhost:3000
+2025-09-22T17:56:31:    - Network:      http://192.168.1.69:3000
+2025-09-22T17:56:31: 
+2025-09-22T17:56:31:  ✓ Starting...
+2025-09-22T17:56:31:  ✓ Ready in 350ms
+2025-09-22T17:57:01: Environment: production
+2025-09-22T17:57:01: Network path from PRM table: null
+2025-09-22T17:57:01: No network path found in PRM table, using local storage
+2025-09-22T17:57:01: Using local storage path: /Users/mackewinsson/projects/recepcionactiva/public/uploads/orders/TEST123
+2025-09-22T17:57:01: Created local directory: /Users/mackewinsson/projects/recepcionactiva/public/uploads/orders/TEST123
+2025-09-22T17:57:42: Environment: production
+2025-09-22T17:57:42: Network path from PRM table: null
+2025-09-22T17:57:42: No network path found in PRM table, using local storage
+2025-09-22T17:57:42: Using local storage path: /Users/mackewinsson/projects/recepcionactiva/public/uploads/orders/~7169306
+2025-09-22T17:57:42: Photo upload error: Error [PrismaClientKnownRequestError]: 
+Invalid `prisma.$executeRaw()` invocation:
+
+
+Raw query failed. Code: `515`. Message: `Cannot insert the value NULL into column 'ENTFOT', table 'MotosMunozDatos.dbo.FOT'; column does not allow nulls. INSERT fails.`
+    at rS.handleRequestError (.next/server/chunks/[root-of-the-server]__881f1b83._.js:132:7858)
+    at rS.handleAndLogRequestError (.next/server/chunks/[root-of-the-server]__881f1b83._.js:132:6918)
+    at rS.request (.next/server/chunks/[root-of-the-server]__881f1b83._.js:132:6625)
+    at async t (.next/server/chunks/[root-of-the-server]__881f1b83._.js:144:7467)
+    at async j (.next/server/chunks/[root-of-the-server]__496e1228._.js:5:110)
+    at async u (.next/server/chunks/[root-of-the-server]__496e1228._.js:8:2863)
+    at async i (.next/server/chunks/[root-of-the-server]__496e1228._.js:8:3895) {
+  code: 'P2010',
+  meta: [Object],
+  clientVersion: '6.16.1'
+}
+2025-09-22T17:59:47:    ▲ Next.js 15.5.3
+2025-09-22T17:59:47:    - Local:        http://localhost:3000
+2025-09-22T17:59:47:    - Network:      http://192.168.1.69:3000
+2025-09-22T17:59:47: 
+2025-09-22T17:59:47:  ✓ Starting...
+2025-09-22T17:59:47:  ✓ Ready in 346ms
+2025-09-22T17:59:59: Environment: production
+2025-09-22T17:59:59: Network path from PRM table: null
+2025-09-22T17:59:59: Upload path creation error: Error: Network image path not configured in PRM table. Please add a record with NOMPRM = "Carpetalmagenes"
+    at U (.next/server/chunks/[root-of-the-server]__496e1228._.js:3:285)
+    at async j (.next/server/chunks/[root-of-the-server]__496e1228._.js:3:1349)
+    at async u (.next/server/chunks/[root-of-the-server]__496e1228._.js:8:2863)
+    at async i (.next/server/chunks/[root-of-the-server]__496e1228._.js:8:3895)
+    at async _ (.next/server/chunks/[root-of-the-server]__496e1228._.js:8:5028)
+2025-09-22T18:02:15: Environment: production
+2025-09-22T18:02:15: Network path from PRM table: null
+2025-09-22T18:02:15: Upload path creation error: Error: Network image path not configured in PRM table. Please add a record with NOMPRM = "Carpetalmagenes"
+    at U (.next/server/chunks/[root-of-the-server]__496e1228._.js:3:285)
+    at async j (.next/server/chunks/[root-of-the-server]__496e1228._.js:3:1349)
+    at async u (.next/server/chunks/[root-of-the-server]__496e1228._.js:8:2863)
+    at async i (.next/server/chunks/[root-of-the-server]__496e1228._.js:8:3895)
+    at async _ (.next/server/chunks/[root-of-the-server]__496e1228._.js:8:5028)
+2025-09-22T18:07:29:    ▲ Next.js 15.5.3
+2025-09-22T18:07:29:    - Local:        http://localhost:3000
+2025-09-22T18:07:29:    - Network:      http://192.168.1.69:3000
+2025-09-22T18:07:29: 
+2025-09-22T18:07:29:  ✓ Starting...
+2025-09-22T18:07:29:  ✓ Ready in 352ms
+2025-09-22T18:07:38: Environment: production
+2025-09-22T18:07:38: Network path from PRM table: \\192.168.1.30\Mw_Imagenes
+2025-09-22T18:07:38: Creating order folder at: \\192.168.1.30\Mw_Imagenes/TEST123
+2025-09-22T18:07:38: Created directory: \\192.168.1.30\Mw_Imagenes/TEST123
+2025-09-22T18:08:48: Environment: production
+2025-09-22T18:08:48: Network path from PRM table: \\192.168.1.30\Mw_Imagenes
+2025-09-22T18:08:48: Creating order folder at: \\192.168.1.30\Mw_Imagenes/~7169306
+2025-09-22T18:08:48: Created directory: \\192.168.1.30\Mw_Imagenes/~7169306
+2025-09-22T18:08:48: Photo upload error: Error [PrismaClientKnownRequestError]: 
+Invalid `prisma.$executeRaw()` invocation:
+
+
+Raw query failed. Code: `515`. Message: `Cannot insert the value NULL into column 'ENTFOT', table 'MotosMunozDatos.dbo.FOT'; column does not allow nulls. INSERT fails.`
+    at rS.handleRequestError (.next/server/chunks/[root-of-the-server]__881f1b83._.js:132:7858)
+    at rS.handleAndLogRequestError (.next/server/chunks/[root-of-the-server]__881f1b83._.js:132:6918)
+    at rS.request (.next/server/chunks/[root-of-the-server]__881f1b83._.js:132:6625)
+    at async t (.next/server/chunks/[root-of-the-server]__881f1b83._.js:144:7467)
+    at async j (.next/server/chunks/[root-of-the-server]__496e1228._.js:5:110)
+    at async u (.next/server/chunks/[root-of-the-server]__496e1228._.js:8:2863)
+    at async i (.next/server/chunks/[root-of-the-server]__496e1228._.js:8:3895) {
+  code: 'P2010',
+  meta: [Object],
+  clientVersion: '6.16.1'
+}
+2025-09-22T18:10:49: Environment: production
+2025-09-22T18:10:49: Network path from PRM table: \\192.168.1.30\Mw_Imagenes
+2025-09-22T18:10:49: Creating order folder at: \\192.168.1.30\Mw_Imagenes/~7169306
+2025-09-22T18:10:49: Directory already exists: \\192.168.1.30\Mw_Imagenes/~7169306
+2025-09-22T18:10:49: Photo upload error: Error [PrismaClientKnownRequestError]: 
+Invalid `prisma.$executeRaw()` invocation:
+
+
+Raw query failed. Code: `515`. Message: `Cannot insert the value NULL into column 'ENTFOT', table 'MotosMunozDatos.dbo.FOT'; column does not allow nulls. INSERT fails.`
+    at rS.handleRequestError (.next/server/chunks/[root-of-the-server]__881f1b83._.js:132:7858)
+    at rS.handleAndLogRequestError (.next/server/chunks/[root-of-the-server]__881f1b83._.js:132:6918)
+    at rS.request (.next/server/chunks/[root-of-the-server]__881f1b83._.js:132:6625)
+    at async t (.next/server/chunks/[root-of-the-server]__881f1b83._.js:144:7467)
+    at async j (.next/server/chunks/[root-of-the-server]__496e1228._.js:5:110)
+    at async u (.next/server/chunks/[root-of-the-server]__496e1228._.js:8:2863)
+    at async i (.next/server/chunks/[root-of-the-server]__496e1228._.js:8:3895) {
+  code: 'P2010',
+  meta: [Object],
+  clientVersion: '6.16.1'
+}
+2025-09-22T18:11:43:    ▲ Next.js 15.5.3
+2025-09-22T18:11:43:    - Local:        http://localhost:3000
+2025-09-22T18:11:43:    - Network:      http://192.168.1.69:3000
+2025-09-22T18:11:43: 
+2025-09-22T18:11:43:  ✓ Starting...
+2025-09-22T18:11:43:  ✓ Ready in 349ms
+2025-09-22T18:11:52: Environment: production
+2025-09-22T18:11:52: Network path from PRM table: \\192.168.1.30\Mw_Imagenes
+2025-09-22T18:11:52: Creating order folder at: \\192.168.1.30\Mw_Imagenes/O1000001
+2025-09-22T18:11:52: Created directory: \\192.168.1.30\Mw_Imagenes/O1000001
+2025-09-22T18:12:55: Environment: production
+2025-09-22T18:12:55: Network path from PRM table: \\192.168.1.30\Mw_Imagenes
+2025-09-22T18:12:55: Creating order folder at: \\192.168.1.30\Mw_Imagenes/~7169306
+2025-09-22T18:12:55: Directory already exists: \\192.168.1.30\Mw_Imagenes/~7169306
+2025-09-22T18:12:56:  ⨯ The requested resource isn't a valid image for /network-images/~7169306/3b6f0eba-9019-4a47-91b4-47c9c6a394e3.png received null
+2025-09-22T18:18:07:    ▲ Next.js 15.5.3
+2025-09-22T18:18:07:    - Local:        http://localhost:3000
+2025-09-22T18:18:07:    - Network:      http://192.168.1.69:3000
+2025-09-22T18:18:07: 
+2025-09-22T18:18:07:  ✓ Starting...
+2025-09-22T18:18:08:  ✓ Ready in 445ms
+2025-09-22T18:18:12: Environment: production
+2025-09-22T18:18:12: Network path from PRM table: \\192.168.1.30\Mw_Imagenes
+2025-09-22T18:18:12: Creating order folder at: \\192.168.1.30\Mw_Imagenes/O1000002
+2025-09-22T18:18:12: Created directory: \\192.168.1.30\Mw_Imagenes/O1000002
+2025-09-22T18:20:49: Environment: production
+2025-09-22T18:20:49: Network path from PRM table: \\192.168.1.30\Mw_Imagenes
+2025-09-22T18:20:49: Creating order folder at: \\192.168.1.30\Mw_Imagenes/O1000003
+2025-09-22T18:20:49: Created directory: \\192.168.1.30\Mw_Imagenes/O1000003
+2025-09-22T18:22:53: Environment: production
+2025-09-22T18:22:53: Network path from PRM table: \\192.168.1.30\Mw_Imagenes
+2025-09-22T18:22:53: Creating order folder at: \\192.168.1.30\Mw_Imagenes/O1000003
+2025-09-22T18:22:53: Created directory: \\192.168.1.30\Mw_Imagenes/O1000003

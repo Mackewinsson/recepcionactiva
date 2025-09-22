@@ -12,7 +12,14 @@
     "docker:down": "docker-compose down",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "deploy:setup": "setup.bat",
+    "deploy:start": "pm2 start ecosystem.config.js",
+    "deploy:stop": "pm2 stop recepcionactiva",
+    "deploy:restart": "pm2 restart recepcionactiva",
+    "deploy:status": "pm2 status",
+    "deploy:logs": "pm2 logs recepcionactiva",
+    "deploy:monit": "pm2 monit"
   },
   "dependencies": {
     "@prisma/client": "^6.16.1",
