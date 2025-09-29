@@ -22,6 +22,7 @@
     "deploy:monit": "pm2 monit"
   },
   "dependencies": {
+    "@prisma/adapter-mssql": "^6.16.2",
     "@prisma/client": "^6.16.1",
     "@types/bcryptjs": "^2.4.6",
     "@types/uuid": "^10.0.0",
