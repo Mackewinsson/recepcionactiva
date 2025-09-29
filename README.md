@@ -160,6 +160,24 @@ Para permitir acceso desde otros equipos:
    - Usuario: `sa`
    - Contraseña: [su contraseña]
 
+## 🔧 Herramientas de Diagnóstico
+
+### Script de Diagnóstico Automático
+Si tiene problemas con la instalación, ejecute el script de diagnóstico:
+
+```cmd
+troubleshoot.bat
+```
+
+Este script verificará automáticamente:
+- ✅ Node.js y npm
+- ✅ PM2
+- ✅ Archivo .env
+- ✅ Dependencias instaladas
+- ✅ Cliente de Prisma generado
+- ✅ Aplicación compilada
+- ✅ Estado de la aplicación
+
 ## 🚨 Solución de Problemas
 
 ### Error de Conexión a Base de Datos

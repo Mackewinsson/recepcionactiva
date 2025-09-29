@@ -217,6 +217,17 @@ Los logs se guardan en la carpeta `./logs/`:
 
 ---
 
+## 🔧 Herramientas de Diagnóstico
+
+### Script de Diagnóstico Automático
+Si tiene problemas con la instalación, ejecute el script de diagnóstico:
+
+```cmd
+troubleshoot.bat
+```
+
+Este script verificará automáticamente todos los componentes del sistema y proporcionará soluciones específicas.
+
 ## 🚨 Solución de problemas
 
 ### Error: "Node.js no encontrado"
