@@ -169,3 +169,65 @@
 2025-09-22T18:22:53: Network path from PRM table: \\192.168.1.30\Mw_Imagenes
 2025-09-22T18:22:53: Creating order folder at: \\192.168.1.30\Mw_Imagenes/O1000003
 2025-09-22T18:22:53: Created directory: \\192.168.1.30\Mw_Imagenes/O1000003
+2025-09-23T09:46:36:    ▲ Next.js 15.5.3
+2025-09-23T09:46:36:    - Local:        http://localhost:3000
+2025-09-23T09:46:36:    - Network:      http://172.20.10.6:3000
+2025-09-23T09:46:36: 
+2025-09-23T09:46:36:  ✓ Starting...
+2025-09-23T09:46:37:  ✓ Ready in 597ms
+2025-09-23T09:48:04: Environment: production
+2025-09-23T09:48:04: Network path from PRM table: \\192.168.1.30\Mw_Imagenes
+2025-09-23T09:48:04: Creating order folder at: \\192.168.1.30\Mw_Imagenes\~7169306
+2025-09-23T09:48:04: Directory already exists: \\192.168.1.30\Mw_Imagenes\~7169306
+2025-09-23T10:11:53: Environment: production
+2025-09-23T10:11:53: Network path from PRM table: \\192.168.1.30\Mw_Imagenes
+2025-09-23T10:11:53: Creating order folder at: \\192.168.1.30\Mw_Imagenes\~7169306
+2025-09-23T10:11:53: Directory already exists: \\192.168.1.30\Mw_Imagenes\~7169306
+2025-09-23T10:16:01:    ▲ Next.js 15.5.3
+2025-09-23T10:16:01:    - Local:        http://localhost:3000
+2025-09-23T10:16:01:    - Network:      http://192.168.0.89:3000
+2025-09-23T10:16:01: 
+2025-09-23T10:16:01:  ✓ Starting...
+2025-09-23T10:16:01:  ✓ Ready in 480ms
+2025-09-23T14:22:02:    ▲ Next.js 15.5.3
+2025-09-23T14:22:02:    - Local:        http://localhost:3000
+2025-09-23T14:22:02:    - Network:      http://172.20.10.6:3000
+2025-09-23T14:22:02: 
+2025-09-23T14:22:02:  ✓ Starting...
+2025-09-23T14:22:03:  ✓ Ready in 679ms
+2025-09-23T14:22:42:    ▲ Next.js 15.5.3
+2025-09-23T14:22:42:    - Local:        http://localhost:3000
+2025-09-23T14:22:42:    - Network:      http://172.20.10.6:3000
+2025-09-23T14:22:42: 
+2025-09-23T14:22:42:  ✓ Starting...
+2025-09-23T14:22:42:  ✓ Ready in 485ms
+2025-09-23T14:23:08:    ▲ Next.js 15.5.3
+2025-09-23T14:23:08:    - Local:        http://localhost:3000
+2025-09-23T14:23:08:    - Network:      http://172.20.10.6:3000
+2025-09-23T14:23:08: 
+2025-09-23T14:23:08:  ✓ Starting...
+2025-09-23T14:23:08:  ✓ Ready in 484ms
+2025-09-23T14:25:26:    ▲ Next.js 15.5.3
+2025-09-23T14:25:26:    - Local:        http://localhost:3000
+2025-09-23T14:25:26:    - Network:      http://172.20.10.6:3000
+2025-09-23T14:25:26: 
+2025-09-23T14:25:26:  ✓ Starting...
+2025-09-23T14:25:27:  ✓ Ready in 536ms
+2025-09-23T14:26:03:    ▲ Next.js 15.5.3
+2025-09-23T14:26:03:    - Local:        http://localhost:3000
+2025-09-23T14:26:03:    - Network:      http://172.20.10.6:3000
+2025-09-23T14:26:03: 
+2025-09-23T14:26:03:  ✓ Starting...
+2025-09-23T14:26:03:  ✓ Ready in 516ms
+2025-09-23T14:27:54:    ▲ Next.js 15.5.3
+2025-09-23T14:27:54:    - Local:        http://localhost:3000
+2025-09-23T14:27:54:    - Network:      http://172.20.10.6:3000
+2025-09-23T14:27:54: 
+2025-09-23T14:27:54:  ✓ Starting...
+2025-09-23T14:27:55:  ✓ Ready in 481ms
+2025-09-23T14:28:55:    ▲ Next.js 15.5.3
+2025-09-23T14:28:55:    - Local:        http://localhost:3000
+2025-09-23T14:28:55:    - Network:      http://172.20.10.6:3000
+2025-09-23T14:28:55: 
+2025-09-23T14:28:55:  ✓ Starting...
+2025-09-23T14:28:57:  ✓ Ready in 1908ms

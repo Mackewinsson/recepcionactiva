@@ -142,15 +142,22 @@ pm2 monit
 # Entorno de ejecución
 NODE_ENV=production
 
-# Base de datos (Prisma)
-DATABASE_URL="sqlserver://sa:su_password@192.168.1.30:1433;database=RecepcionActiva;trustServerCertificate=true"
+# Base de datos (Prisma) - IMPORTANTE: Use solo UNA opción según su configuración
+# Opción 1: Instancia por defecto (puerto 1433)
+DATABASE_URL="sqlserver://sa:su_password@192.168.1.30:1433;database=VsolDatos;trustServerCertificate=true"
+
+# Opción 2: Instancia nombrada (ej: SQLEXPRESS) - Descomente si usa instancia nombrada
+# DATABASE_URL="sqlserver://sa:su_password@192.168.1.30\\SQLEXPRESS:1433;database=VsolDatos;trustServerCertificate=true"
+
+# Opción 3: Con encriptación habilitada - Descomente si requiere encriptación
+# DATABASE_URL="sqlserver://sa:su_password@192.168.1.30:1433;database=VsolDatos;trustServerCertificate=true;encrypt=true"
 
 # Base de datos (configuración individual - opcional)
 DB_HOST=192.168.1.30
 DB_PORT=1433
 DB_USER=sa
 DB_PASS=su_password
-DB_NAME=RecepcionActiva
+DB_NAME=VsolDatos
 
 # Red para imágenes (opcional)
 NETWORK_IMAGE_PATH=\\192.168.1.30\Imagenes\
@@ -159,6 +166,31 @@ NETWORK_IMAGE_PATH=\\192.168.1.30\Imagenes\
 PORT=3000
 APP_URL=http://192.168.1.30:3000
 ```
+
+### 🔧 Configuración de SQL Server en Windows
+
+#### Verificar configuración de SQL Server:
+
+1. **Habilitar TCP/IP:**
+   - Abrir "SQL Server Configuration Manager"
+   - Ir a "SQL Server Network Configuration" → "Protocols for [INSTANCE]"
+   - Habilitar "TCP/IP"
+   - Reiniciar SQL Server
+
+2. **Para instancias nombradas (ej: SQLEXPRESS):**
+   - Asegurar que "SQL Server Browser" esté ejecutándose
+   - Usar formato: `sqlserver://usuario:password@IP\\INSTANCIA:puerto;database=nombre;trustServerCertificate=true`
+
+3. **Verificar conectividad:**
+   ```cmd
+   telnet 192.168.1.30 1433
+   ```
+
+4. **Probar conexión desde SQL Server Management Studio:**
+   - Servidor: `192.168.1.30` o `192.168.1.30\SQLEXPRESS`
+   - Autenticación: SQL Server Authentication
+   - Usuario: `sa`
+   - Contraseña: [su contraseña]
 
 ---
 
@@ -196,14 +228,29 @@ Los logs se guardan en la carpeta `./logs/`:
 - O detener la aplicación que usa el puerto 3000
 
 ### Error de conexión a base de datos
-- Verificar datos en archivo `.env`
-- Comprobar conectividad de red al servidor de BD
-- Verificar permisos de usuario de BD
+- ✅ Verificar datos en archivo `.env`
+- ✅ Comprobar conectividad de red al servidor de BD
+- ✅ Verificar permisos de usuario de BD
+- ✅ Para instancias nombradas, verificar que SQL Server Browser esté ejecutándose
+- ✅ Comprobar que el puerto 1433 esté abierto en el firewall
+- ✅ Verificar que el usuario `sa` tenga permisos de acceso
+
+### Error: "Login failed for user 'sa'"
+- Verificar que la autenticación SQL Server esté habilitada
+- Confirmar que el usuario `sa` esté habilitado
+- Verificar la contraseña del usuario `sa`
+
+### Error: "Cannot connect to server"
+- Verificar que SQL Server esté ejecutándose
+- Comprobar la conectividad de red: `ping 192.168.1.30`
+- Verificar que el puerto 1433 esté abierto: `telnet 192.168.1.30 1433`
 
 ### Error de acceso a carpeta de red
-- Verificar permisos de red
-- Comprobar que la ruta existe
-- Verificar credenciales de red
+- ✅ Verificar permisos de red
+- ✅ Comprobar que la ruta existe
+- ✅ Verificar credenciales de red
+- ✅ Probar acceso manual: `dir \\192.168.1.30\Imagenes`
+- ✅ Verificar que la tabla PRM tenga la configuración correcta
 
 ---
 
