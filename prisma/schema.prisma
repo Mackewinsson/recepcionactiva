@@ -56,7 +56,7 @@ model ALM {
   AV0ALM                    Int?
   AFEALM                    Int?
   AFGALM                    Int?
-  FLOALM                    Int?      @default(0, map: "DF__ALM__FLOALM__78DED853")
+  FLOALM                    Int?      @default(0, map: "DF__ALM__FLOALM__157B1701")
   PTOALM                    Int?
   CDPALM                    Int?
   EMCALM                    Int?
@@ -64,11 +64,11 @@ model ALM {
   CCOALM                    String?   @db.NVarChar(25)
   APCALM                    Int?
   TARALM                    Int?
-  WEBALM                    Int       @default(0, map: "DF__ALM__WEBALM__7FC0467F")
+  WEBALM                    Int       @default(0, map: "DF__ALM__WEBALM__53ED4AC6")
   AWSALM                    Int?
   EXTALM                    Int?
   ABBALM                    Int?
-  CMOALM                    BigInt    @default(0, map: "DF__ALM__CMOALM__70E51BB1")
+  CMOALM                    BigInt    @default(0, map: "DF__ALM__CMOALM__2469202D")
   IMP_ALM_AFEALMToIMP       IMP?      @relation("ALM_AFEALMToIMP", fields: [AFEALM], references: [IDEIMP], onDelete: NoAction, onUpdate: NoAction, map: "AFEIMP_FK")
   IMP_ALM_AFGALMToIMP       IMP?      @relation("ALM_AFGALMToIMP", fields: [AFGALM], references: [IDEIMP], onDelete: NoAction, onUpdate: NoAction, map: "AFGIMP_FK")
   ALM_ALM_ALRALMToALM       ALM?      @relation("ALM_ALRALMToALM", fields: [ALRALM], references: [IDEALM], onDelete: NoAction, onUpdate: NoAction, map: "ALRALM_FK")
@@ -108,7 +108,7 @@ model ALM {
 }
 
 model ALQ {
-  IDEALQ Int      @id(map: "PK__ALQ__205B8BFC04508AFF") @default(autoincrement())
+  IDEALQ Int      @id(map: "PK__ALQ__1E105D02") @default(autoincrement())
   DOCALQ String   @unique(map: "OBJ_UQ_DOCALQ") @db.NVarChar(50)
   INIALQ DateTime @db.SmallDateTime
   FINALQ DateTime @db.SmallDateTime
@@ -119,29 +119,29 @@ model ALQ {
   CITALQ Int?
   CATALQ Int
   TFAALQ Int
-  KMIALQ Int?     @default(0, map: "DF__ALQ__KMIALQ__0638D371")
-  KMFALQ Int?     @default(0, map: "DF__ALQ__KMFALQ__072CF7AA")
-  DEIALQ Int?     @default(0, map: "DF__ALQ__DEIALQ__08211BE3")
-  DEFALQ Int?     @default(0, map: "DF__ALQ__DEFALQ__0915401C")
-  CADALQ Int?     @default(0, map: "DF__ALQ__CADALQ__0A096455")
+  KMIALQ Int?     @default(0, map: "DF__ALQ__KMIALQ__1F04813B")
+  KMFALQ Int?     @default(0, map: "DF__ALQ__KMFALQ__1FF8A574")
+  DEIALQ Int?     @default(0, map: "DF__ALQ__DEIALQ__20ECC9AD")
+  DEFALQ Int?     @default(0, map: "DF__ALQ__DEFALQ__21E0EDE6")
+  CADALQ Int?     @default(0, map: "DF__ALQ__CADALQ__22D5121F")
   OBEALQ String?  @db.NVarChar(255)
   OBRALQ String?  @db.NVarChar(255)
-  CKMALQ Decimal? @default(0, map: "DF__ALQ__CKMALQ__0AFD888E") @db.Decimal(18, 2)
-  CLOALQ Decimal? @default(0, map: "DF__ALQ__CLOALQ__0BF1ACC7") @db.Decimal(18, 2)
-  CDIALQ Decimal? @default(0, map: "DF__ALQ__CDIALQ__0CE5D100") @db.Decimal(18, 2)
-  IVAALQ Float?   @default(0, map: "DF__ALQ__IVAALQ__0DD9F539") @db.Real
-  RECALQ Float?   @default(0, map: "DF__ALQ__RECALQ__0ECE1972") @db.Real
+  CKMALQ Decimal? @default(0, map: "DF__ALQ__CKMALQ__23C93658") @db.Decimal(18, 2)
+  CLOALQ Decimal? @default(0, map: "DF__ALQ__CLOALQ__24BD5A91") @db.Decimal(18, 2)
+  CDIALQ Decimal? @default(0, map: "DF__ALQ__CDIALQ__25B17ECA") @db.Decimal(18, 2)
+  IVAALQ Float?   @default(0, map: "DF__ALQ__IVAALQ__26A5A303") @db.Real
+  RECALQ Float?   @default(0, map: "DF__ALQ__RECALQ__2799C73C") @db.Real
   FECALQ DateTime @db.SmallDateTime
   FAAALQ BigInt?
   TCRALQ String?  @db.NVarChar(20)
   FEXALQ String?  @db.NVarChar(10)
-  FZAALQ Decimal? @default(0, map: "DF__ALQ__FZAALQ__1F04813B") @db.Decimal(18, 2)
-  USOALQ Int?     @default(1, map: "DF__ALQ__USOALQ__6596F9B5")
-  CMDALQ Float?   @default(0, map: "DF__ALQ__CMDALQ__78C9C9BA") @db.Money
+  FZAALQ Decimal? @default(0, map: "DF__ALQ__FZAALQ__3C94E422") @db.Decimal(18, 2)
+  USOALQ Int?     @default(1, map: "DF__ALQ__USOALQ__1E9A6CE7")
+  CMDALQ Float?   @default(0, map: "DF__ALQ__CMDALQ__263B8EAF") @db.Money
   FRAALQ Float?   @db.Money
-  CEMALQ Float?   @default(0, map: "DF__ALQ__CEMALQ__40DA7652") @db.Money
+  CEMALQ Float?   @default(0, map: "DF__ALQ__CEMALQ__45B43A08") @db.Money
   CVVALQ String?  @db.NVarChar(5)
-  CAB    CAB      @relation(fields: [DOCALQ], references: [NUMCAB], onUpdate: NoAction, map: "CABALQ_FK")
+  CAB    CAB      @relation(fields: [DOCALQ], references: [NUMCAB], map: "CABALQ_FK")
 }
 
 model AMO {
@@ -173,7 +173,7 @@ model AMO {
 }
 
 model AMT {
-  IDEAMT Int     @id(map: "PK__AMT__205B939A4A5B5599") @default(autoincrement())
+  IDEAMT Int     @id(map: "PK__AMT__1CD22006") @default(autoincrement())
   TIPAMT String  @db.NVarChar(255)
   CTAAMT String  @db.NVarChar(4)
   AUXAMT String? @db.NVarChar(7)
@@ -196,42 +196,13 @@ model ASA {
 }
 
 model AUS {
-  IDEAUS Int       @id(map: "PK__AUS__205BD491560C3410") @default(autoincrement())
+  IDEAUS Int       @id(map: "PK__AUS__77A09B57") @default(autoincrement())
   ENTAUS BigInt
   INIAUS DateTime  @db.DateTime
   FINAUS DateTime? @db.DateTime
   TIPAUS Int?
   NOTAUS String?   @db.NText
-  BAJAUS Boolean?  @default(false, map: "DF__AUS__BAJAUS__5BC50D66")
-}
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
-model AuxInf2 {
-  idOper           BigInt?
-  operario         String?  @db.NVarChar(255)
-  idImp            BigInt?
-  tipo             String?  @db.NVarChar(255)
-  periodo          String?  @db.NVarChar(10)
-  orAbierta        Int?
-  porcOrAbierta    Decimal? @db.Decimal(18, 2)
-  orFacturada      Int?
-  porcOrFacturada  Decimal? @db.Decimal(18, 2)
-  orPendientes     Int?
-  porcOrPendientes Decimal? @db.Decimal(18, 2)
-  horFactXor       Decimal? @db.Decimal(18, 2)
-  horFactXorTotal  Decimal? @db.Decimal(18, 2)
-  recFactXor       Decimal? @db.Decimal(18, 2)
-  recFactXorTotal  Decimal? @db.Decimal(18, 2)
-  estancMedia      Decimal? @db.Decimal(18, 2)
-  horasConvenio    Decimal? @db.Decimal(18, 2)
-  horasPresenc     Decimal? @db.Decimal(18, 2)
-  porcAbsentis     Decimal? @db.Decimal(18, 2)
-  horasInvertidas  Decimal? @db.Decimal(18, 2)
-  porcEficiencia   Decimal? @db.Decimal(18, 2)
-  horasFacturadas  Decimal? @db.Decimal(18, 2)
-  porcProductiv    Decimal? @db.Decimal(18, 2)
-
-  @@ignore
+  BAJAUS Boolean?  @default(false, map: "DF__AUS__BAJAUS__7A7D0802")
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
@@ -329,7 +300,7 @@ model CAJ {
   MCJCAJ BigInt?
   FACCAJ String?   @db.NVarChar(100)
   TESCAJ Int?
-  ACCCAJ Int       @default(0, map: "DF__CAJ__ACCMCJ__60365376")
+  ACCCAJ Int       @default(0, map: "DF__CAJ__ACCMCJ__4C813328")
   IDPCAJ BigInt?
   NOMCAJ String?   @db.NVarChar(255)
   UPGCAJ String?   @db.NVarChar(255)
@@ -339,7 +310,7 @@ model CAJ {
 }
 
 model CAL {
-  IDECAL Int       @id(map: "PK__CAL__23D946CD638F8109") @default(autoincrement())
+  IDECAL Int       @id(map: "PK__CAL__7FABD173") @default(autoincrement())
   NOMCAL String    @db.NVarChar(100)
   CLMCAL Int
   TAMCAL Int
@@ -349,8 +320,8 @@ model CAL {
 }
 
 model CAT {
-  IDECAT Int      @id(map: "PK__CAT__23D946C547477CBF") @default(autoincrement())
-  CODCAT String   @unique(map: "UQ__CAT__CB56521F4A23E96A") @db.NVarChar(5)
+  IDECAT Int      @id(map: "PK__CAT__713DB68B") @default(autoincrement())
+  CODCAT String   @unique(map: "UQ__CAT__7231DAC4") @db.NVarChar(5)
   DESCAT String?  @db.NVarChar(255)
   Piezas Piezas[]
   TFA    TFA[]
@@ -455,10 +426,10 @@ model CFA {
   FICCFA Boolean  @default(false, map: "DF_CFA_FICCFA")
   MPACFA Int?
   MNECFA Int?
-  BRTCFA Float    @default(0, map: "DF__CFA__BRTCFA__2C345F27") @db.Money
-  TRTCFA Float    @default(0, map: "DF__CFA__TRTCFA__2D288360") @db.Real
-  CRTCFA Float    @default(0, map: "DF__CFA__CRTCFA__2E1CA799") @db.Money
-  CAMCFA Boolean? @default(false, map: "DF__CFA__CAMCFA__6E7723D0")
+  BRTCFA Float    @default(0, map: "DF__CFA__BRTCFA__55EAA1D1") @db.Money
+  TRTCFA Float    @default(0, map: "DF__CFA__TRTCFA__56DEC60A") @db.Real
+  CRTCFA Float    @default(0, map: "DF__CFA__CRTCFA__57D2EA43") @db.Money
+  CAMCFA Boolean? @default(false, map: "DF__CFA__CAMCFA__4B380934")
   CG1CFA String?  @db.NVarChar(20)
   CG2CFA String?  @db.NVarChar(20)
   CG3CFA String?  @db.NVarChar(20)
@@ -471,7 +442,7 @@ model CFA {
   BX2CFA Float?   @db.Money
   REFCFA String?  @db.NVarChar(50)
   VEHCFA BigInt?
-  EXPCFA Boolean? @default(false, map: "DF__CFA__EXPCFA__105F2BEE")
+  EXPCFA Boolean? @default(false, map: "DF__CFA__EXPCFA__30A40E89")
   RBUCFA Boolean?
   ALM    ALM?     @relation(fields: [ALMCFA], references: [IDEALM], onDelete: NoAction, onUpdate: NoAction, map: "ALMCFA_FK")
   DEP    DEP      @relation(fields: [DEPCFA], references: [IDEDEP], onUpdate: NoAction, map: "DEPCFA_FK")
@@ -517,7 +488,7 @@ model CFAtmp {
   BEXCFA   Float?    @db.Money
   BX2CFA   Float?    @db.Money
   TOTALDOC Float?    @db.Money
-  EXPCFA   Boolean?  @default(false, map: "DF__CFAtmp__EXPCFA__11535027")
+  EXPCFA   Boolean?  @default(false, map: "DF__CFAtmp__EXPCFA__319832C2")
   Cuenta   String?   @db.NVarChar(20)
   IMPCFA   Int?
 
@@ -597,8 +568,8 @@ model CIT {
   ICSCIT              Int?
   OPECIT              Int?
   ALMCIT              Int?
-  VCOCIT              Boolean?  @default(false, map: "DF__CIT__VCOCIT__0904F58D")
-  TIPCIT              Int?      @default(1, map: "DF__CIT__TIPCIT__09F919C6")
+  VCOCIT              Boolean?  @default(false, map: "DF__CIT__VCOCIT__6B05BA48")
+  TIPCIT              Int?      @default(1, map: "DF__CIT__TIPCIT__6BF9DE81")
   MOPCIT              Float?    @db.Money
   PERCIT              Float?    @db.Money
   FVE_CIT_ASECITToFVE FVE       @relation("CIT_ASECITToFVE", fields: [ASECIT], references: [ENTFVE], onUpdate: NoAction, map: "ASECIT_FK")
@@ -611,7 +582,7 @@ model CIT {
 }
 
 model CJC {
-  IDECJC Int       @id(map: "PK__CJC__23DF963B6C121A76") @default(autoincrement())
+  IDECJC Int       @id(map: "PK__CJC__2FE4F47A") @default(autoincrement())
   NOMCJC String    @db.NVarChar(100)
   ALMCJC Int
   FMICJC Float?    @db.Money
@@ -623,11 +594,11 @@ model CJC {
   FBACJC DateTime? @db.SmallDateTime
   CIECJC Float?    @db.Money
   FAPCJC DateTime? @db.DateTime
-  DATCJC Int?      @default(0, map: "DF__CJC__DATCJC__133B9899")
+  DATCJC Int?      @default(0, map: "DF__CJC__DATCJC__33807B34")
 }
 
 model CJL {
-  IDECJL Int @id(map: "PK__CJL__23DF96026FE2AB5A") @default(autoincrement())
+  IDECJL Int @id(map: "PK__CJL__31CD3CEC") @default(autoincrement())
   CAJCJL Int
   IMPCJL Int
 }
@@ -685,18 +656,6 @@ model COL {
   @@id([ENTCOL, PZACOL], map: "ENTPZACOL_PK")
   @@index([FEBCOL], map: "FEBCOL_NX")
   @@index([MRECOL], map: "MRECOL_NX")
-}
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
-model Colores_ {
-  Cod_           String? @map("Cod#") @db.NVarChar(255)
-  Cod__Comercial String? @map("Cod# Comercial") @db.NVarChar(255)
-  Nombre         String? @db.NVarChar(255)
-  marca          String? @db.NVarChar(255)
-  Color_basico   String? @map("Color basico") @db.NVarChar(255)
-
-  @@map("Colores$")
-  @@ignore
 }
 
 model CON {
@@ -765,7 +724,7 @@ model CPD {
   IMP    IMP       @relation(fields: [IMPCPD], references: [IDEIMP], onUpdate: NoAction, map: "IMPCPD_FK")
   FVE    FVE?      @relation(fields: [USUCPD], references: [ENTFVE], onDelete: NoAction, onUpdate: NoAction, map: "USUCPD_FK")
   CPT    CPT?
-  DPP    DPP[]     @ignore
+  DPP    DPP[] @ignore
   LPD    LPD[]
   LPT    LPT[]
 }
@@ -829,11 +788,11 @@ model CPT {
   FQTCPT Int?
   FQCCPT Float?    @db.Money
   PERCPT Int?
-  FQECPT Boolean?  @default(false, map: "DF__CPT__FQECPT__77DA698B")
+  FQECPT Boolean?  @default(false, map: "DF__CPT__FQECPT__59DB2E46")
   FETCPT DateTime? @db.SmallDateTime
-  CTECPT Boolean?  @default(false, map: "DF__CPT__CTECPT__18F471EF")
-  MORCPT Int       @default(0, map: "DF__CPT__MORCPT__71D93FEA")
-  UARCPT BigInt    @default(0, map: "DF__CPT__UARCPT__72CD6423")
+  CTECPT Boolean?  @default(false, map: "DF__CPT__CTECPT__3939548A")
+  MORCPT Int       @default(0, map: "DF__CPT__MORCPT__33AB63BD")
+  UARCPT BigInt    @default(0, map: "DF__CPT__UARCPT__349F87F6")
   FARCPT DateTime? @db.SmallDateTime
   CPD    CPD       @relation(fields: [ALBCPT], references: [NUMCPD], onDelete: Cascade, map: "ALBCPT_FK")
   ENT    ENT?      @relation(fields: [CSECPT], references: [IDEENT], onDelete: NoAction, onUpdate: NoAction, map: "CSECPT_FK")
@@ -872,12 +831,12 @@ model CPV {
   VOKCPV              Int?
   TL2CPV              String?   @db.NVarChar(15)
   OBSCPV              String?   @db.NVarChar(Max)
-  PORCPV              Decimal?  @default(0, map: "DF__CPV__PORCPV__1C281490") @db.Decimal(18, 2)
-  ACCCPV              Decimal?  @default(0, map: "DF__CPV__ACCCPV__1D1C38C9") @db.Decimal(18, 2)
-  DTOCPV              Decimal?  @default(0, map: "DF__CPV__DTOCPV__1E105D02") @db.Decimal(18, 2)
-  OPCCPV              Decimal?  @default(0, map: "DF__CPV__OPCCPV__0B95B2C7") @db.Decimal(18, 2)
+  PORCPV              Decimal?  @default(0, map: "DF__CPV__PORCPV__39B87777") @db.Decimal(18, 2)
+  ACCCPV              Decimal?  @default(0, map: "DF__CPV__ACCCPV__3AAC9BB0") @db.Decimal(18, 2)
+  DTOCPV              Decimal?  @default(0, map: "DF__CPV__DTOCPV__3BA0BFE9") @db.Decimal(18, 2)
+  OPCCPV              Decimal?  @default(0, map: "DF__CPV__OPCCPV__542254F0") @db.Decimal(18, 2)
   NIFCPV              String?   @db.NVarChar(50)
-  RBUCPV              Boolean?  @default(false, map: "DF__CPV__RBUCPV__2618C956")
+  RBUCPV              Boolean?  @default(false, map: "DF__CPV__RBUCPV__75641881")
   MATCPV              String?   @db.NVarChar(255)
   FVE_CPV_ASICPVToFVE FVE       @relation("CPV_ASICPVToFVE", fields: [ASICPV], references: [ENTFVE], onUpdate: NoAction, map: "ASICPV_FK")
   CLO                 CLO?      @relation(fields: [CLOCPV], references: [IDECLO], onDelete: NoAction, onUpdate: NoAction, map: "CLOCPV_FK")
@@ -932,7 +891,7 @@ model CRT {
   TESCRT              Int?
   MPGCRT              Int?
   FPGCRT              DateTime? @db.SmallDateTime
-  SELCRT              Boolean?  @default(false, map: "DF__CRT__SELCRT__1B33F057")
+  SELCRT              Boolean?  @default(false, map: "DF__CRT__SELCRT__38C4533E")
   EFSCRT              String?   @db.NText
   ALMCRT              Int?
   CPMCRT              String?   @db.NVarChar(20)
@@ -980,7 +939,7 @@ model CTE {
   DIRCTE Int?
   BITCTE Float    @db.Money
   TOTCTE Float    @db.Money
-  CO2CTE Boolean  @default(false, map: "DF__CTE__CO2CTE__02A7A022")
+  CO2CTE Boolean  @default(false, map: "DF__CTE__CO2CTE__5F5EFD72")
   OBSCTE String?  @db.NVarChar(255)
   CABCTE String?  @db.NVarChar(15)
   ALM    ALM      @relation(fields: [ALMCTE], references: [IDEALM], onUpdate: NoAction, map: "ALMCTE_FK")
@@ -990,7 +949,7 @@ model CTE {
 }
 
 model CVE {
-  IDECVE Int     @id(map: "PK__CVE__23DFB6B46A90B8FC") @default(autoincrement())
+  IDECVE Int     @id(map: "PK__CVE__072CF7AA") @default(autoincrement())
   CODCVE String  @unique(map: "OBJ_UQ_CODCVE") @db.NVarChar(5)
   NOMCVE String? @db.NVarChar(255)
   IMGCVE String? @db.NVarChar(255)
@@ -1095,12 +1054,12 @@ model DLL {
 }
 
 model DOT {
-  IDEDOT Int     @id(map: "PK__DOT__2B9F624A") @default(autoincrement())
+  IDEDOT Int     @id(map: "PK__DOT__3DBE1285") @default(autoincrement())
   ALBDOT String? @db.NVarChar(50)
   NOMDOT String  @db.NVarChar(255)
   LOCDOT String  @db.NVarChar(255)
   NOTDOT String? @db.NVarChar(255)
-  DRODOT Boolean @default(false, map: "DF__DOT__DRODOT__0D5574B5")
+  DRODOT Boolean @default(false, map: "DF__DOT__DRODOT__76776CF4")
 }
 
 model DPE {
@@ -1128,7 +1087,7 @@ model DPP {
 }
 
 model DRA {
-  IDEDRA Int     @id(map: "PK__DRA__2113EF782F3AE904") @default(autoincrement())
+  IDEDRA Int     @id(map: "PK__DRA__5654B625") @default(autoincrement())
   DESDRA String? @db.NVarChar(255)
   PADDRA BigInt?
   ORDDRA Int?
@@ -1167,7 +1126,7 @@ model DVS {
 }
 
 model EMA {
-  IDEEMA Int      @id(map: "PK__EMA__21534389185783AC") @default(autoincrement())
+  IDEEMA Int      @id(map: "PK__EMA__2E46C4CB") @default(autoincrement())
   FECEMA DateTime @db.SmallDateTime
   DESEMA String?  @db.NText
   DCCEMA String?  @db.NText
@@ -1177,7 +1136,7 @@ model EMA {
   ADJEMA String?  @db.NText
   TAREMA Int?
   ESTEMA Int?
-  ENVEMA Boolean? @default(false, map: "DF__EMA__ENVEMA__1A3FCC1E")
+  ENVEMA Boolean? @default(false, map: "DF__EMA__ENVEMA__2F3AE904")
   ALMEMA Int?
 }
 
@@ -1200,7 +1159,7 @@ model EMC {
   CBAEMC              Int?
   ENTEMC              Int?
   CA3EMC              String? @db.NVarChar(10)
-  DA3EMC              Int?    @default(11, map: "DF__EMC__DA3EMC__16FB1397")
+  DA3EMC              Int?    @default(11, map: "DF__EMC__DA3EMC__07F6FEB1")
   AMO                 AMO[]
   CRT                 CRT[]
   TES_EMC_CBAEMCToTES TES?    @relation("EMC_CBAEMCToTES", fields: [CBAEMC], references: [IDETES], onDelete: NoAction, onUpdate: NoAction, map: "CBAEMC_FK")
@@ -1234,13 +1193,13 @@ model ENT {
   EXTENT              Int?
   USUENT              Int?
   FEMENT              DateTime? @db.SmallDateTime
-  EXPENT              Boolean?  @default(false, map: "DF__ENT__EXPENT__0F6B07B5")
-  INTENT              Boolean?  @default(false, map: "DF__ENT__INTENT__19E89628")
+  EXPENT              Boolean?  @default(false, map: "DF__ENT__EXPENT__2FAFEA50")
+  INTENT              Boolean?  @default(false, map: "DF__ENT__INTENT__3A2D78C3")
   WEBENT              Boolean?
   WPAENT              Boolean?
   MONENT              Int?
-  TNIENT              String    @default("02", map: "DF__ENT__TNIENT__2094FA2A") @db.NVarChar(2)
-  CANENT              Boolean?  @default(false, map: "DF__ENT__CANENT__264DD380")
+  TNIENT              String    @default("02", map: "DF__ENT__TNIENT__6E621537") @db.NVarChar(2)
+  CANENT              Boolean?  @default(false, map: "DF__ENT__CANENT__1BF3D5BD")
   PAOENT              Int?
   ALM                 ALM[]
   CAB                 CAB[]
@@ -1267,7 +1226,6 @@ model ENT {
   FTR                 FTR?
   MNE                 MNE[]
   NMN                 NMN[]
-  PER                 PER[]
   TAR                 TAR[]
   USU                 USU?
   VEH                 VEH[]
@@ -1339,13 +1297,13 @@ model ETT {
 }
 
 model EXA {
-  IDEEXA Int      @id(map: "PK__EXA__21521C797CAF6937") @default(autoincrement())
+  IDEEXA Int      @id(map: "PK__EXA__185783AC") @default(autoincrement())
   DOCEXA String   @db.NVarChar(50)
   EXTEXA Int
   DESEXA String   @db.NVarChar(50)
   NOTEXA String?  @db.NVarChar(255)
-  PPDEXA Decimal? @default(0, map: "DF__EXA__PPDEXA__7E97B1A9") @db.Decimal(18, 2)
-  PMXEXA Decimal? @default(0, map: "DF__EXA__PMXEXA__7F8BD5E2") @db.Decimal(18, 2)
+  PPDEXA Decimal? @default(0, map: "DF__EXA__PPDEXA__194BA7E5") @db.Decimal(18, 2)
+  PMXEXA Decimal? @default(0, map: "DF__EXA__PMXEXA__1A3FCC1E") @db.Decimal(18, 2)
   CAB    CAB      @relation(fields: [DOCEXA], references: [NUMCAB], onUpdate: NoAction, map: "CABEXA_FK")
   EXT    EXT      @relation(fields: [EXTEXA], references: [IDEEXT], onUpdate: NoAction, map: "EXTEXA_FK")
 }
@@ -1383,10 +1341,10 @@ model EXP {
   CFIEXP              String?   @db.NVarChar(50)
   UFIEXP              Float?    @db.Money
   VEFEXP              Boolean?
-  CHREXP              Float?    @default(0, map: "DF__EXP__CHREXP__1ADCBA61") @db.Money
-  GASEXP              Float?    @default(0, map: "DF__EXP__GASEXP__4CC2276B") @db.Money
-  TSPEXP              Float?    @default(0, map: "DF__EXP__TSPEXP__3CCBB6C4") @db.Money
-  TBOEXP              Float?    @default(0, map: "DF__EXP__TBOEXP__2524A51D") @db.Money
+  CHREXP              Float?    @default(0, map: "DF__EXP__CHREXP__3B219CFC") @db.Money
+  GASEXP              Float?    @default(0, map: "DF__EXP__GASEXP__139DBB87") @db.Money
+  TSPEXP              Float?    @default(0, map: "DF__EXP__TSPEXP__76CC72AF") @db.Money
+  TBOEXP              Float?    @default(0, map: "DF__EXP__TBOEXP__5126B80B") @db.Money
   ENT                 ENT?      @relation(fields: [EFIEXP], references: [IDEENT], onDelete: NoAction, onUpdate: NoAction, map: "EFIEXP_FK")
   FFI                 FFI?      @relation(fields: [FINEXP], references: [ENTFFI], onDelete: NoAction, onUpdate: NoAction, map: "FINEXP_FK")
   FVE_EXP_FIREXPToFVE FVE?      @relation("EXP_FIREXPToFVE", fields: [FIREXP], references: [ENTFVE], onDelete: NoAction, onUpdate: NoAction, map: "FIREXP_FK")
@@ -1395,12 +1353,12 @@ model EXP {
 }
 
 model EXT {
-  IDEEXT Int      @id(map: "PK__EXT__21521C565F1F0650") @default(autoincrement())
+  IDEEXT Int      @id(map: "PK__EXT__7F8BD5E2") @default(autoincrement())
   DESEXT String   @unique(map: "OBJ_UQ_EXT") @db.NVarChar(50)
   NOTEXT String?  @db.NVarChar(255)
-  PPDEXT Decimal? @default(0, map: "DF__EXT__PPDEXT__61074EC2") @db.Decimal(18, 2)
-  PMXEXT Decimal? @default(0, map: "DF__EXT__PMXEXT__61FB72FB") @db.Decimal(18, 2)
-  FBJEXT String   @default("", map: "DF__EXT__FBJEXT__1FA0D5F1") @db.NVarChar(20)
+  PPDEXT Decimal? @default(0, map: "DF__EXT__PPDEXT__007FFA1B") @db.Decimal(18, 2)
+  PMXEXT Decimal? @default(0, map: "DF__EXT__PMXEXT__01741E54") @db.Decimal(18, 2)
+  FBJEXT String   @default("", map: "DF__EXT__FBJEXT__188D592D") @db.NVarChar(20)
   EXA    EXA[]
 }
 
@@ -1414,9 +1372,9 @@ model FAM {
   IMGFAM String?   @db.NVarChar(255)
   WEBFAM Int?
   CLAFAM Int?
-  EXTFAM Boolean   @default(false, map: "DF__FAM__EXTFAM__7DE2EB05")
+  EXTFAM Boolean   @default(false, map: "DF__FAM__EXTFAM__5A9A4855")
   IMPFAM Float?    @db.Real
-  OBRFAM Boolean   @default(false, map: "DF__FAM__OBRFAM__508D5AB8")
+  OBRFAM Boolean   @default(false, map: "DF__FAM__OBRFAM__0D85BAD5")
   DVS    DVS[]
   DEP    DEP       @relation(fields: [DEPFAM], references: [IDEDEP], onUpdate: NoAction, map: "DEPFAM_FK")
   Piezas Piezas[]
@@ -1484,7 +1442,7 @@ model FCL {
   TPEFCL String?   @db.NVarChar(15)
   USMFCL BigInt?
   FEMFCL DateTime? @db.SmallDateTime
-  PROFCL Boolean?  @default(false, map: "DF__FCL__PROFCL__270CED8F")
+  PROFCL Boolean?  @default(false, map: "DF__FCL__PROFCL__1B89C169")
   CIT    CIT[]
   ACT    ACT?      @relation(fields: [ACTFCL], references: [IDEACT], onDelete: NoAction, onUpdate: NoAction, map: "ACTFCL_FK")
   ENT    ENT       @relation(fields: [ENTFCL], references: [IDEENT], onDelete: Cascade, map: "ENTFCL_FK")
@@ -1513,7 +1471,7 @@ model FCS {
 }
 
 model FES {
-  IDEFES Int      @id(map: "PK__FES__3C9FC76359DCC4F4") @default(autoincrement())
+  IDEFES Int      @id(map: "PK__FES__7988E3C9") @default(autoincrement())
   NOMFES String   @db.NVarChar(255)
   FECFES DateTime @db.DateTime
   TIPFES Int?
@@ -1537,7 +1495,7 @@ model FFI {
 }
 
 model FLS {
-  IDEFLS Int      @id(map: "PK__FLS__3C9FB8441486F2C8") @default(autoincrement())
+  IDEFLS Int      @id(map: "PK__FLS__2C5E7C59") @default(autoincrement())
   VEHFLS Int
   FETFLS DateTime @db.SmallDateTime
   DSSFLS Boolean
@@ -1567,7 +1525,7 @@ model FOT {
   EMCFOT Int?
   SBCFOT String?   @db.NVarChar(20)
   MPGFOT Int?
-  CPHFOT Float?    @default(0, map: "DF__FOT__CPHFOT__39B87777") @db.Money
+  CPHFOT Float?    @default(0, map: "DF__FOT__CPHFOT__30EE274C") @db.Money
   CTLFOT String?   @db.NVarChar(255)
   NHDFOT Decimal?  @db.Decimal(18, 2)
   NHSFOT Decimal?  @db.Decimal(18, 2)
@@ -1626,8 +1584,8 @@ model FPR {
 }
 
 model FRC {
-  ENTFRC Int       @id(map: "PK__FRC__3D4CC26B65CC03DF")
-  FEAFRC DateTime  @default(now(), map: "DF__FRC__FEAFRC__67B44C51") @db.SmallDateTime
+  ENTFRC Int       @id(map: "PK__FRC__04508AFF")
+  FEAFRC DateTime  @default(now(), map: "DF__FRC__FEAFRC__0544AF38") @db.SmallDateTime
   FBJFRC DateTime? @db.SmallDateTime
   NOTFRC String?   @db.NVarChar(255)
 }
@@ -1678,7 +1636,7 @@ model FVE {
 }
 
 model GCH {
-  IDEGCH Int     @id(map: "PK__GCH__3CD7C1BF15EABAB6") @default(autoincrement())
+  IDEGCH Int     @id(map: "PK__GCH__3CD7C1BF7F0CB2F5") @default(autoincrement())
   ALMGCH Int?
   CODGCH String  @db.NVarChar(50)
   DESGCH String? @db.NVarChar(255)
@@ -1691,7 +1649,7 @@ model GCH {
 }
 
 model GCL {
-  IDEGCL Int     @id(map: "PK__GCL__3CD7C1B31BA3940C") @default(autoincrement())
+  IDEGCL Int     @id(map: "PK__GCL__3CD7C1B304C58C4B") @default(autoincrement())
   GCHGCL Int?
   TIPGCL Int
   DESGCL String  @db.NVarChar(200)
@@ -1705,7 +1663,7 @@ model GCL {
 }
 
 model GDH {
-  IDEGDH Int     @id(map: "PK__GDH__3CD7295C65D19340") @default(autoincrement())
+  IDEGDH Int     @id(map: "PK__GDH__3CD7295C098A4168") @default(autoincrement())
   ALMGDH Int?
   CONGDH String  @db.NVarChar(255)
   FACGDH String? @db.NVarChar(20)
@@ -1728,7 +1686,7 @@ model GMP {
 }
 
 model HSE {
-  IDEHSE Int       @id(map: "PK__HSE__226BD55D16180544") @default(autoincrement())
+  IDEHSE Int       @id(map: "PK__HSE__226BD55D365CE7DF") @default(autoincrement())
   ENTHSE Int?
   FECHSE DateTime? @db.SmallDateTime
   TIPHSE Int?
@@ -1758,7 +1716,7 @@ model HST1 {
 }
 
 model HVE {
-  IDEHVE Int       @id(map: "PK__HVE__226BCD372A9333E6") @default(autoincrement())
+  IDEHVE Int       @id(map: "PK__HVE__226BCD37280EC888") @default(autoincrement())
   VEHHVE Int?
   TIPHVE Int?
   COSHVE Float?    @db.Money
@@ -1770,7 +1728,7 @@ model HVE {
 }
 
 model IAT {
-  IDEIAT Int     @id(map: "PK__IAT__22AB14003AAA6B75") @default(autoincrement())
+  IDEIAT Int     @id(map: "PK__IAT__22AB14003DFE09A7") @default(autoincrement())
   TIPIAT Int?
   VALIAT String? @db.NVarChar(150)
   CORIAT String? @db.NVarChar(10)
@@ -1781,7 +1739,7 @@ model IMC {
   TCTIMC Int
   CTAIMC String? @db.NVarChar(50)
 
-  @@id([IMPIMC, TCTIMC], map: "PK__IMC__0127B5E2B76A8820")
+  @@id([IMPIMC, TCTIMC], map: "PK__IMC__0127B5E27DE38492")
 }
 
 model IMP {
@@ -1826,142 +1784,6 @@ model IMP {
   OBJ                 OBJ[]
 
   @@index([NOMIMP], map: "NOMIMP_NX")
-}
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
-model Imp_articulos {
-  Codigo      String? @db.NVarChar(255)
-  Nombre      String? @db.NVarChar(255)
-  Refproveed  String? @db.NVarChar(255)
-  Proveedor   String? @db.NVarChar(255)
-  Familia     String? @db.NVarChar(255)
-  Existencias String? @db.NVarChar(255)
-  PVP         String? @db.NVarChar(255)
-  F8          String? @db.NVarChar(255)
-
-  @@ignore
-}
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
-model Imp_Clientes {
-  Codigo    String? @db.NVarChar(255)
-  Nombre    String? @db.NVarChar(255)
-  Direccion String? @db.NVarChar(255)
-  Localidad String? @db.NVarChar(255)
-  Provincia String? @db.NVarChar(255)
-  Telefono  String? @db.NVarChar(255)
-  Cif       String? @db.NVarChar(255)
-
-  @@ignore
-}
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
-model Imp_modelos2 {
-  TipoPieza         Float?
-  MarcaPieza        Float?
-  ReferenciaPieza   String?   @db.NVarChar(255)
-  MREPZA            String?   @db.NVarChar(255)
-  STDPZA            String?   @db.NVarChar(255)
-  DenominacionPieza String?   @db.NVarChar(255)
-  PVPPieza          Float?    @db.Money
-  Descuento1Pieza   Float?
-  Descuento2Pieza   Float?
-  IvaPieza          Float?
-  ProveedorPriPieza String?   @db.NVarChar(255)
-  FAMPZA            Float?
-  DVIPZA            Float?
-  SUBPZA            Float?
-  COLPZA            String?   @db.NVarChar(255)
-  PORPZA            Float?    @db.Money
-  UCAPZA            Float?
-  BARPZA            String?   @db.NVarChar(255)
-  TFRPZA            Float?
-  TEMPZA            Float?
-  ETQPZA            Float?
-  FOTPZA            String?   @db.NVarChar(255)
-  FechaAltaPieza    DateTime? @db.DateTime
-  FBMPZA            String?   @db.NVarChar(255)
-  FechaBajaPieza    String?   @db.NVarChar(255)
-  BajaPieza         Float?
-  NotasPieza        String?   @db.NVarChar(255)
-  ICOPZA            String?   @db.NVarChar(255)
-  IMGPZA            String?   @db.NVarChar(255)
-  HTMPZA            String?   @db.NVarChar(255)
-  DESPZA            String?   @db.NVarChar(255)
-  PVIPZA            String?   @db.NVarChar(255)
-  PAGPZA            String?   @db.NVarChar(255)
-  BANPZA            String?   @db.NVarChar(255)
-  COMPZA            String?   @db.NVarChar(255)
-  FAPPZA            String?   @db.NVarChar(255)
-  CDMPZA            String?   @db.NVarChar(255)
-  CDCPZA            String?   @db.NVarChar(255)
-  CDTPZA            String?   @db.NVarChar(255)
-  CMBPZA            String?   @db.NVarChar(255)
-  CILPZA            String?   @db.NVarChar(255)
-  POTPZA            String?   @db.NVarChar(255)
-  TVUPZA            String?   @db.NVarChar(255)
-  FVFPZA            String?   @db.NVarChar(255)
-  IMMPZA            Float?
-  AADPZA            Float?
-  TASPZA            String?   @db.NVarChar(255)
-  SUPPZA            String?   @db.NVarChar(255)
-  FBCPZA            String?   @db.NVarChar(255)
-  CAMPZA            String?   @db.NVarChar(255)
-  CATPZA            String?   @db.NVarChar(255)
-  VOCPZA            String?   @db.NVarChar(255)
-  CADPZA            String?   @db.NVarChar(255)
-  MGAPZA            String?   @db.NVarChar(255)
-  SE1PZA            String?   @db.NVarChar(255)
-  SE2PZA            String?   @db.NVarChar(255)
-  SE3PZA            String?   @db.NVarChar(255)
-  CB2PZA            String?   @db.NVarChar(255)
-  PFRPZA            String?   @db.NVarChar(255)
-  FMUPZA            Float?
-  FRAPZA            String?   @db.NVarChar(255)
-  FIAPZA            String?   @db.NVarChar(255)
-  CODPZA            String?   @db.NVarChar(255)
-  IDCPZA            String?   @db.NVarChar(255)
-  IDLPZA            String?   @db.NVarChar(255)
-  ITLPZA            String?   @db.NVarChar(255)
-  STMPZA            Float?
-  CAGPZA            String?   @db.NVarChar(255)
-  CVEPZA            String?   @db.NVarChar(255)
-  PZMPZA            String?   @db.NVarChar(255)
-  IMDPZA            String?   @db.NVarChar(255)
-  EANPZA            String?   @db.NVarChar(255)
-  OPMPZA            String?   @db.NVarChar(255)
-  OPCPZA            String?   @db.NVarChar(255)
-  OPBPZA            String?   @db.NVarChar(255)
-  FMOPZA            String?   @db.NVarChar(255)
-
-  @@ignore
-}
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
-model imp_POB {
-  IDEPOB Float?
-  CPOPOB String? @db.NVarChar(Max)
-  NOMPOB String? @db.NVarChar(Max)
-  MUNPOB String? @db.NVarChar(Max)
-
-  @@ignore
-}
-
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
-model Imp_Proveedores {
-  Codigo    String? @db.NVarChar(255)
-  Nombre    String? @db.NVarChar(255)
-  Direccion String? @db.NVarChar(255)
-  Localidad String? @db.NVarChar(255)
-  Provincia String? @db.NVarChar(255)
-  CPostal   Float?
-  Telefono  String? @db.NVarChar(255)
-  F8        String? @db.NVarChar(255)
-  F9        String? @db.NVarChar(255)
-  Cif       String? @db.NVarChar(255)
-  F11       String? @db.NVarChar(255)
-
-  @@ignore
 }
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
@@ -2130,7 +1952,7 @@ model LKT {
   PZALKT Int
   PVPLKT Float?  @db.Money
   DTOLKT Float   @db.Money
-  CANLKT Decimal @default(0, map: "DF__LKT__CANLKT__4282C7A2") @db.Decimal(18, 2)
+  CANLKT Decimal @default(0, map: "DF__LKT__CANLKT__62EF9734") @db.Decimal(18, 2)
   CKT    CKT     @relation(fields: [CKTLKT], references: [IDECKT], onUpdate: NoAction, map: "CKTLKT_FK")
   Piezas Piezas  @relation(fields: [PZALKT], references: [IDPieza], onUpdate: NoAction, map: "PZALKT_FK")
 }
@@ -2141,7 +1963,7 @@ model LOP {
   DESLOP String   @db.NVarChar(255)
   PVPLOP Float    @db.Money
   DSELOP Boolean?
-  CHKLOP Boolean  @default(false, map: "DF__LOP__CHKLOP__0C89D700")
+  CHKLOP Boolean  @default(false, map: "DF__LOP__CHKLOP__55167929")
 }
 
 model LOT {
@@ -2198,7 +2020,7 @@ model LPD {
 }
 
 model LPI {
-  IDELPI Int   @id(map: "PK__LPI__2363BB2D0A79080A") @default(autoincrement())
+  IDELPI Int   @id(map: "PK__LPI__2363BB2D739B0049") @default(autoincrement())
   POLLPI Int?
   DIALPI Int
   TIPLPI Float @db.Real
@@ -2292,7 +2114,7 @@ model LTE {
   PVPLTE Float? @db.Money
   TOTLTE Float? @db.Money
   IVALTE Float? @db.Real
-  DTOLTE Float  @default(0, map: "DF__LTE__DTOLTE__7CEEC6CC") @db.Real
+  DTOLTE Float  @default(0, map: "DF__LTE__DTOLTE__59A6241C") @db.Real
 }
 
 model MAC {
@@ -2331,7 +2153,7 @@ model MAR {
   SE2MAR String?  @db.NText
   SE3MAR String?  @db.NText
   WPAMAR Boolean?
-  GARMAR Int      @default(2, map: "DF__MAR__GARMAR__4DB64BA4")
+  GARMAR Int      @default(2, map: "DF__MAR__GARMAR__38CF4036")
   PRGMAR Int?
   CDC    CDC[]
   CDM    CDM[]
@@ -2347,7 +2169,7 @@ model MAR {
 }
 
 model MCJ {
-  IDEMCJ Int       @id(map: "PK__MCJ__23A352C529820FAE") @default(autoincrement())
+  IDEMCJ Int       @id(map: "PK__MCJ__49EEDF40") @default(autoincrement())
   CONMCJ String?   @db.NVarChar(255)
   CANMCJ Float     @db.Money
   ALMMCJ BigInt
@@ -2358,35 +2180,35 @@ model MCJ {
   SALMCJ Boolean
   CARMCJ Int?
   CJCMCJ Int?
-  CO2MCJ Boolean   @default(false, map: "DF__MCJ__CO2MCJ__74A76077")
   TESMCJ Int?
-  ACCMCJ Int       @default(0, map: "DF__MCJ__ACCMCJ__5F422F3D")
+  CO2MCJ Boolean   @default(false, map: "DF__MCJ__CO2MCJ__48B0A244")
+  ACCMCJ Int       @default(0, map: "DF__MCJ__ACCMCJ__4B8D0EEF")
   NOMMCJ String?   @db.NVarChar(250)
   USUMCJ BigInt?
-  ANTMCJ Boolean   @default(false, map: "DF__MCJ__ANTMCJ__70C1F2C4")
-  ANAMCJ Boolean   @default(false, map: "DF__MCJ__ANAMCJ__71B616FD")
-  FACMCJ String    @default("", map: "DF__MCJ__FACMCJ__72AA3B36") @db.NVarChar(50)
+  ANTMCJ Boolean   @default(false, map: "DF__MCJ__ANTMCJ__3B0C8E63")
+  ANAMCJ Boolean   @default(false, map: "DF__MCJ__ANAMCJ__3C00B29C")
+  FACMCJ String    @default("", map: "DF__MCJ__FACMCJ__3CF4D6D5") @db.NVarChar(50)
 }
 
 model MDC {
-  IDEMDC Int     @id(map: "PK__MDC__23A35AEF7153907B") @default(autoincrement())
+  IDEMDC Int     @id(map: "PK__MDC__4F089A18") @default(autoincrement())
   PZAMDC BigInt
   SUPMDC BigInt
   BASMDC String? @db.NVarChar(100)
 }
 
 model MGA {
-  IDEMGA Int       @id(map: "PK__MGA__23A3725770499252") @default(autoincrement())
+  IDEMGA Int       @id(map: "PK__MGA__0AFD888E") @default(autoincrement())
   MARMGA String    @db.NVarChar(2)
   NOMMGA String    @db.NVarChar(50)
-  FEAMGA DateTime  @default(now(), map: "DF__MGA__FEAMGA__7231DAC4") @db.SmallDateTime
+  FEAMGA DateTime  @default(now(), map: "DF__MGA__FEAMGA__0BF1ACC7") @db.SmallDateTime
   FBJMGA DateTime? @db.SmallDateTime
   MAR    MAR       @relation(fields: [MARMGA], references: [IDEMAR], onUpdate: NoAction, map: "MARMGA_FK")
   Piezas Piezas[]
 }
 
 model MLT {
-  IDEMLT Int       @id(map: "PK__MLT__23A399D422D5121F") @default(autoincrement())
+  IDEMLT Int       @id(map: "PK__MLT__424DBD78") @default(autoincrement())
   PZAMLT BigInt
   CABMLT String    @db.NVarChar(50)
   CNTMLT BigInt
@@ -2395,7 +2217,7 @@ model MLT {
 }
 
 model MNE {
-  IDEMNE Int       @id(map: "PK__MNE__3528CC84") @default(autoincrement())
+  IDEMNE Int       @id(map: "PK__MNE__52B92F6B") @default(autoincrement())
   ENTMNE Int
   MNTMNE Int
   CANMNE Int
@@ -2407,12 +2229,12 @@ model MNE {
 }
 
 model MNT {
-  IDEMNT Int       @id(map: "PK__MNT__2E7BCEF5") @default(autoincrement())
+  IDEMNT Int       @id(map: "PK__MNT__4C0C31DC") @default(autoincrement())
   NOMMNT String    @db.NVarChar(100)
   TEMMNT Int
   FBJMNT DateTime? @db.SmallDateTime
   NOTMNT String?   @db.NText
-  CUOMNT Decimal   @default(0, map: "DF__MNT__CUOMNT__39ED81A1") @db.Decimal(18, 2)
+  CUOMNT Decimal   @default(0, map: "DF__MNT__CUOMNT__5A5A5133") @db.Decimal(18, 2)
   MNE    MNE[]
 }
 
@@ -2485,22 +2307,22 @@ model NMN {
   THENMN Int?
   HDINMN Int?
   TDLNMN Int?
-  SHENMN Decimal   @default(0, map: "DF__NMN__SHENMN__3AE1A5DA") @db.Decimal(18, 2)
-  SGENMN Decimal   @default(0, map: "DF__NMN__SGENMN__3BD5CA13") @db.Decimal(18, 2)
-  SESNMN Decimal   @default(0, map: "DF__NMN__SESNMN__3CC9EE4C") @db.Decimal(18, 2)
-  SCSNMN Decimal   @default(0, map: "DF__NMN__SCSNMN__3DBE1285") @db.Decimal(18, 2)
-  SISNMN Decimal   @default(0, map: "DF__NMN__SISNMN__3EB236BE") @db.Decimal(18, 2)
-  PSSNMN Decimal   @default(0, map: "DF__NMN__PSSNMN__3FA65AF7") @db.Decimal(18, 2)
+  SHENMN Decimal   @default(0, map: "DF__NMN__SHENMN__5B4E756C") @db.Decimal(18, 2)
+  SGENMN Decimal   @default(0, map: "DF__NMN__SGENMN__5C4299A5") @db.Decimal(18, 2)
+  SESNMN Decimal   @default(0, map: "DF__NMN__SESNMN__5D36BDDE") @db.Decimal(18, 2)
+  SCSNMN Decimal   @default(0, map: "DF__NMN__SCSNMN__5E2AE217") @db.Decimal(18, 2)
+  SISNMN Decimal   @default(0, map: "DF__NMN__SISNMN__5F1F0650") @db.Decimal(18, 2)
+  PSSNMN Decimal   @default(0, map: "DF__NMN__PSSNMN__60132A89") @db.Decimal(18, 2)
   CNSNMN Decimal?  @db.Decimal(18, 2)
-  ANTNMN Decimal   @default(0, map: "DF__NMN__ANTNMN__409A7F30") @db.Decimal(18, 2)
-  ODENMN Decimal   @default(0, map: "DF__NMN__ODENMN__418EA369") @db.Decimal(18, 2)
+  ANTNMN Decimal   @default(0, map: "DF__NMN__ANTNMN__61074EC2") @db.Decimal(18, 2)
+  ODENMN Decimal   @default(0, map: "DF__NMN__ODENMN__61FB72FB") @db.Decimal(18, 2)
   EMC    EMC       @relation(fields: [EMCNMN], references: [IDEEMC], onUpdate: NoAction, map: "EMCNMN_FK")
   ENT    ENT       @relation(fields: [ENTNMN], references: [IDEENT], onUpdate: NoAction, map: "ENTNMN_FK")
   TES    TES?      @relation(fields: [TESNMN], references: [IDETES], onDelete: NoAction, onUpdate: NoAction, map: "TESNMN_FK")
 }
 
 model OBJ {
-  IDEOBJ Int     @id(map: "PK__OBJ__30641767") @default(autoincrement())
+  IDEOBJ Int     @id(map: "PK__OBJ__4DF47A4E") @default(autoincrement())
   TIPOBJ Int
   IMPOBJ Int
   EJEOBJ Int
@@ -2529,7 +2351,7 @@ model OPL {
   IDEOPL Int     @id(map: "IDEOPL_PK") @default(autoincrement())
   PREOPL Int
   LOPOPL Int
-  IMPOPL Float   @default(0, map: "DF__OPL__IMPOPL__316655F4") @db.Money
+  IMPOPL Float   @default(0, map: "DF__OPL__IMPOPL__5145E845") @db.Money
   DESOPL String? @db.NVarChar(255)
 }
 
@@ -2574,13 +2396,13 @@ model OTR {
   LOCOTR String?   @db.NVarChar(50)
   PEROTR Int?
   DEPOTR Int?
-  REVOTR Int?      @default(0, map: "DF__OTR__REVOTR__2C5E7C59")
+  REVOTR Int?      @default(0, map: "DF__OTR__REVOTR__546C6DB3")
   OPEOTR BigInt?
   RVAOTR Int?
   RVNOTR Int?
-  FQEOTR Boolean?  @default(false, map: "DF__OTR__FQEOTR__76E64552")
+  FQEOTR Boolean?  @default(false, map: "DF__OTR__FQEOTR__58E70A0D")
   FC3OTR String?   @db.NVarChar(50)
-  CTEOTR Boolean?  @default(false, map: "DF__OTR__CTEOTR__18004DB6")
+  CTEOTR Boolean?  @default(false, map: "DF__OTR__CTEOTR__38453051")
   PRTOTR Int?
   FEAOTR DateTime? @db.SmallDateTime
   CIT    CIT[]
@@ -2616,22 +2438,21 @@ model PAL {
 }
 
 model PAT {
-  IDEPAT Int     @id(map: "PK__PAT__3C1B68013E7AFC59") @default(autoincrement())
+  IDEPAT Int     @id(map: "PK__PAT__3C1B680141CE9A8B") @default(autoincrement())
   PZAPAT BigInt?
   IATPAT BigInt?
 }
 
 model PER {
-  IDEPER Int     @id(map: "PK__PER__25E688F4") @default(autoincrement())
+  IDEPER Int     @id(map: "PK__PER__2D87AABC") @default(autoincrement())
   ENTPER Int?
   NOMPER String  @db.NVarChar(255)
   TLFPER String? @db.NVarChar(12)
   EMAPER String? @db.NVarChar(255)
-  ENT    ENT?    @relation(fields: [ENTPER], references: [IDEENT], onDelete: NoAction, onUpdate: NoAction, map: "fkPERconENT")
 }
 
 model PES {
-  IDEPES Int       @id(map: "PK__PES__3C1B85B5062888E2") @default(autoincrement())
+  IDEPES Int       @id(map: "PK__PES__3C1B85B568294D9D") @default(autoincrement())
   CABPES String    @db.NVarChar(50)
   CODPES String?   @db.NVarChar(20)
   PINPES String?   @db.NVarChar(150)
@@ -2656,16 +2477,16 @@ model PGS {
   MPAPGS Int?
   DEPPGS Int
   TESPGS Int?
-  FACPGS Boolean  @default(false, map: "DF__PGS__FACPGS__75F22119")
+  FACPGS Boolean  @default(false, map: "DF__PGS__FACPGS__57F2E5D4")
   VALPGS String?  @db.NVarChar(50)
   VORPGS String?  @db.NVarChar(50)
   CFAPGS String?  @db.NVarChar(50)
   REGPGS Boolean?
   ANTPGS Boolean?
   USUPGS BigInt?
-  MANPGS Int      @default(0, map: "DF__PGS__MANPGS__3006B883")
+  MANPGS Int      @default(0, map: "DF__PGS__MANPGS__25876198")
   EXPPGS String?  @db.NVarChar(20)
-  VVAPGS Boolean  @default(false, map: "DF__PGS__VVAPGS__0CFF0A16")
+  VVAPGS Boolean  @default(false, map: "DF__PGS__VVAPGS__5F14E4AF")
   FAAPGS String?  @db.NVarChar(50)
 }
 
@@ -2730,7 +2551,7 @@ model Piezas {
   SE3PZA                 String?   @db.NText
   CB2PZA                 String?   @db.NVarChar(255)
   PFRPZA                 BigInt?
-  FMUPZA                 BigInt?   @default(0, map: "DF__Piezas__FMUPZA__3C94E422")
+  FMUPZA                 BigInt?   @default(0, map: "DF__Piezas__FMUPZA__19D5B7CA")
   FRAPZA                 Float?    @db.Money
   FIAPZA                 Float?    @db.Money
   CODPZA                 String?   @db.NVarChar(150)
@@ -2738,7 +2559,7 @@ model Piezas {
   IDCPZA                 String?   @db.NText
   IDLPZA                 String?   @db.NText
   ITLPZA                 BigInt?
-  STMPZA                 Int       @default(0, map: "DF__Piezas__STMPZA__07FBC2BB")
+  STMPZA                 Int       @default(0, map: "DF__Piezas__STMPZA__6FCA6F65")
   CAGPZA                 Float?    @db.Money
   CVEPZA                 Float?    @db.Money
   PZMPZA                 BigInt?
@@ -2784,7 +2605,7 @@ model Piezas {
 }
 
 model POB {
-  IDEPOB Int    @id(map: "PK__POB__3C1BDAC035534B41") @default(autoincrement())
+  IDEPOB Int    @id(map: "PK__POB__3C1BDAC0B7552DB4") @default(autoincrement())
   CPOPOB String @db.NVarChar(20)
   NOMPOB String @db.NVarChar(300)
   MUNPOB String @db.NVarChar(300)
@@ -2792,7 +2613,7 @@ model POB {
 
 model POL {
   IDEPOL              Int       @id(map: "IDEPOL_PK") @default(autoincrement())
-  NOMPOL              String    @unique(map: "NOMPOL") @db.NVarChar(50)
+  NOMPOL              String    @db.NVarChar(50)
   FEAPOL              DateTime? @db.DateTime
   FEBPOL              DateTime? @db.DateTime
   RENPOL              Boolean   @default(false, map: "DF__POL__RENPOL__0B5CAFEA")
@@ -2818,7 +2639,7 @@ model POL {
 }
 
 model PRD {
-  IDEPRD Int       @id(map: "PK__PRD__38F95D68") @default(autoincrement())
+  IDEPRD Int       @id(map: "PK__PRD__5689C04F") @default(autoincrement())
   NOMPRD String    @db.NVarChar(100)
   VALPRD Int
   TEMPRD String    @db.NVarChar(1)
@@ -2853,7 +2674,7 @@ model PRT {
 }
 
 model PUB {
-  IDEPUB Int      @id(map: "PK__PUB__3C1A0790268E642F") @default(autoincrement())
+  IDEPUB Int      @id(map: "PK__PUB__3C1A0790459F2B6F") @default(autoincrement())
   ALMPUB BigInt?
   RCPPUB String?  @db.NVarChar(255)
   VALPUB Float?   @db.Money
@@ -2871,7 +2692,7 @@ model PUS {
 }
 
 model PZI {
-  PZAPZI BigInt    @id(map: "PK__PZI__F60F819E0257F7FE")
+  PZAPZI BigInt    @id(map: "PK__PZI__F60F819E6458BCB9")
   SE1PZI String?   @db.NText
   SE2PZI String?   @db.NText
   SE3PZI String?   @db.NText
@@ -2905,8 +2726,6 @@ model QPO {
   CANQPO Float    @db.Money
   POL    POL      @relation(fields: [POLQPO], references: [IDEPOL], onUpdate: NoAction, map: "POLQPO_FK")
   VEH    VEH      @relation(fields: [VEHQPO], references: [IDEVEH], onUpdate: NoAction, map: "VEHQPO_FK")
-
-  @@index([FECQPO], map: "FECQPO")
 }
 
 model RCO {
@@ -3046,7 +2865,7 @@ model REA {
 }
 
 model REE {
-  IDEREE Int       @id(map: "PK__REE__3F87A13D581027A5") @default(autoincrement())
+  IDEREE Int       @id(map: "PK__REE__3F87A13D2075287D") @default(autoincrement())
   LTAREE String?   @db.NVarChar(50)
   USUREE Int?
   FECREE DateTime? @db.SmallDateTime
@@ -3054,7 +2873,7 @@ model REE {
 }
 
 model REFMARCA {
-  IDEREF Int       @id(map: "PK__REFMARCA__3F87A13CD410D68F") @default(autoincrement())
+  IDEREF Int       @id(map: "PK__REFMARCA__3F87A13C67098ACB") @default(autoincrement())
   MARREF String    @db.NVarChar(2)
   REFREF String    @db.NVarChar(150)
   SUSREF String?   @db.NVarChar(150)
@@ -3080,7 +2899,7 @@ model REFMARCA {
 }
 
 model REL {
-  IDEREL Int       @id(map: "PK__REL__3F87A126AFE99513") @default(autoincrement())
+  IDEREL Int       @id(map: "PK__REL__3F87A12654743B77") @default(autoincrement())
   QUEREL String?   @db.NVarChar(250)
   USUREL Int?
   FECREL DateTime? @db.SmallDateTime
@@ -3107,7 +2926,7 @@ model REV {
 }
 
 model RIM {
-  IDERIM Int       @id(map: "PK__RIM__3F8781A253D3FFA6") @default(autoincrement())
+  IDERIM Int       @id(map: "PK__RIM__3F8781A28BCC9640") @default(autoincrement())
   REPRIM String?   @db.NVarChar(50)
   USURIM Int?
   FECRIM DateTime? @db.SmallDateTime
@@ -3115,12 +2934,12 @@ model RIM {
 }
 
 model RLF {
-  IDRLF  Int       @id(map: "PK__RLF__A686B970B3666104") @default(autoincrement())
+  IDRLF  Int       @id(map: "PK__RLF__A686B970337B00F8") @default(autoincrement())
   LABRLF BigInt
   CFARLF String    @db.NVarChar(50)
   ENTRLF BigInt?
   ALBRLF String?   @db.NVarChar(50)
-  TASRLF Boolean?  @default(false, map: "DF__RLF__TASRLF__7EFEFC35")
+  TASRLF Boolean?  @default(false, map: "DF__RLF__TASRLF__18E25EE8")
   FECRLF DateTime? @db.SmallDateTime
 }
 
@@ -3162,10 +2981,10 @@ model SDV {
   CMMSDV String?   @db.NVarChar(50)
   GRPSDV Int       @default(3, map: "DF__SDV__GRPSDV__1A1FD08D")
   AMOSDV Boolean   @default(false, map: "DF__SDV__AMOSDV__1B13F4C6")
-  STMSDV Int       @default(0, map: "DF__SDV__STMSDV__1B84959C")
-  PVPSDV Float?    @default(0, map: "DF__SDV__PVPSDV__2EA3225F") @db.Money
-  IMASDV Int?      @default(0, map: "DF__SDV__IMASDV__2F974698")
-  GMASDV Int?      @default(0, map: "DF__SDV__GMASDV__308B6AD1")
+  STMSDV Int       @default(0, map: "DF__SDV__STMSDV__5170D0CE")
+  PVPSDV Float?    @default(0, map: "DF__SDV__PVPSDV__3EE80C3F") @db.Money
+  IMASDV Int?      @default(0, map: "DF__SDV__IMASDV__3FDC3078")
+  GMASDV Int?      @default(0, map: "DF__SDV__GMASDV__40D054B1")
   Piezas Piezas[]
   DVS    DVS       @relation(fields: [DIVSDV], references: [IDEDVS], onDelete: Cascade, map: "DIVSDV_FK")
   MAR    MAR?      @relation(fields: [MARSDV], references: [IDEMAR], onDelete: NoAction, onUpdate: NoAction, map: "MARSDV_FK")
@@ -3178,12 +2997,12 @@ model SDV {
 model SEG {
   IDESEG Int     @default(autoincrement())
   ALBSEG String  @db.NVarChar(50)
-  REPSEG Boolean @default(false, map: "DF__SEG__REPSEG__79C2B1FD")
-  SUSSEG Boolean @default(false, map: "DF__SEG__SUSSEG__7AB6D636")
-  PINSEG Boolean @default(false, map: "DF__SEG__PINSEG__7BAAFA6F")
-  MONSEG Boolean @default(false, map: "DF__SEG__MONSEG__7C9F1EA8")
-  DESSEG Boolean @default(false, map: "DF__SEG__DESSEG__7D9342E1")
-  EXTSEG Boolean @default(false, map: "DF__SEG__EXTSEG__7E87671A")
+  REPSEG Boolean @default(false, map: "DF__SEG__REPSEG__5BC376B8")
+  SUSSEG Boolean @default(false, map: "DF__SEG__SUSSEG__5CB79AF1")
+  PINSEG Boolean @default(false, map: "DF__SEG__PINSEG__5DABBF2A")
+  MONSEG Boolean @default(false, map: "DF__SEG__MONSEG__5E9FE363")
+  DESSEG Boolean @default(false, map: "DF__SEG__DESSEG__5F94079C")
+  EXTSEG Boolean @default(false, map: "DF__SEG__EXTSEG__60882BD5")
   PZASEG String? @db.NVarChar(150)
   OBSSEG String? @db.NVarChar(150)
 
@@ -3229,7 +3048,7 @@ model Stock {
   FecUltVentaStock      DateTime? @db.DateTime
   PALSTO                Int?
   FUCSTO                DateTime? @db.DateTime
-  UPMSTO                Float     @default(0, map: "DF__Stock__UPMSTO__237166D5") @db.Money
+  UPMSTO                Float     @default(0, map: "DF__Stock__UPMSTO__2982DB05") @db.Money
   ALM                   ALM       @relation(fields: [Almac_nStock], references: [IDEALM], onUpdate: NoAction, map: "AlmacénStock_FK")
   PAL                   PAL?      @relation(fields: [PALSTO], references: [IDEPAL], onDelete: NoAction, onUpdate: NoAction, map: "PALSTO_FK")
   Piezas                Piezas    @relation(fields: [PiezaStock], references: [IDPieza], onUpdate: NoAction, map: "PiezasStock_FK")
@@ -3251,15 +3070,15 @@ model SUP {
   TIPSUP                    Int?      @default(0, map: "DF__SUP__TIPSUP__42ECDBF6")
   FBASUP                    DateTime? @db.SmallDateTime
   COSSUP                    Float?    @db.Money
-  REGSUP                    Boolean   @default(false, map: "DF__SUP__REGSUP__2ECB7719")
+  REGSUP                    Boolean   @default(false, map: "DF__SUP__REGSUP__70BE939E")
   GCHSUP                    Int?
   FEASUP                    DateTime? @db.SmallDateTime
   FACSUP                    Boolean?
   FMASUP                    Boolean?
   AIMSUP                    Boolean?
   CCOSUP                    String?   @db.NVarChar(20)
-  IMVSUP                    Boolean   @default(false, map: "DF__SUP__IMVSUP__00CBDB56")
-  CLASUP                    Int       @default(0, map: "DF__SUP__CLASUP__4F99367F")
+  IMVSUP                    Boolean   @default(false, map: "DF__SUP__IMVSUP__4CD638E3")
+  CLASUP                    Int       @default(0, map: "DF__SUP__CLASUP__7A72E661")
   LIQ                       LIQ[]
   LSP                       LSP[]
   Piezas_Piezas_CAMPZAToSUP Piezas[]  @relation("Piezas_CAMPZAToSUP")
@@ -3289,7 +3108,7 @@ model TAL {
   AUTTAL Boolean  @default(false, map: "DF__TAL__AUTTAL__74AE54BC")
   REGTAL Boolean  @default(false, map: "DF__TAL__REGTAL__75A278F5")
   FABTAL Boolean  @default(false, map: "DF__TAL__FABTAL__76969D2E")
-  ALQTAL Boolean? @default(false, map: "DF__TAL__ALQTAL__79D2FC8C")
+  ALQTAL Boolean? @default(false, map: "DF__TAL__ALQTAL__166F3B3A")
   IMP    IMP[]
   OBJ    OBJ[]
   DEP    DEP      @relation(fields: [DEPTAL], references: [IDEDEP], onUpdate: NoAction, map: "DEPTAL_FK")
@@ -3360,7 +3179,7 @@ model TES {
   EMCTES              Int
   IBATES              String?   @db.NVarChar(4)
   SUFTES              String?   @db.NVarChar(3)
-  DATTES              Boolean   @default(false, map: "DF__TES__DATTES__73B33C3E")
+  DATTES              Boolean   @default(false, map: "DF__TES__DATTES__410F807C")
   CRT                 CRT[]
   EMC_EMC_CBAEMCToTES EMC[]     @relation("EMC_CBAEMCToTES")
   EMC_EMC_CBTEMCToTES EMC[]     @relation("EMC_CBTEMCToTES")
@@ -3383,7 +3202,7 @@ model TEX {
 }
 
 model TFA {
-  IDETFA Int      @id(map: "PK__TFA__3D138CE2587208C1") @default(autoincrement())
+  IDETFA Int      @id(map: "PK__TFA__7AC720C5") @default(autoincrement())
   TTATFA Int
   CATTFA Int
   IMPTFA Decimal? @db.Decimal(18, 2)
@@ -3441,13 +3260,13 @@ model TPR {
 }
 
 model TSE {
-  IDETSE Int    @id(map: "PK__TSE__3D1276914EE89E87") @default(autoincrement())
+  IDETSE Int    @id(map: "PK__TSE__750E476F") @default(autoincrement())
   DESTSE String @db.NVarChar(255)
   VEH    VEH[]
 }
 
 model TTA {
-  IDETTA Int     @id(map: "PK__TTA__3D127EB454A177DD") @default(autoincrement())
+  IDETTA Int     @id(map: "PK__TTA__78DED853") @default(autoincrement())
   TIPTTA Int
   DESTTA String  @db.NVarChar(50)
   NOTTTA String? @db.NVarChar(255)
@@ -3460,7 +3279,7 @@ model TXT {
 }
 
 model UOR {
-  IDEUOR Int     @id(map: "PK__UOR__3D53D5BAE88D3719") @default(autoincrement())
+  IDEUOR Int     @id(map: "PK__UOR__3D53D5BA2EF01CDD") @default(autoincrement())
   ENTUOR BigInt
   CODUOR String  @db.NVarChar(20)
   ROLUOR String  @db.NVarChar(2)
@@ -3484,8 +3303,8 @@ model USU {
   FEAUSU              DateTime  @default(now(), map: "DF__USU__FEAUSU__0F624AF8") @db.DateTime
   FEBUSU              DateTime? @db.DateTime
   NOTUSU              String?   @db.NText
-  FLOUSU              Int       @default(0, map: "DF__USU__FLOUSU__11AA861D")
-  ABOUSU              Int       @default(0, map: "DF__USU__ABOUSU__5AEA2243")
+  FLOUSU              Int       @default(0, map: "DF__USU__FLOUSU__2A7633E7")
+  ABOUSU              Int       @default(0, map: "DF__USU__ABOUSU__51A5DAF8")
   AGE                 AGE[]
   PUS                 PUS[]
   TAR_TAR_CRETARToUSU TAR[]     @relation("TAR_CRETARToUSU")
@@ -3568,7 +3387,7 @@ model VEH {
   PAGVEH Int?
   PVIVEH Float?    @db.Money
   CFTVEH String?   @db.NVarChar(10)
-  REVVEH Int?      @default(0, map: "DF__VEH__REVVEH__1CE72E9F")
+  REVVEH Int?      @default(0, map: "DF__VEH__REVVEH__1F8E9120")
   BTFVEH DateTime? @db.SmallDateTime
   IALVEH DateTime? @db.SmallDateTime
   FALVEH DateTime? @db.SmallDateTime
@@ -3576,7 +3395,7 @@ model VEH {
   FREVEH DateTime? @db.SmallDateTime
   RECVEH Boolean?
   VHOVEH Boolean?
-  TIMVEH Int?      @default(0, map: "DF__VEH__TIMVEH__12477460")
+  TIMVEH Int?      @default(0, map: "DF__VEH__TIMVEH__328C56FB")
   PIRVEH Float?    @db.Money
   AMO    AMO[]
   CIT    CIT[]
@@ -3638,7 +3457,7 @@ model VIC {
 }
 
 model VRA {
-  IDEVRA Int       @id(map: "PK__VRA__4E12A821330B79E8") @default(autoincrement())
+  IDEVRA Int       @id(map: "PK__VRA__583CFE97") @default(autoincrement())
   DRAVRA BigInt?
   ALBVRA String?   @db.NVarChar(50)
   VALVRA Int?
@@ -3646,7 +3465,7 @@ model VRA {
   OPEVRA String?   @db.NVarChar(10)
   COSVRA Float?    @db.Money
   FERVRA DateTime? @db.SmallDateTime
-  RENVRA Boolean   @default(false, map: "DF__VRA__RENVRA__051F5610")
+  RENVRA Boolean   @default(false, map: "DF__VRA__RENVRA__6CEE02BA")
 }
 
 model ZON {
@@ -3659,4 +3478,34 @@ model ZON {
   FVE    FVE?    @relation(fields: [VIAZON], references: [ENTFVE], onDelete: NoAction, onUpdate: NoAction, map: "VIAZON_FK")
 
   @@index([NOMZON], map: "NOMZON_NX")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model AuxInf {
+  idCentro         BigInt?
+  centro           String?  @db.NVarChar(255)
+  claImp           BigInt?
+  tipo             String?  @db.NVarChar(255)
+  periodo          String?  @db.NVarChar(10)
+  orAbierta        Int?
+  porcOrAbierta    Decimal? @db.Decimal(18, 2)
+  orFacturada      Int?
+  porcOrFacturada  Decimal? @db.Decimal(18, 2)
+  orPendientes     Int?
+  porcOrPendientes Decimal? @db.Decimal(18, 2)
+  horFactXor       Decimal? @db.Decimal(18, 2)
+  horFactXorTotal  Decimal? @db.Decimal(18, 2)
+  recFactXor       Decimal? @db.Decimal(18, 2)
+  recFactXorTotal  Decimal? @db.Decimal(18, 2)
+  estancMedia      Decimal? @db.Decimal(18, 2)
+  estancMediaTotal Decimal? @db.Decimal(18, 2)
+  horasConvenio    Decimal? @db.Decimal(18, 2)
+  horasPresenc     Decimal? @db.Decimal(18, 2)
+  porcAbsentis     Decimal? @db.Decimal(18, 2)
+  horasInvertidas  Decimal? @db.Decimal(18, 2)
+  porcEficiencia   Decimal? @db.Decimal(18, 2)
+  horasFacturadas  Decimal? @db.Decimal(18, 2)
+  porcProductiv    Decimal? @db.Decimal(18, 2)
+
+  @@ignore
 }

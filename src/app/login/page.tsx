@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 import { useAuthStore } from '@/store/auth'
 
 interface User {
-  id: string
+  id: number
   accessLevel: number
   adminLevel: number
   displayName: string
@@ -15,7 +15,7 @@ interface User {
 }
 
 export default function Login() {
-  const [selectedUserId, setSelectedUserId] = useState('')
+  const [selectedUserId, setSelectedUserId] = useState<number | ''>('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -29,16 +29,22 @@ export default function Login() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
+        console.log('Fetching users...')
         const response = await fetch('/api/users')
+        console.log('Response status:', response.status)
         if (response.ok) {
           const userData = await response.json()
+          console.log('Users data received:', userData.length, 'users')
           setUsers(userData)
+          setLoadingUsers(false)
         } else {
+          console.error('Error response:', response.status, response.statusText)
           setError('Error al cargar usuarios')
+          setLoadingUsers(false)
         }
-      } catch {
+      } catch (error) {
+        console.error('Fetch error:', error)
         setError('Error al cargar usuarios')
-      } finally {
         setLoadingUsers(false)
       }
     }
@@ -104,7 +110,7 @@ export default function Login() {
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 value={selectedUserId}
-                onChange={(e) => setSelectedUserId(e.target.value)}
+                onChange={(e) => setSelectedUserId(Number(e.target.value) || '')}
                 disabled={loadingUsers}
               >
                 <option value="">
