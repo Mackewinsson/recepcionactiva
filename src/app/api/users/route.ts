@@ -15,7 +15,7 @@ export async function GET() {
         e.NCOENT as entityName,
         e.IDEENT as entityId
       FROM USU u
-      LEFT JOIN ENT e ON u.ENTUSU = e.USUENT
+      LEFT JOIN ENT e ON u.ENTUSU = e.IDEENT
       WHERE u.FEBUSU IS NULL
       ORDER BY u.ACCUSU DESC, u.ENTUSU ASC
     `
