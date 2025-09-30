@@ -5,7 +5,7 @@ const prisma = new PrismaClient()
 
 export async function GET() {
   try {
-    // Get users with their associated entities
+    // Get active users (where FEBUSU is null) with their associated entities
     const users = await prisma.$queryRaw`
       SELECT 
         u.ENTUSU as userId,
@@ -16,6 +16,7 @@ export async function GET() {
         e.IDEENT as entityId
       FROM USU u
       LEFT JOIN ENT e ON u.ENTUSU = e.USUENT
+      WHERE u.FEBUSU IS NULL
       ORDER BY u.ACCUSU DESC, u.ENTUSU ASC
     `
 
