@@ -17,7 +17,7 @@ module.exports = {
         // Network image path configuration
         NETWORK_IMAGE_PATH: process.env.NETWORK_IMAGE_PATH,
         // Application configuration
-        PORT: process.env.PORT || '3000',
+        PORT: process.env.PORT || '5000',
         APP_URL: process.env.APP_URL
       },
       // PM2 specific options
