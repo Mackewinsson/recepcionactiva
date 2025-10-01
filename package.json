@@ -19,7 +19,8 @@
     "deploy:status": "pm2 status",
     "deploy:logs": "pm2 logs recepcionactiva",
     "deploy:monit": "pm2 monit",
-    "encrypt-password": "node scripts/encrypt-password.js"
+    "encrypt-password": "node scripts/encrypt-password.js",
+    "create-user": "node scripts/create-user.js"
   },
   "dependencies": {
     "@prisma/adapter-mssql": "^6.16.2",
