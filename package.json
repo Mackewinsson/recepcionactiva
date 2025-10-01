@@ -13,7 +13,6 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
-    "deploy:setup": "setup.bat",
     "deploy:start": "pm2 start ecosystem.config.js",
     "deploy:stop": "pm2 stop recepcionactiva",
     "deploy:restart": "pm2 restart recepcionactiva",

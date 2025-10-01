@@ -20,16 +20,20 @@ Sistema web moderno para la gestión de órdenes de trabajo con funcionalidad de
    npm --version
    ```
 
-### Paso 2: Ejecutar el Instalador
+### Paso 2: Configurar el Proyecto
 1. Clone o descargue este repositorio
 2. Navegue a la carpeta del proyecto
-3. **Ejecute el instalador automático:**
-   ```cmd
-   setup.bat
+3. **Instale las dependencias:**
+   ```bash
+   npm install
    ```
 
 ### Paso 3: Configurar Base de Datos
-1. Cuando se abra el archivo `.env` en Notepad, configure según su servidor SQL Server:
+1. Copie el archivo de ejemplo y configure las variables de entorno:
+   ```bash
+   cp env.example .env
+   ```
+2. Edite el archivo `.env` y configure según su servidor SQL Server:
 
    **Para instancia por defecto (puerto 1433):**
    ```env
@@ -47,17 +51,33 @@ Sistema web moderno para la gestión de órdenes de trabajo con funcionalidad de
    APP_URL=http://192.168.1.30:3000
    ```
 
-2. **IMPORTANTE:** Reemplace los valores por los de su servidor:
+3. **IMPORTANTE:** Reemplace los valores por los de su servidor:
    - `192.168.1.30` → IP de su servidor SQL Server
    - `su_password` → Contraseña del usuario `sa`
    - `VsolDatos` → Nombre de su base de datos
    - `SQLEXPRESS` → Nombre de su instancia (si aplica)
 
-3. Guarde el archivo y cierre Notepad
+4. Guarde el archivo `.env`
+
+### Paso 4: Generar Cliente de Prisma y Compilar
+```bash
+# Generar cliente de Prisma
+npx prisma generate
+
+# Compilar la aplicación
+npm run build
+```
+
+### Paso 5: Iniciar la Aplicación
+```bash
+# Iniciar con PM2
+pm2 start ecosystem.config.js
+pm2 save
+```
 
 ## 🎯 ¡Listo! El sistema estará funcionando
 
-Después de ejecutar `setup.bat`, el sistema estará disponible en:
+Después de completar la configuración, el sistema estará disponible en:
 - **Acceso local:** http://localhost:3000
 - **Acceso en red:** http://[IP_DEL_SERVIDOR]:3000
 
@@ -162,21 +182,23 @@ Para permitir acceso desde otros equipos:
 
 ## 🔧 Herramientas de Diagnóstico
 
-### Script de Diagnóstico Automático
-Si tiene problemas con la instalación, ejecute el script de diagnóstico:
+### Verificación Manual
+Para verificar la instalación, ejecute estos comandos:
 
-```cmd
-troubleshoot.bat
+```bash
+# Verificar Node.js y npm
+node --version
+npm --version
+
+# Verificar dependencias
+npm list
+
+# Generar cliente de Prisma
+npx prisma generate
+
+# Compilar la aplicación
+npm run build
 ```
-
-Este script verificará automáticamente:
-- ✅ Node.js y npm
-- ✅ PM2
-- ✅ Archivo .env
-- ✅ Dependencias instaladas
-- ✅ Cliente de Prisma generado
-- ✅ Aplicación compilada
-- ✅ Estado de la aplicación
 
 ## 🚨 Solución de Problemas
 
@@ -232,8 +254,8 @@ recepcionactiva/
 ├── src/                    # Código fuente de la aplicación
 ├── public/                 # Archivos públicos
 ├── prisma/                 # Configuración de base de datos
+├── scripts/                # Scripts de desarrollo
 ├── ecosystem.config.js     # Configuración de PM2
-├── setup.bat              # Instalador automático
 ├── env.example            # Plantilla de variables de entorno
 └── README.md              # Este archivo
 ```
