@@ -47,13 +47,9 @@ npm run encrypt-password admin
 To add a new user with an encrypted password:
 
 ```sql
--- Insert new user into USU table
-INSERT INTO USU (ENTUSU, ACCUSU, ADMUSU, FEAUSU) 
-VALUES (123, 1, 0, GETDATE());
-
--- Insert encrypted password into CONUSU table
-INSERT INTO CONUSU (ENTUSU, CLAUSU) 
-VALUES (123, '«¤¦«¤¦'); -- Use encrypted password from npm script
+-- Insert new user with encrypted password into USU table
+INSERT INTO USU (ENTUSU, CONUSU, ACCUSU, ADMUSU, FEAUSU) 
+VALUES (123, '«¤¦«¤¦', 1, 0, GETDATE()); -- Use encrypted password from npm script
 ```
 
 ### 3. Updating Existing Passwords
@@ -61,9 +57,9 @@ VALUES (123, '«¤¦«¤¦'); -- Use encrypted password from npm script
 To update an existing user's password:
 
 ```sql
--- Update password in CONUSU table
-UPDATE CONUSU 
-SET CLAUSU = '«¤¦«¤¦' -- Use encrypted password from npm script
+-- Update password in USU table
+UPDATE USU 
+SET CONUSU = '«¤¦«¤¦' -- Use encrypted password from npm script
 WHERE ENTUSU = 123;
 ```
 
@@ -89,17 +85,10 @@ The system expects these tables:
 ```sql
 CREATE TABLE USU (
     ENTUSU INT PRIMARY KEY,    -- User ID
+    CONUSU NVARCHAR(50),       -- Encrypted password
     ACCUSU INT,                -- Access level
     ADMUSU INT,                -- Admin level
     FEAUSU DATETIME            -- Creation date
-);
-```
-
-### CONUSU Table
-```sql
-CREATE TABLE CONUSU (
-    ENTUSU INT PRIMARY KEY,    -- User ID (foreign key to USU)
-    CLAUSU NVARCHAR(255)       -- Encrypted password
 );
 ```
 
@@ -178,12 +167,11 @@ npm run encrypt-password password   # -> "«¤¦«¤¦«¤¦«¤¦«¤¦«¤¦«
 
 ```sql
 -- Create a test user
-INSERT INTO USU (ENTUSU, ACCUSU, ADMUSU, FEAUSU) VALUES (999, 1, 0, GETDATE());
-INSERT INTO CONUSU (ENTUSU, CLAUSU) VALUES (999, '«¤¦«¤¦'); -- admin password
+INSERT INTO USU (ENTUSU, CONUSU, ACCUSU, ADMUSU, FEAUSU) 
+VALUES (999, '«¤¦«¤¦', 1, 0, GETDATE()); -- admin password
 
 -- Test login
-SELECT u.ENTUSU, u.ACCUSU, c.CLAUSU 
-FROM USU u 
-JOIN CONUSU c ON u.ENTUSU = c.ENTUSU 
-WHERE u.ENTUSU = 999;
+SELECT ENTUSU, CONUSU, ACCUSU 
+FROM USU 
+WHERE ENTUSU = 999;
 ```

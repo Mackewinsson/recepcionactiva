@@ -15,16 +15,16 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Get user password from conusu table
+    // Get user password from USU table (CONUSU field)
     const passwordData = await prisma.$queryRaw`
-      SELECT CLAUSU as encryptedPassword
-      FROM CONUSU
+      SELECT CONUSU as encryptedPassword
+      FROM USU
       WHERE ENTUSU = ${parseInt(userId)}
     `
 
     if (!passwordData || (passwordData as Array<{ encryptedPassword: string }>).length === 0) {
       return NextResponse.json(
-        { message: 'Usuario no encontrado en la tabla de contraseñas' },
+        { message: 'Usuario no encontrado' },
         { status: 401 }
       )
     }

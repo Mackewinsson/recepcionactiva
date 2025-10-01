@@ -49,11 +49,11 @@ function main() {
   console.log(`Original password: "${password}"`);
   console.log(`Encrypted password: "${encrypted}"`);
   console.log('');
-  console.log('SQL to insert/update in CONUSU table:');
-  console.log(`UPDATE CONUSU SET CLAUSU = '${encrypted}' WHERE ENTUSU = <user_id>;`);
+  console.log('SQL to insert/update in USU table:');
+  console.log(`UPDATE USU SET CONUSU = '${encrypted}' WHERE ENTUSU = <user_id>;`);
   console.log('');
   console.log('Or to insert a new user:');
-  console.log(`INSERT INTO CONUSU (ENTUSU, CLAUSU) VALUES (<user_id>, '${encrypted}');`);
+  console.log(`INSERT INTO USU (ENTUSU, CONUSU, ACCUSU, ADMUSU, FEAUSU) VALUES (<user_id>, '${encrypted}', 1, 0, GETDATE());`);
 }
 
 main();
