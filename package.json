@@ -18,7 +18,8 @@
     "deploy:restart": "pm2 restart recepcionactiva",
     "deploy:status": "pm2 status",
     "deploy:logs": "pm2 logs recepcionactiva",
-    "deploy:monit": "pm2 monit"
+    "deploy:monit": "pm2 monit",
+    "encrypt-password": "node scripts/encrypt-password.js"
   },
   "dependencies": {
     "@prisma/adapter-mssql": "^6.16.2",
@@ -43,6 +44,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.5.3",
     "tailwindcss": "^4",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }

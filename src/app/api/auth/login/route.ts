@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { PrismaClient } from '@/generated/prisma'
+import { encriptarClave, verificarClave } from '@/lib/encryption'
 
 const prisma = new PrismaClient()
 
@@ -14,11 +15,24 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // For now, we'll use a simple password check
-    // In a real system, you'd want to implement proper authentication
-    const validPasswords = ['sa2006', 'admin', '123456']
+    // Get user password from conusu table
+    const passwordData = await prisma.$queryRaw`
+      SELECT CLAUSU as encryptedPassword
+      FROM CONUSU
+      WHERE ENTUSU = ${parseInt(userId)}
+    `
+
+    if (!passwordData || (passwordData as Array<{ encryptedPassword: string }>).length === 0) {
+      return NextResponse.json(
+        { message: 'Usuario no encontrado en la tabla de contraseñas' },
+        { status: 401 }
+      )
+    }
+
+    const encryptedPassword = (passwordData as Array<{ encryptedPassword: string }>)[0].encryptedPassword
     
-    if (!validPasswords.includes(password)) {
+    // Verify password using the encryption function
+    if (!verificarClave(password, encryptedPassword)) {
       return NextResponse.json(
         { message: 'Contraseña inválida' },
         { status: 401 }
