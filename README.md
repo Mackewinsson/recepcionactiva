@@ -124,6 +124,56 @@ Después de completar la configuración, el sistema estará disponible en:
 - Asegúrese de que la aplicación tenga permisos de escritura en la carpeta
 - Para rutas de red, verifique que el servicio de red esté funcionando
 
+## 📸 Sistema de Subida de Fotos (FTP)
+
+La aplicación utiliza un servidor FTP para la subida de fotos, proporcionando almacenamiento centralizado y mejor escalabilidad.
+
+### Configuración FTP
+
+Las fotos se suben al servidor FTP con la siguiente estructura:
+```
+/uploads/orders/{numeroOrden}/{nombre-unico}
+```
+
+### Configurar FTP
+
+1. **Configurar parámetros FTP**:
+   ```bash
+   npm run setup-ftp
+   ```
+
+2. **Actualizar el archivo .env** con los detalles reales del servidor FTP:
+   ```env
+   FTP_HOST=192.168.1.30
+   FTP_PORT=21
+   FTP_USER=tu_usuario_ftp
+   FTP_PASSWORD=tu_contraseña_ftp
+   FTP_BASE_PATH=/uploads/orders
+   FTP_SECURE=false
+   FTP_HTTP_BASE_URL=http://192.168.1.30/uploads/orders
+   ```
+
+3. **Probar conexión FTP**:
+   ```bash
+   npm run test-ftp
+   ```
+
+### Características FTP
+
+- ✅ **Creación automática de carpetas**: Las carpetas específicas por orden se crean automáticamente
+- ✅ **Nombres únicos**: Nomenclatura basada en UUID previene conflictos
+- ✅ **Integración con base de datos**: Referencias de fotos almacenadas en tabla `FOT`
+- ✅ **Manejo de errores**: Manejo completo de errores y logging
+- ✅ **Gestión de archivos**: Operaciones de subida y eliminación vía FTP
+- ✅ **Acceso HTTP**: URLs HTTP configurables para acceso a fotos
+
+### Requisitos del Servidor FTP
+
+- El servidor FTP debe estar ejecutándose y ser accesible
+- El usuario debe tener permisos de lectura/escritura en la ruta base
+- La ruta base debe existir o ser creable por el usuario FTP
+- Para acceso HTTP, configure un servidor web para servir archivos desde el directorio FTP
+
 ## 🛠️ Comandos Útiles
 
 ```cmd
@@ -141,6 +191,18 @@ pm2 stop all
 
 # Iniciar aplicación
 pm2 start all
+
+# Configurar FTP para subida de fotos
+npm run setup-ftp
+
+# Probar conexión FTP
+npm run test-ftp
+
+# Encriptar contraseña
+npm run encrypt-password <contraseña>
+
+# Crear usuario
+npm run create-user <nombre> <id> [contraseña]
 
 # Monitorear recursos
 pm2 monit

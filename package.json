@@ -20,14 +20,18 @@
     "deploy:logs": "pm2 logs recepcionactiva",
     "deploy:monit": "pm2 monit",
     "encrypt-password": "node scripts/encrypt-password.js",
-    "create-user": "node scripts/create-user.js"
+    "create-user": "node scripts/create-user.js",
+    "setup-ftp": "node scripts/setup-ftp.js",
+    "test-ftp": "node scripts/test-ftp.js"
   },
   "dependencies": {
     "@prisma/adapter-mssql": "^6.16.2",
     "@prisma/client": "^6.16.1",
     "@types/bcryptjs": "^2.4.6",
     "@types/uuid": "^10.0.0",
+    "basic-ftp": "^5.0.5",
     "bcryptjs": "^3.0.2",
+    "dotenv": "^17.2.3",
     "mssql": "^11.0.1",
     "next": "15.5.3",
     "prisma": "^6.16.1",

@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { unlink } from 'fs/promises'
-import { join } from 'path'
 import { PrismaClient } from '@/generated/prisma'
+import { deletePhotoFromFTP } from '@/lib/ftp-service'
 
 const prisma = new PrismaClient()
 
@@ -19,15 +18,41 @@ export async function DELETE(
       )
     }
 
-    // For now, we'll implement a simple deletion
-    // In a real app, you'd want to properly identify the photo record
-    // and delete both the database record and the file
+    // Get photo information from database
+    const photoData = await prisma.$queryRaw`
+      SELECT NOTFOT FROM FOT WHERE ENTFOT = ${parseInt(photoId)}
+    ` as { NOTFOT: string }[]
+
+    if (photoData.length === 0) {
+      return NextResponse.json(
+        { message: 'Photo not found' },
+        { status: 404 }
+      )
+    }
+
+    const filePath = photoData[0].NOTFOT
+
+    // Delete from FTP server
+    const deleteResult = await deletePhotoFromFTP(filePath)
     
-    // Since we're using a simple approach, we'll just return success
-    // The actual file deletion would need to be implemented based on your specific needs
+    if (!deleteResult.success) {
+      console.error('FTP delete failed:', deleteResult.error)
+      return NextResponse.json(
+        { 
+          message: deleteResult.error || 'Failed to delete photo from FTP server',
+          error: 'FTP_DELETE_ERROR'
+        },
+        { status: 500 }
+      )
+    }
+
+    // Delete from database
+    await prisma.$executeRaw`
+      DELETE FROM FOT WHERE ENTFOT = ${parseInt(photoId)}
+    `
     
     return NextResponse.json({
-      message: 'Photo deleted successfully',
+      message: 'Photo deleted successfully from FTP server and database',
       id: photoId
     })
 
