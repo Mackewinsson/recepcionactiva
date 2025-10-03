@@ -3,8 +3,15 @@ import { persist } from 'zustand/middleware'
 
 interface User {
   id: string
-  email: string
-  name?: string
+  userId: number
+  accessLevel: number
+  adminLevel: number
+  name: string
+  entities: Array<{
+    id: number
+    name: string
+  }>
+  createdAt: Date
 }
 
 interface AuthStore {

@@ -47,14 +47,17 @@ export class FTPService {
 
   async ensureDirectoryExists(remotePath: string): Promise<void> {
     try {
+      // Convert to uppercase like PHP version (strtoupper)
+      const upperPath = remotePath.toUpperCase()
+      
       // Check if directory exists
-      const exists = await this.directoryExists(remotePath)
+      const exists = await this.directoryExists(upperPath)
       if (!exists) {
         // Create directory recursively
-        await this.client.ensureDir(remotePath)
-        console.log(`✅ Created FTP directory: ${remotePath}`)
+        await this.client.ensureDir(upperPath)
+        console.log(`✅ Created FTP directory: ${upperPath}`)
       } else {
-        console.log(`✅ FTP directory already exists: ${remotePath}`)
+        console.log(`✅ FTP directory already exists: ${upperPath}`)
       }
     } catch (error) {
       console.error(`❌ Error ensuring directory exists: ${remotePath}`, error)
@@ -77,16 +80,19 @@ export class FTPService {
     filename: string
   ): Promise<string> {
     try {
+      // Convert to uppercase like PHP version (strtoupper)
+      const upperPath = remotePath.toUpperCase()
+      
       // Ensure the directory exists
-      await this.ensureDirectoryExists(remotePath)
+      await this.ensureDirectoryExists(upperPath)
       
       // Create a readable stream from the buffer
       const stream = new Readable()
       stream.push(localBuffer)
       stream.push(null)
       
-      // Upload the file
-      const fullRemotePath = `${remotePath}/${filename}`
+      // Upload the file using binary mode (like PHP FTP_BINARY)
+      const fullRemotePath = `${upperPath}/${filename}`
       await this.client.uploadFrom(stream, fullRemotePath)
       
       console.log(`✅ File uploaded successfully: ${fullRemotePath}`)
@@ -114,6 +120,31 @@ export class FTPService {
     } catch (error) {
       console.error(`❌ Error listing files in: ${remotePath}`, error)
       return []
+    }
+  }
+
+  async downloadFile(
+    remotePath: string, 
+    localPath: string
+  ): Promise<boolean> {
+    try {
+      // Convert to uppercase like PHP version
+      const upperRemotePath = remotePath.toUpperCase()
+      
+      // Check if remote directory exists
+      const dirExists = await this.directoryExists(upperRemotePath)
+      if (!dirExists) {
+        console.log(`❌ Remote directory does not exist: ${upperRemotePath}`)
+        return false
+      }
+      
+      // Download the file
+      await this.client.downloadTo(localPath, upperRemotePath)
+      console.log(`✅ File downloaded successfully: ${upperRemotePath} -> ${localPath}`)
+      return true
+    } catch (error) {
+      console.error(`❌ Error downloading file: ${remotePath}`, error)
+      return false
     }
   }
 
@@ -159,8 +190,8 @@ export async function uploadPhotoToFTP(
   try {
     await ftpService.connect()
     
-    // Create order-specific directory path
-    const orderPath = `${ftpService['config'].basePath}/${orderNumber}`
+    // Create order-specific directory path (uppercase like PHP strtoupper)
+    const orderPath = `${ftpService['config'].basePath}/${orderNumber.toUpperCase()}`
     
     // Upload the file
     const remotePath = await ftpService.uploadFile(fileBuffer, orderPath, filename)
@@ -194,6 +225,46 @@ export async function deletePhotoFromFTP(remotePath: string): Promise<{ success:
     return { success: true }
   } catch (error) {
     console.error('FTP delete error:', error)
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error'
+    }
+  } finally {
+    await ftpService.disconnect()
+  }
+}
+
+// Utility function to download a photo from FTP (similar to PHP descargarFtp)
+export async function downloadPhotoFromFTP(
+  orderNumber: string,
+  filename: string = 'imgdmg.png'
+): Promise<{ success: boolean; localPath?: string; error?: string }> {
+  const ftpService = createFTPService()
+  
+  try {
+    await ftpService.connect()
+    
+    // Create order-specific directory path (uppercase like PHP)
+    const orderPath = `${ftpService['config'].basePath}/${orderNumber.toUpperCase()}`
+    const remoteFilePath = `${orderPath}/${filename}`
+    const localPath = `./${orderNumber}/${filename}`
+    
+    // Download the file
+    const success = await ftpService.downloadFile(remoteFilePath, localPath)
+    
+    if (success) {
+      return {
+        success: true,
+        localPath: localPath
+      }
+    } else {
+      return {
+        success: false,
+        error: 'File not found or download failed'
+      }
+    }
+  } catch (error) {
+    console.error('FTP download error:', error)
     return {
       success: false,
       error: error instanceof Error ? error.message : 'Unknown error'

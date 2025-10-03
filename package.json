@@ -20,6 +20,12 @@
     "deploy:logs": "pm2 logs recepcionactiva",
     "deploy:monit": "pm2 monit",
     "encrypt-password": "node scripts/encrypt-password.js",
+    "ftp:setup": "./scripts/setup-local-ftp.sh",
+    "ftp:test": "node scripts/test-ftp-simple.js",
+    "ftp:start": "docker-compose -f docker-compose.ftp.yml up -d",
+    "ftp:stop": "docker-compose -f docker-compose.ftp.yml down",
+    "ftp:logs": "docker-compose -f docker-compose.ftp.yml logs -f",
+    "ftp:status": "docker-compose -f docker-compose.ftp.yml ps",
     "create-user": "node scripts/create-user.js",
     "setup-ftp": "node scripts/setup-ftp.js",
     "test-ftp": "node scripts/test-ftp.js"

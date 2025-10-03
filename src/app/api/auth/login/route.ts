@@ -49,7 +49,7 @@ export async function POST(request: NextRequest) {
         e.NCOENT as entityName,
         e.IDEENT as entityId
       FROM USU u
-      LEFT JOIN ENT e ON u.ENTUSU = e.USUENT
+      LEFT JOIN ENT e ON u.ENTUSU = e.IDEENT
       WHERE u.ENTUSU = ${parseInt(userId)}
     `
 
@@ -80,7 +80,7 @@ export async function POST(request: NextRequest) {
     const entities = await prisma.$queryRaw`
       SELECT IDEENT as id, NCOENT as name
       FROM ENT
-      WHERE USUENT = ${parseInt(userId)}
+      WHERE IDEENT = ${parseInt(userId)}
     `
 
     const userInfo = {

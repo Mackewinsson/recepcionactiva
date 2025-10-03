@@ -31,7 +31,7 @@ export default function Dashboard() {
               <h1 className="text-xl font-semibold">Dashboard - Motos Muñoz</h1>
             </div>
             <div className="flex items-center space-x-4">
-              <span className="text-gray-700">Bienvenido, {user?.name || user?.email}</span>
+              <span className="text-gray-700">Bienvenido, {user?.name || `Usuario ${user?.userId}`}</span>
               <button
                 onClick={handleLogout}
                 className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm font-medium"
