@@ -26,9 +26,7 @@
     "ftp:stop": "docker-compose stop ftp-server ftp-http-server",
     "ftp:logs": "docker-compose logs -f ftp-server",
     "ftp:status": "docker-compose ps ftp-server ftp-http-server",
-    "create-user": "node scripts/create-user.js",
-    "setup-ftp": "node scripts/setup-ftp.js",
-    "test-ftp": "node scripts/test-ftp.js"
+    "create-user": "node scripts/create-user.js"
   },
   "dependencies": {
     "@prisma/adapter-mssql": "^6.16.2",
