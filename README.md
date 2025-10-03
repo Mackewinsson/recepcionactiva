@@ -7,6 +7,7 @@ Sistema web moderno para la gestión de órdenes de trabajo con funcionalidad de
 - **Windows Server** (Windows 10/11 o Windows Server 2016+)
 - **Node.js 18+** - [Descargar desde nodejs.org](https://nodejs.org) (versión LTS recomendada)
 - **SQL Server** con la base de datos existente
+- **Docker** (opcional, para desarrollo local)
 - **Acceso a red** para el almacenamiento de imágenes
 
 ## ⚡ Instalación Rápida
@@ -29,6 +30,8 @@ Sistema web moderno para la gestión de órdenes de trabajo con funcionalidad de
    ```
 
 ### Paso 3: Configurar Base de Datos
+
+#### Opción A: Base de Datos Externa (Producción)
 1. Copie el archivo de ejemplo y configure las variables de entorno:
    ```bash
    cp env.example .env
@@ -51,15 +54,45 @@ Sistema web moderno para la gestión de órdenes de trabajo con funcionalidad de
    APP_URL=http://192.168.1.30:3000
    ```
 
-3. **IMPORTANTE:** Reemplace los valores por los de su servidor:
-   - `192.168.1.30` → IP de su servidor SQL Server
-   - `su_password` → Contraseña del usuario `sa`
-   - `VsolDatos` → Nombre de su base de datos
-   - `SQLEXPRESS` → Nombre de su instancia (si aplica)
+#### Opción B: Base de Datos Local con Docker (Desarrollo)
+1. Copie el archivo de ejemplo para desarrollo local:
+   ```bash
+   cp env.local.example .env
+   ```
+2. Inicie la base de datos local:
+   ```bash
+   npm run db:start
+   ```
+3. Restaure la base de datos:
+   ```bash
+   npm run db:restore
+   ```
 
-4. Guarde el archivo `.env`
+### Paso 4: Configurar FTP Server
 
-### Paso 4: Generar Cliente de Prisma y Compilar
+#### Opción A: FTP Server Externo (Producción)
+1. Configure los parámetros FTP en el archivo `.env`:
+   ```env
+   FTP_HOST=192.168.8.10
+   FTP_PORT=21
+   FTP_USER=usermw
+   FTP_PASSWORD=usermw
+   FTP_BASE_PATH=/uploads/orders
+   FTP_SECURE=false
+   FTP_HTTP_BASE_URL=http://192.168.8.10/uploads
+   ```
+
+#### Opción B: FTP Server Local con Docker (Desarrollo)
+1. Inicie el servidor FTP local:
+   ```bash
+   npm run ftp:start
+   ```
+2. Pruebe la conexión:
+   ```bash
+   npm run ftp:test
+   ```
+
+### Paso 5: Generar Cliente de Prisma y Compilar
 ```bash
 # Generar cliente de Prisma
 npx prisma generate
@@ -68,11 +101,19 @@ npx prisma generate
 npm run build
 ```
 
-### Paso 5: Iniciar la Aplicación
+### Paso 6: Iniciar la Aplicación
+
+#### Para Producción:
 ```bash
 # Iniciar con PM2
 pm2 start ecosystem.config.js
 pm2 save
+```
+
+#### Para Desarrollo:
+```bash
+# Iniciar en modo desarrollo
+npm run dev
 ```
 
 ## 🎯 ¡Listo! El sistema estará funcionando
@@ -80,6 +121,85 @@ pm2 save
 Después de completar la configuración, el sistema estará disponible en:
 - **Acceso local:** http://localhost:3000
 - **Acceso en red:** http://[IP_DEL_SERVIDOR]:3000
+
+## 🐳 Servicios Docker
+
+### Base de Datos SQL Server
+```bash
+# Iniciar base de datos
+npm run db:start
+
+# Detener base de datos
+npm run db:stop
+
+# Restaurar base de datos
+npm run db:restore
+```
+
+### Servidor FTP
+```bash
+# Iniciar servidor FTP
+npm run ftp:start
+
+# Detener servidor FTP
+npm run ftp:stop
+
+# Probar conexión FTP
+npm run ftp:test
+
+# Ver logs del servidor FTP
+npm run ftp:logs
+
+# Verificar estado del servidor FTP
+npm run ftp:status
+```
+
+## 📸 Sistema de Subida de Fotos (FTP)
+
+La aplicación utiliza un servidor FTP para la subida de fotos, proporcionando almacenamiento centralizado y mejor escalabilidad.
+
+### Configuración FTP
+
+Las fotos se suben al servidor FTP con la siguiente estructura:
+```
+/uploads/orders/{numeroOrden}/{nombre-unico}
+```
+
+### Características FTP
+
+- ✅ **Creación automática de carpetas**: Las carpetas específicas por orden se crean automáticamente
+- ✅ **Nombres únicos**: Nomenclatura basada en UUID previene conflictos
+- ✅ **Integración con base de datos**: Referencias de fotos almacenadas en tabla `FOT`
+- ✅ **Manejo de errores**: Manejo completo de errores y logging
+- ✅ **Gestión de archivos**: Operaciones de subida y eliminación vía FTP
+- ✅ **Acceso HTTP**: URLs HTTP configurables para acceso a fotos
+- ✅ **Compatibilidad PHP**: Lógica idéntica al sistema PHP original
+- ✅ **Nombres en mayúsculas**: Directorios creados en mayúsculas (strtoupper)
+
+### Configuración Local de Desarrollo
+
+Para desarrollo local, el servidor FTP incluye:
+
+- **Host**: `localhost`
+- **Port**: `21`
+- **Username**: `usermw`
+- **Password**: `usermw`
+- **HTTP Access**: `http://localhost:8080`
+
+### Estructura de Directorios
+
+```
+ftp-data/
+├── uploads/
+│   └── orders/
+│       ├── ORDER001/          # Nombres en mayúsculas
+│       │   ├── image1.jpg
+│       │   └── image2.png
+│       ├── ORDER002/
+│       │   └── image1.jpg
+│       └── TEST123/
+│           └── test-image.jpg
+```
 
 ## 🔧 Configuración de Almacenamiento de Imágenes
 
@@ -124,58 +244,9 @@ Después de completar la configuración, el sistema estará disponible en:
 - Asegúrese de que la aplicación tenga permisos de escritura en la carpeta
 - Para rutas de red, verifique que el servicio de red esté funcionando
 
-## 📸 Sistema de Subida de Fotos (FTP)
-
-La aplicación utiliza un servidor FTP para la subida de fotos, proporcionando almacenamiento centralizado y mejor escalabilidad.
-
-### Configuración FTP
-
-Las fotos se suben al servidor FTP con la siguiente estructura:
-```
-/uploads/orders/{numeroOrden}/{nombre-unico}
-```
-
-### Configurar FTP
-
-1. **Configurar parámetros FTP**:
-   ```bash
-   npm run setup-ftp
-   ```
-
-2. **Actualizar el archivo .env** con los detalles reales del servidor FTP:
-   ```env
-   FTP_HOST=192.168.1.30
-   FTP_PORT=21
-   FTP_USER=tu_usuario_ftp
-   FTP_PASSWORD=tu_contraseña_ftp
-   FTP_BASE_PATH=/uploads/orders
-   FTP_SECURE=false
-   FTP_HTTP_BASE_URL=http://192.168.1.30/uploads/orders
-   ```
-
-3. **Probar conexión FTP**:
-   ```bash
-   npm run test-ftp
-   ```
-
-### Características FTP
-
-- ✅ **Creación automática de carpetas**: Las carpetas específicas por orden se crean automáticamente
-- ✅ **Nombres únicos**: Nomenclatura basada en UUID previene conflictos
-- ✅ **Integración con base de datos**: Referencias de fotos almacenadas en tabla `FOT`
-- ✅ **Manejo de errores**: Manejo completo de errores y logging
-- ✅ **Gestión de archivos**: Operaciones de subida y eliminación vía FTP
-- ✅ **Acceso HTTP**: URLs HTTP configurables para acceso a fotos
-
-### Requisitos del Servidor FTP
-
-- El servidor FTP debe estar ejecutándose y ser accesible
-- El usuario debe tener permisos de lectura/escritura en la ruta base
-- La ruta base debe existir o ser creable por el usuario FTP
-- Para acceso HTTP, configure un servidor web para servir archivos desde el directorio FTP
-
 ## 🛠️ Comandos Útiles
 
+### Aplicación
 ```cmd
 # Ver estado de la aplicación
 pm2 status
@@ -192,20 +263,53 @@ pm2 stop all
 # Iniciar aplicación
 pm2 start all
 
-# Configurar FTP para subida de fotos
-npm run setup-ftp
+# Monitorear recursos
+pm2 monit
+```
+
+### Base de Datos
+```cmd
+# Iniciar base de datos local
+npm run db:start
+
+# Detener base de datos local
+npm run db:stop
+
+# Restaurar base de datos
+npm run db:restore
+```
+
+### FTP Server
+```cmd
+# Iniciar servidor FTP local
+npm run ftp:start
+
+# Detener servidor FTP local
+npm run ftp:stop
 
 # Probar conexión FTP
-npm run test-ftp
+npm run ftp:test
 
+# Ver logs del servidor FTP
+npm run ftp:logs
+
+# Verificar estado del servidor FTP
+npm run ftp:status
+```
+
+### Utilidades
+```cmd
 # Encriptar contraseña
 npm run encrypt-password <contraseña>
 
 # Crear usuario
 npm run create-user <nombre> <id> [contraseña]
 
-# Monitorear recursos
-pm2 monit
+# Configurar FTP para subida de fotos
+npm run setup-ftp
+
+# Probar conexión FTP
+npm run test-ftp
 ```
 
 ## 🔥 Configuración de Firewall
@@ -287,6 +391,12 @@ npm run build
 - ✅ Confirme la configuración de la tabla PRM
 - ✅ Asegúrese de los permisos del directorio
 
+### Problemas con FTP Server
+- ✅ Verificar que Docker esté ejecutándose
+- ✅ Comprobar que los puertos 21 y 8080 estén disponibles
+- ✅ Verificar logs del servidor FTP: `npm run ftp:logs`
+- ✅ Probar conexión FTP: `npm run ftp:test`
+
 ### Puerto ya en Uso
 ```cmd
 # Encontrar proceso usando puerto 3000
@@ -317,8 +427,11 @@ recepcionactiva/
 ├── public/                 # Archivos públicos
 ├── prisma/                 # Configuración de base de datos
 ├── scripts/                # Scripts de desarrollo
+├── ftp-data/               # Datos del servidor FTP local
+├── docker-compose.yml      # Configuración de servicios Docker
 ├── ecosystem.config.js     # Configuración de PM2
 ├── env.example            # Plantilla de variables de entorno
+├── env.local.example      # Plantilla para desarrollo local
 └── README.md              # Este archivo
 ```
 
@@ -348,6 +461,7 @@ Si encuentra problemas:
 - [ ] PM2 ejecutando la aplicación
 - [ ] Firewall configurado
 - [ ] Carga de imágenes probada
+- [ ] Servidor FTP funcionando (si usa local)
 - [ ] Auto-inicio configurado
 
 ---

@@ -36,14 +36,14 @@ echo "✅ FTP directories created"
 
 # Start FTP server
 echo "🐳 Starting FTP server containers..."
-docker-compose -f docker-compose.ftp.yml up -d
+docker-compose up -d ftp-server ftp-http-server
 
 # Wait for services to start
 echo "⏳ Waiting for services to start..."
 sleep 10
 
 # Check if services are running
-if docker-compose -f docker-compose.ftp.yml ps | grep -q "Up"; then
+if docker-compose ps ftp-server ftp-http-server | grep -q "Up"; then
     echo "✅ FTP server is running!"
     echo ""
     echo "📋 FTP Server Information:"
@@ -61,14 +61,14 @@ if docker-compose -f docker-compose.ftp.yml ps | grep -q "Up"; then
     echo "   Path: ./ftp-data/uploads/orders/"
     echo ""
     echo "🔧 To stop the FTP server:"
-    echo "   docker-compose -f docker-compose.ftp.yml down"
+    echo "   docker-compose stop ftp-server ftp-http-server"
     echo ""
     echo "📊 To view logs:"
-    echo "   docker-compose -f docker-compose.ftp.yml logs -f"
+    echo "   docker-compose logs -f ftp-server"
 else
     echo "❌ Failed to start FTP server"
     echo "📊 Checking logs..."
-    docker-compose -f docker-compose.ftp.yml logs
+    docker-compose logs ftp-server
     exit 1
 fi
 

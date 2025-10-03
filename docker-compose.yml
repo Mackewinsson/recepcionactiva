@@ -1,9 +1,10 @@
 version: '3.8'
 
 services:
+  # SQL Server Database
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: sql1
+    container_name: recepcionactiva-sqlserver
     environment:
       - ACCEPT_EULA=Y
       - SA_PASSWORD=sa2006Strong!
@@ -18,6 +19,43 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
+    networks:
+      - recepcionactiva-network
+
+  # FTP Server for file uploads
+  ftp-server:
+    image: delfer/alpine-ftp-server:latest
+    container_name: recepcionactiva-ftp
+    ports:
+      - "21:21"
+      - "21000-21010:21000-21010"
+    environment:
+      - USERS=usermw|usermw|/home/usermw|1000
+      - ADDRESS=localhost
+    volumes:
+      - ./ftp-data:/home/usermw
+    restart: unless-stopped
+    networks:
+      - recepcionactiva-network
+
+  # HTTP Server for FTP file access
+  ftp-http-server:
+    image: nginx:alpine
+    container_name: recepcionactiva-ftp-http
+    ports:
+      - "8080:80"
+    volumes:
+      - ./ftp-data:/usr/share/nginx/html:ro
+      - ./nginx-ftp.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - ftp-server
+    restart: unless-stopped
+    networks:
+      - recepcionactiva-network
 
 volumes:
   sqlserver_data:
+
+networks:
+  recepcionactiva-network:
+    driver: bridge
