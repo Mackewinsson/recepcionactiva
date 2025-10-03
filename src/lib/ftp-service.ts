@@ -53,24 +53,17 @@ class FTPService {
 
   async ensureDirectoryExists(remotePath: string): Promise<void> {
     try {
-      // For local development, skip directory creation due to Docker permission limitations
-      // In production, this would create directories as needed
-      if (process.env.NODE_ENV === 'development') {
-        console.log(`🔧 Development mode: Skipping directory creation for ${remotePath}`)
-        return
-      }
-      
-      // Production mode: Create directories with uppercase paths like PHP version
-      const actualPath = remotePath.toUpperCase()
+      // Convert to uppercase like PHP strtoupper() - EXACT PHP BEHAVIOR
+      const upperPath = remotePath.toUpperCase()
       
       // Check if directory exists
-      const exists = await this.directoryExists(actualPath)
+      const exists = await this.directoryExists(upperPath)
       if (!exists) {
-        // Create directory recursively
-        await this.client.ensureDir(actualPath)
-        console.log(`✅ Created FTP directory: ${actualPath}`)
+        // Create directory recursively - like PHP ftp_mkdir()
+        await this.client.ensureDir(upperPath)
+        console.log(`✅ Created FTP directory: ${upperPath}`)
       } else {
-        console.log(`✅ FTP directory already exists: ${actualPath}`)
+        console.log(`✅ FTP directory already exists: ${upperPath}`)
       }
     } catch (error) {
       console.error(`❌ Error ensuring directory exists: ${remotePath}`, error)
@@ -93,14 +86,11 @@ class FTPService {
     filename: string
   ): Promise<string> {
     try {
-      // For local development, use root directory due to Docker permission limitations
-      // In production, use uppercase paths like PHP version
-      const actualPath = process.env.NODE_ENV === 'development' 
-        ? '/'
-        : remotePath.toUpperCase()
+      // Convert to uppercase like PHP strtoupper() - EXACT PHP BEHAVIOR
+      const upperPath = remotePath.toUpperCase()
       
-      // Ensure the directory exists (will be skipped in development)
-      await this.ensureDirectoryExists(actualPath)
+      // Ensure the directory exists (like PHP ftp_mkdir)
+      await this.ensureDirectoryExists(upperPath)
       
       // Create a readable stream from the buffer
       const stream = new Readable()
@@ -108,7 +98,7 @@ class FTPService {
       stream.push(null)
       
       // Upload the file using binary mode (like PHP FTP_BINARY)
-      const fullRemotePath = `${actualPath}${filename}`
+      const fullRemotePath = `${upperPath}/${filename}`
       await this.client.uploadFrom(stream, fullRemotePath)
       
       console.log(`✅ File uploaded successfully: ${fullRemotePath}`)
@@ -134,6 +124,7 @@ class FTPService {
       const chunks: Buffer[] = []
       const stream = new Readable()
       
+      // Download file (like PHP ftp_get with FTP_ASCII mode)
       await this.client.downloadTo(stream, remotePath)
       
       return new Promise((resolve, reject) => {
@@ -153,13 +144,7 @@ class FTPService {
     }
     
     // Convert FTP path to HTTP URL
-    // For development, files are in root directory
-    if (process.env.NODE_ENV === 'development') {
-      const filename = remotePath.replace('/', '')
-      return `${baseUrl}/${filename}`
-    }
-    
-    // For production, remove the base path from the remote path to get the relative path
+    // Remove the base path from the remote path to get the relative path
     const relativePath = remotePath.replace(this.config.basePath, '').replace(/^\//, '')
     return `${baseUrl}/${relativePath}`
   }
@@ -170,7 +155,7 @@ export function createFTPService(): FTPService {
   return new FTPService()
 }
 
-// Utility function to upload photo to FTP
+// Utility function to upload photo to FTP - EXACT PHP BEHAVIOR
 export async function uploadPhotoToFTP(
   fileBuffer: Buffer,
   orderNumber: string,
@@ -181,13 +166,11 @@ export async function uploadPhotoToFTP(
   try {
     await ftpService.connect()
     
-    // For local development, upload to root directory due to Docker permission limitations
-    // In production, use uppercase like PHP strtoupper with subdirectories
-    const orderPath = process.env.NODE_ENV === 'development'
-      ? '/'
-      : `${ftpService['config'].basePath}/${orderNumber.toUpperCase()}`
+    // Create order-specific directory path with UPPERCASE like PHP strtoupper()
+    // PHP creates directories in root, not in base path
+    const orderPath = orderNumber.toUpperCase()
     
-    // Upload the file
+    // Upload the file (this will create the directory if it doesn't exist)
     const remotePath = await ftpService.uploadFile(fileBuffer, orderPath, filename)
     
     // Generate URL for the uploaded file
@@ -208,20 +191,31 @@ export async function uploadPhotoToFTP(
   }
 }
 
-// Utility function to download photo from FTP
+// Utility function to download photo from FTP - EXACT PHP BEHAVIOR
 export async function downloadPhotoFromFTP(
-  remotePath: string
+  orderNumber: string,
+  filename: string = 'imgdmg.png'
 ): Promise<{ success: boolean; buffer?: Buffer; error?: string }> {
   const ftpService = createFTPService()
   
   try {
     await ftpService.connect()
     
-    // Convert path to uppercase for consistency with PHP version
-    const actualPath = remotePath.toUpperCase()
+    // Convert order number to uppercase like PHP strtoupper()
+    const upperOrderNumber = orderNumber.toUpperCase()
     
-    // Download the file
-    const buffer = await ftpService.downloadFile(actualPath)
+    // Check if directory exists (like PHP is_dir check)
+    const directoryExists = await ftpService.directoryExists(upperOrderNumber)
+    if (!directoryExists) {
+      return {
+        success: false,
+        error: `Directory ${upperOrderNumber} does not exist`
+      }
+    }
+    
+    // Download the file (like PHP ftp_get)
+    const remotePath = `${upperOrderNumber}/${filename}`
+    const buffer = await ftpService.downloadFile(remotePath)
     
     return {
       success: true,
