@@ -486,13 +486,13 @@ Para permitir conexiones externas:
 NODE_ENV=production
 
 # URL de conexión principal (Prisma)
-DATABASE_URL="sqlserver://sa:sa2006@192.168.8.11\\sqlexpress;database=vsoldatos;trustServerCertificate=true"
+DATABASE_URL="sqlserver://sa:tu_password@192.168.8.11\\sqlexpress;database=vsoldatos;trustServerCertificate=true"
 
 # Configuración individual (para compatibilidad)
 DB_HOST=192.168.8.11
 DB_PORT=1433
 DB_USER=sa
-DB_PASS=sa2006
+DB_PASS=tu_password
 DB_NAME=vsoldatos
 
 # Configuración de aplicación

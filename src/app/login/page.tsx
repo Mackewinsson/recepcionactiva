@@ -144,11 +144,6 @@ export default function Login() {
             <div className="text-red-600 text-sm text-center">{error}</div>
           )}
 
-          <div className="text-sm text-gray-600">
-            <p className="text-center">
-              Contraseñas válidas: <strong>12345</strong> (usuario mack), <strong>sa2006</strong>, <strong>admin</strong>
-            </p>
-          </div>
 
           <div>
             <button
