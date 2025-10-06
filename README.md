@@ -346,6 +346,160 @@ Para permitir acceso desde otros equipos:
    - Usuario: `sa`
    - Contraseña: [su contraseña]
 
+## 🔗 Configuración de Conexión a SQL Server con Prisma
+
+### Formatos de Cadena de Conexión
+
+Prisma utiliza un formato específico para las cadenas de conexión a SQL Server. Aquí están los formatos correctos según diferentes escenarios:
+
+#### 1. **Instancia por Defecto (Puerto 1433)**
+```env
+DATABASE_URL="sqlserver://usuario:password@192.168.8.11:1433;database=vsoldatos;trustServerCertificate=true"
+```
+
+#### 2. **Instancia Nombrada (Recomendado)**
+```env
+DATABASE_URL="sqlserver://usuario:password@192.168.8.11\\sqlexpress;database=vsoldatos;trustServerCertificate=true"
+```
+
+#### 3. **Con Encriptación Habilitada**
+```env
+DATABASE_URL="sqlserver://usuario:password@192.168.8.11\\sqlexpress;database=vsoldatos;trustServerCertificate=true;encrypt=true"
+```
+
+#### 4. **Con Timeout de Conexión**
+```env
+DATABASE_URL="sqlserver://usuario:password@192.168.8.11\\sqlexpress;database=vsoldatos;trustServerCertificate=true;connectionTimeout=30"
+```
+
+#### 5. **Autenticación de Windows (Integrated Security)**
+```env
+DATABASE_URL="sqlserver://192.168.8.11\\sqlexpress;database=vsoldatos;integratedSecurity=true;trustServerCertificate=true"
+```
+
+### Conversión desde DBeaver JDBC
+
+Si tienes una cadena de conexión JDBC funcionando en DBeaver, aquí está la conversión:
+
+**DBeaver JDBC:**
+```
+jdbc:sqlserver://;serverName=192.168.8.11\sqlexpress;databaseName=vsoldatos
+```
+
+**Prisma equivalente:**
+```env
+DATABASE_URL="sqlserver://usuario:password@192.168.8.11\\sqlexpress;database=vsoldatos;trustServerCertificate=true"
+```
+
+### Parámetros Importantes
+
+| Parámetro | Descripción | Ejemplo |
+|-----------|-------------|---------|
+| `trustServerCertificate=true` | Confía en el certificado del servidor | Siempre incluir para desarrollo |
+| `encrypt=true` | Habilita encriptación SSL | Opcional, puede causar problemas |
+| `connectionTimeout=30` | Timeout de conexión en segundos | Recomendado: 30 |
+| `integratedSecurity=true` | Usa autenticación de Windows | Solo para Windows Auth |
+
+### Configuración Recomendada para Producción
+
+```env
+# Configuración optimizada para producción
+DATABASE_URL="sqlserver://sa:tu_password@192.168.8.11\\sqlexpress;database=vsoldatos;trustServerCertificate=true;connectionTimeout=30"
+
+# Configuración individual (para compatibilidad con otros drivers)
+DB_HOST=192.168.8.11
+DB_PORT=1433
+DB_USER=sa
+DB_PASS=tu_password
+DB_NAME=vsoldatos
+```
+
+### Verificación de Conexión
+
+Para probar la conexión a la base de datos:
+
+```bash
+# Generar cliente de Prisma
+npx prisma generate
+
+# Probar conexión
+npx prisma db pull
+
+# Ver estado de la base de datos
+npx prisma db status
+```
+
+### Solución de Problemas de Conexión
+
+#### Error: "SQL browser timeout during resolving instance"
+- **Causa**: SQL Server Browser no está ejecutándose o no se puede alcanzar
+- **Solución**: Usar la instancia sin puerto específico:
+  ```env
+  DATABASE_URL="sqlserver://usuario:password@192.168.8.11\\sqlexpress;database=vsoldatos;trustServerCertificate=true"
+  ```
+
+#### Error: "Can't reach database server"
+- **Causa**: Servidor no accesible o puerto bloqueado
+- **Solución**: 
+  1. Verificar que SQL Server esté ejecutándose
+  2. Comprobar conectividad: `ping 192.168.8.11`
+  3. Verificar puerto: `telnet 192.168.8.11 1433`
+
+#### Error: "Login failed for user"
+- **Causa**: Credenciales incorrectas o usuario deshabilitado
+- **Solución**:
+  1. Verificar usuario y contraseña
+  2. Confirmar que la autenticación SQL Server esté habilitada
+  3. Verificar que el usuario tenga permisos en la base de datos
+
+#### Error: "Invalid database string"
+- **Causa**: Formato incorrecto de la cadena de conexión
+- **Solución**: Usar el formato correcto de Prisma:
+  ```env
+  DATABASE_URL="sqlserver://usuario:password@servidor\\instancia;database=nombre;trustServerCertificate=true"
+  ```
+
+### Configuración de SQL Server Browser
+
+Para instancias nombradas, asegúrate de que SQL Server Browser esté ejecutándose:
+
+1. **Abrir Services (services.msc)**
+2. **Buscar "SQL Server Browser"**
+3. **Iniciar el servicio si está detenido**
+4. **Configurar inicio automático**
+
+### Configuración de Firewall
+
+Para permitir conexiones externas:
+
+1. **Abrir Windows Defender Firewall**
+2. **Crear regla de entrada para puerto 1433**
+3. **Permitir SQL Server Browser (puerto 1434)**
+4. **Configurar excepción para SQL Server**
+
+### Ejemplo de Configuración Completa
+
+```env
+# ===========================================
+# CONFIGURACIÓN DE BASE DE DATOS
+# ===========================================
+NODE_ENV=production
+
+# URL de conexión principal (Prisma)
+DATABASE_URL="sqlserver://sa:sa2006@192.168.8.11\\sqlexpress;database=vsoldatos;trustServerCertificate=true"
+
+# Configuración individual (para compatibilidad)
+DB_HOST=192.168.8.11
+DB_PORT=1433
+DB_USER=sa
+DB_PASS=sa2006
+DB_NAME=vsoldatos
+
+# Configuración de aplicación
+PORT=3000
+APP_URL=http://192.168.8.11:3000
+```
+
 ## 🔧 Herramientas de Diagnóstico
 
 ### Verificación Manual
