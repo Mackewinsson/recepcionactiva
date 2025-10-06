@@ -50,7 +50,8 @@ export async function GET(request: NextRequest) {
         u.ACCUSU as nivelUsuario
       FROM CAB c
       LEFT JOIN ENT e ON c.ENTCAB = e.IDEENT
-      LEFT JOIN VEH v ON c.ENTCAB = v.ENTVEH
+      LEFT JOIN OTR o ON c.NUMCAB = o.ALBOTR
+      LEFT JOIN VEH v ON o.VEHOTR = v.IDEVEH
       LEFT JOIN USU u ON c.USUCAB = u.ENTUSU
       WHERE c.NUMCAB = ${numero}
     `
