@@ -70,29 +70,6 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* Clientes Card */}
-            <div className="bg-white rounded-lg shadow-sm border p-6 hover:shadow-md transition-shadow">
-              <div className="flex items-center">
-                <div className="flex-shrink-0">
-                  <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                    <span className="text-2xl">👥</span>
-                  </div>
-                </div>
-                <div className="ml-4">
-                  <h3 className="text-lg font-medium text-gray-900">Clientes</h3>
-                  <p className="text-sm text-gray-500">Gestionar clientes</p>
-                </div>
-              </div>
-              <div className="mt-4">
-                <button
-                  disabled
-                  className="w-full bg-gray-300 text-gray-500 px-4 py-2 rounded-md text-sm font-medium cursor-not-allowed"
-                >
-                  Próximamente
-                </button>
-              </div>
-            </div>
-
             {/* Matrículas Card */}
             <div className="bg-white rounded-lg shadow-sm border p-6 hover:shadow-md transition-shadow">
               <div className="flex items-center">
@@ -116,8 +93,31 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* Reportes Card */}
-            <div className="bg-white rounded-lg shadow-sm border p-6 hover:shadow-md transition-shadow">
+            {/* Clientes Card - Commented out for now */}
+            {/* <div className="bg-white rounded-lg shadow-sm border p-6 hover:shadow-md transition-shadow">
+              <div className="flex items-center">
+                <div className="flex-shrink-0">
+                  <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                    <span className="text-2xl">👥</span>
+                  </div>
+                </div>
+                <div className="ml-4">
+                  <h3 className="text-lg font-medium text-gray-900">Clientes</h3>
+                  <p className="text-sm text-gray-500">Gestionar clientes</p>
+                </div>
+              </div>
+              <div className="mt-4">
+                <button
+                  disabled
+                  className="w-full bg-gray-300 text-gray-500 px-4 py-2 rounded-md text-sm font-medium cursor-not-allowed"
+                >
+                  Próximamente
+                </button>
+              </div>
+            </div> */}
+
+            {/* Reportes Card - Commented out for now */}
+            {/* <div className="bg-white rounded-lg shadow-sm border p-6 hover:shadow-md transition-shadow">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
                   <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
@@ -137,10 +137,10 @@ export default function Dashboard() {
                   Próximamente
                 </button>
               </div>
-            </div>
+            </div> */}
 
-            {/* Inventario Card */}
-            <div className="bg-white rounded-lg shadow-sm border p-6 hover:shadow-md transition-shadow">
+            {/* Inventario Card - Commented out for now */}
+            {/* <div className="bg-white rounded-lg shadow-sm border p-6 hover:shadow-md transition-shadow">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
                   <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
@@ -160,10 +160,10 @@ export default function Dashboard() {
                   Próximamente
                 </button>
               </div>
-            </div>
+            </div> */}
 
-            {/* Configuración Card */}
-            <div className="bg-white rounded-lg shadow-sm border p-6 hover:shadow-md transition-shadow">
+            {/* Configuración Card - Commented out for now */}
+            {/* <div className="bg-white rounded-lg shadow-sm border p-6 hover:shadow-md transition-shadow">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
                   <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
@@ -183,12 +183,12 @@ export default function Dashboard() {
                   Próximamente
                 </button>
               </div>
-            </div>
+            </div> */}
 
           </div>
 
-          {/* Quick Stats */}
-          <div className="mt-8 bg-white rounded-lg shadow-sm border p-6">
+          {/* Quick Stats - Commented out for now */}
+          {/* <div className="mt-8 bg-white rounded-lg shadow-sm border p-6">
             <h2 className="text-lg font-medium text-gray-900 mb-4">Resumen Rápido</h2>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div className="text-center">
@@ -208,7 +208,7 @@ export default function Dashboard() {
                 <div className="text-sm text-gray-500">Completadas</div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </main>
     </div>
