@@ -122,16 +122,19 @@ class FTPService {
   async downloadFile(remotePath: string): Promise<Buffer> {
     try {
       const chunks: Buffer[] = []
-      const stream = new Readable()
+      const { Writable } = await import('stream')
+      
+      const writableStream = new Writable({
+        write(chunk, encoding, callback) {
+          chunks.push(chunk)
+          callback()
+        }
+      })
       
       // Download file (like PHP ftp_get with FTP_ASCII mode)
-      await this.client.downloadTo(stream, remotePath)
+      await this.client.downloadTo(writableStream, remotePath)
       
-      return new Promise((resolve, reject) => {
-        stream.on('data', (chunk) => chunks.push(chunk))
-        stream.on('end', () => resolve(Buffer.concat(chunks)))
-        stream.on('error', reject)
-      })
+      return Buffer.concat(chunks)
     } catch (error) {
       console.error(`❌ Error downloading file: ${remotePath}`, error)
       throw new Error(`Failed to download file ${remotePath}: ${error instanceof Error ? error.message : 'Unknown error'}`)
@@ -223,6 +226,35 @@ export async function downloadPhotoFromFTP(
     }
   } catch (error) {
     console.error('FTP download error:', error)
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error'
+    }
+  } finally {
+    await ftpService.disconnect()
+  }
+}
+
+// Utility function to delete photo from FTP - EXACT PHP BEHAVIOR
+export async function deletePhotoFromFTP(
+  filePath: string
+): Promise<{ success: boolean; error?: string }> {
+  const ftpService = createFTPService()
+  
+  try {
+    await ftpService.connect()
+    
+    // Convert file path to uppercase like PHP strtoupper()
+    const upperFilePath = filePath.toUpperCase()
+    
+    // Delete the file (like PHP ftp_delete)
+    await ftpService.deleteFile(upperFilePath)
+    
+    return {
+      success: true
+    }
+  } catch (error) {
+    console.error('FTP delete error:', error)
     return {
       success: false,
       error: error instanceof Error ? error.message : 'Unknown error'
