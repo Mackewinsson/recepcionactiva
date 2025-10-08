@@ -56,6 +56,9 @@ class FTPService {
       // Convert to uppercase like PHP strtoupper() - EXACT PHP BEHAVIOR
       const upperPath = remotePath.toUpperCase()
       
+      // Ensure we're at root before operations
+      await this.client.cd('/')
+      
       // Check if directory exists
       const exists = await this.directoryExists(upperPath)
       if (!exists) {
@@ -67,13 +70,15 @@ class FTPService {
       }
     } catch (error) {
       console.error(`❌ Error ensuring directory exists: ${remotePath}`, error)
-      throw new Error(`Failed to create directory ${remotePath}: ${error instanceof Error ? error.message : 'Unknown error'}`)
+      throw error
     }
   }
 
   async directoryExists(remotePath: string): Promise<boolean> {
     try {
+      const currentDir = await this.client.pwd()
       await this.client.cd(remotePath)
+      await this.client.cd(currentDir)  // Restore original directory
       return true
     } catch (error) {
       return false
@@ -89,15 +94,18 @@ class FTPService {
       // Convert to uppercase like PHP strtoupper() - EXACT PHP BEHAVIOR
       const upperPath = remotePath.toUpperCase()
       
-      // Ensure the directory exists (like PHP ftp_mkdir)
+      // Ensure directory exists at root
       await this.ensureDirectoryExists(upperPath)
       
-      // Create a readable stream from the buffer
+      // Go back to root before upload
+      await this.client.cd('/')
+      
+      // Create readable stream
       const stream = new Readable()
       stream.push(localBuffer)
       stream.push(null)
       
-      // Upload the file using binary mode (like PHP FTP_BINARY)
+      // Upload with full path like PHP ftp_put()
       const fullRemotePath = `${upperPath}/${filename}`
       await this.client.uploadFrom(stream, fullRemotePath)
       
@@ -143,7 +151,10 @@ class FTPService {
 
   getHttpFileUrl(remotePath: string, baseUrl?: string): string {
     if (!baseUrl) {
-      return remotePath
+      // If no base URL is provided, construct a default HTTP URL using FTP host
+      const ftpHost = this.config.host
+      const relativePath = remotePath.replace(this.config.basePath, '').replace(/^\//, '')
+      return `http://${ftpHost}/${relativePath}`
     }
     
     // Convert FTP path to HTTP URL
