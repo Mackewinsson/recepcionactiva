@@ -88,9 +88,9 @@ export async function POST(request: NextRequest) {
     const filePathForDB = `orders/${orderNumber}/${uniqueFilename}`
 
     // STEP 6: Insert photo record into FOT table
-    const photoId = await prisma.$executeRaw`
+    await prisma.$executeRaw`
       INSERT INTO FOT (ENTFOT, FEAFOT, NOTFOT, ALMFOT, PUEFOT)
-      VALUES ((SELECT ISNULL(MAX(ENTFOT), 0) + 1 FROM FOT), GETDATE(), ${filePathForDB}, 1, 1)
+      VALUES (${entityId}, GETDATE(), ${filePathForDB}, 1, 1)
     `
 
     return NextResponse.json({

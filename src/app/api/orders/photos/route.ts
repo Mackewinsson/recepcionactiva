@@ -3,6 +3,17 @@ import { PrismaClient } from '@/generated/prisma'
 
 const prisma = new PrismaClient()
 
+interface OrderEntity {
+  ENTCAB: number;
+}
+
+interface PhotoData {
+  id: number;
+  uploadedAt: Date;
+  url: string;
+  modifiedAt: Date | null;
+}
+
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
@@ -18,7 +29,7 @@ export async function GET(request: NextRequest) {
     // Get the order's entity ID
     const orderDetails = await prisma.$queryRaw`
       SELECT ENTCAB FROM CAB WHERE NUMCAB = ${orderNumber}
-    ` as any[]
+    ` as OrderEntity[]
 
     if (orderDetails.length === 0) {
       return NextResponse.json(
@@ -41,7 +52,7 @@ export async function GET(request: NextRequest) {
         AND NOTFOT IS NOT NULL 
         AND NOTFOT LIKE '/uploads/orders/%'
       ORDER BY FEAFOT DESC
-    ` as any[]
+    ` as PhotoData[]
 
     // Transform the results to match our interface
     const transformedPhotos = photos.map((photo, index) => ({

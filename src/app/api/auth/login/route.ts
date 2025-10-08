@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { PrismaClient } from '@/generated/prisma'
-import { encriptarClave, verificarClave } from '@/lib/encryption'
+import { verificarClave } from '@/lib/encryption'
 
 const prisma = new PrismaClient()
 

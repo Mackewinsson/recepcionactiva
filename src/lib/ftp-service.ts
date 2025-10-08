@@ -80,7 +80,7 @@ class FTPService {
       await this.client.cd(remotePath)
       await this.client.cd(currentDir)  // Restore original directory
       return true
-    } catch (error) {
+    } catch {
       return false
     }
   }

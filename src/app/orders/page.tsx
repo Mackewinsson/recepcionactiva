@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import PhotoUpload from '@/components/PhotoUpload'
 
@@ -57,7 +57,7 @@ export default function OrdersPage() {
       } else {
         setError('Error al buscar órdenes')
       }
-    } catch (err) {
+    } catch {
       setError('Error de conexión')
     } finally {
       setLoading(false)
@@ -69,7 +69,7 @@ export default function OrdersPage() {
       const response = await fetch(`/api/orders/photos?orderNumber=${encodeURIComponent(orderNumber)}`)
       if (response.ok) {
         const photos = await response.json()
-        setOrderPhotos(photos.map((photo: any) => photo.url))
+        setOrderPhotos(photos.map((photo: { url: string }) => photo.url))
       }
     } catch (err) {
       console.error('Error loading photos:', err)
@@ -88,7 +88,7 @@ export default function OrdersPage() {
       } else {
         setError('Error al cargar detalles de la orden')
       }
-    } catch (err) {
+    } catch {
       setError('Error de conexión')
     } finally {
       setLoading(false)

@@ -3,6 +3,39 @@ import { PrismaClient } from '@/generated/prisma'
 
 const prisma = new PrismaClient()
 
+interface OrderDetails {
+  numeroOrden: string;
+  fecha: Date;
+  estado: string;
+  total: number;
+  subtotal: number;
+  observaciones: string | null;
+  albaran: string | null;
+  factura: string | null;
+  urgencia: string | null;
+  prioridad: string | null;
+  tipo: string | null;
+  impuesto: number | null;
+  formaPago: string | null;
+  transporte: string | null;
+  porcentaje: number | null;
+  referencia: string | null;
+  lineas: number | null;
+  division: string | null;
+  coste: number | null;
+  fechaCreacion: Date | null;
+  cliente: string | null;
+  nifCliente: string | null;
+  telefonoCliente: string | null;
+  matricula: string | null;
+  nombreVehiculo: string | null;
+  bastidor: string | null;
+  motor: string | null;
+  estadoVehiculo: string | null;
+  costeVehiculo: number | null;
+  nivelUsuario: number | null;
+}
+
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
@@ -56,14 +89,14 @@ export async function GET(request: NextRequest) {
       WHERE c.NUMCAB = ${numero}
     `
 
-    if (!orderDetails || (orderDetails as any[]).length === 0) {
+    if (!orderDetails || (orderDetails as OrderDetails[]).length === 0) {
       return NextResponse.json(
         { message: 'Order not found' },
         { status: 404 }
       )
     }
 
-    const order = (orderDetails as any[])[0]
+    const order = (orderDetails as OrderDetails[])[0]
 
     return NextResponse.json(order)
   } catch (error) {
