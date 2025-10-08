@@ -150,8 +150,8 @@ class FTPService {
   }
 
   getHttpFileUrl(remotePath: string, baseUrl?: string): string {
-    if (!baseUrl) {
-      // If no base URL is provided, construct a default HTTP URL using FTP host
+    if (!baseUrl || baseUrl === '/') {
+      // If no base URL is provided or it's just a slash, construct a default HTTP URL using FTP host
       const ftpHost = this.config.host
       const relativePath = remotePath.replace(this.config.basePath, '').replace(/^\//, '')
       return `http://${ftpHost}/${relativePath}`

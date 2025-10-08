@@ -34,6 +34,7 @@ export default function PhotoUpload({
   const [isMobile, setIsMobile] = useState(false)
   const [showDeleteConfirm, setShowDeleteConfirm] = useState<string | null>(null)
   const [uploadResult, setUploadResult] = useState<{success: number, errors: number} | null>(null)
+  const [imageErrors, setImageErrors] = useState<Set<string>>(new Set())
   const fileInputRef = useRef<HTMLInputElement>(null)
   const cameraInputRef = useRef<HTMLInputElement>(null)
 
@@ -118,6 +119,10 @@ export default function PhotoUpload({
       setUploading(false)
       setUploadResult({ success: successCount, errors: errorCount })
     }
+  }
+
+  const handleImageError = (photoId: string) => {
+    setImageErrors(prev => new Set(prev).add(photoId))
   }
 
   const handleDeletePhoto = async (photoId: string) => {
@@ -309,13 +314,23 @@ export default function PhotoUpload({
           {photos.map((photo) => (
             <div key={photo.id} className="relative group">
               <div className="aspect-square rounded-lg overflow-hidden bg-gray-100 shadow-sm">
-                <Image
-                  src={photo.url}
-                  alt={photo.filename}
-                  width={200}
-                  height={200}
-                  className="w-full h-full object-cover"
-                />
+                {imageErrors.has(photo.id) ? (
+                  <div className="w-full h-full flex items-center justify-center bg-gray-200">
+                    <div className="text-center">
+                      <div className="text-4xl mb-2">📷</div>
+                      <div className="text-xs text-gray-500">Imagen no disponible</div>
+                    </div>
+                  </div>
+                ) : (
+                  <Image
+                    src={photo.url}
+                    alt={photo.filename}
+                    width={200}
+                    height={200}
+                    className="w-full h-full object-cover"
+                    onError={() => handleImageError(photo.id)}
+                  />
+                )}
               </div>
               
               {/* Mobile-optimized Delete Button */}
