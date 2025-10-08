@@ -134,7 +134,7 @@ export default function OrdersPage() {
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   placeholder="Ej: 2500CCC, 5422CCC..."
-                  className="flex-1 px-3 py-2 sm:py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-base"
+                  className="flex-1 px-3 py-2 sm:py-2 border-2 border-gray-400 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base text-gray-900 placeholder-gray-600"
                 />
                 <button
                   type="submit"
