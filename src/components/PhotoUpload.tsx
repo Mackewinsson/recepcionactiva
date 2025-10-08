@@ -58,6 +58,17 @@ export default function PhotoUpload({
     }
   }, [uploadResult])
 
+  // Clear photos when order number changes
+  useEffect(() => {
+    setPhotos(existingPhotos.map((url, index) => ({
+      id: `existing-${index}`,
+      url,
+      filename: `photo-${index + 1}.jpg`,
+      uploadedAt: new Date().toISOString()
+    })))
+    setImageErrors(new Set()) // Clear any image errors
+  }, [orderNumber, existingPhotos])
+
   const handleFileSelect = async (files: FileList | null) => {
     if (!files || files.length === 0) return
 
