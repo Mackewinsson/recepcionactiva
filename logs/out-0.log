@@ -1,0 +1,16 @@
+2025-10-08T15:47:30: 
+2025-10-08T15:47:30: > order-search-app@0.1.0 start
+2025-10-08T15:47:30: > ./scripts/start.sh
+2025-10-08T15:47:30: 
+2025-10-08T15:47:30: [0;34m[INFO][0m Starting RecepcionActiva application...
+2025-10-08T15:47:30: [0;34m[INFO][0m Loading environment from .env.production
+2025-10-08T15:47:30: [0;32m[SUCCESS][0m Environment variables loaded successfully
+2025-10-08T15:47:30: [0;32m[SUCCESS][0m Configuration validated successfully
+2025-10-08T15:47:30: [0;34m[INFO][0m Starting Next.js on 0.0.0.0:5500
+2025-10-08T15:47:30: [0;34m[INFO][0m Environment: production
+2025-10-08T15:47:30:    ▲ Next.js 15.5.3
+2025-10-08T15:47:30:    - Local:        http://localhost:5500
+2025-10-08T15:47:30:    - Network:      http://0.0.0.0:5500
+2025-10-08T15:47:30: 
+2025-10-08T15:47:30:  ✓ Starting...
+2025-10-08T15:47:30:  ✓ Ready in 339ms

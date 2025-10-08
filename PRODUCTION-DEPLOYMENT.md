@@ -82,8 +82,7 @@ npm run validate-env:template
 
 ### Option 1: Direct Start (Simple)
 
-For simple deployments without PM2:
-
+**Linux/macOS:**
 ```bash
 # Build the application
 npm run build
@@ -92,15 +91,43 @@ npm run build
 npm start
 ```
 
+**Windows:**
+```cmd
+# Build the application (with Windows-specific cleaning)
+npm run build:windows
+
+# Start the application
+npm run start:windows
+```
+
 The application will start on the port specified in your `.env.production` file.
 
 ### Option 2: PM2 Process Manager (Recommended)
 
 For production deployments with process management, monitoring, and auto-restart:
 
+**Linux/macOS:**
 ```bash
 # Build the application
 npm run build
+
+# Start with PM2
+npm run deploy:start
+
+# Check status
+npm run deploy:status
+
+# View logs
+npm run deploy:logs
+
+# Monitor in real-time
+npm run deploy:monit
+```
+
+**Windows:**
+```cmd
+# Build the application (with Windows-specific cleaning)
+npm run build:windows
 
 # Start with PM2
 npm run deploy:start
@@ -210,6 +237,8 @@ The application includes built-in health monitoring:
 ### Common Issues
 
 #### Port Already in Use
+
+**Linux/macOS:**
 ```bash
 # Check what's using the port
 lsof -i :3000
@@ -218,6 +247,35 @@ lsof -i :3000
 kill -9 <PID>
 ```
 
+**Windows:**
+```cmd
+# Check what's using the port
+netstat -ano | findstr :3000
+
+# Kill the process if needed (replace PID with actual process ID)
+taskkill /PID <PID> /F
+```
+
+#### Build Permission Errors (Windows)
+
+**Error:** `EPERM: operation not permitted, mkdir 'C:\RecepcionActiva\.next\types'`
+
+**Solution:**
+```cmd
+# Clean build artifacts and rebuild
+npm run build:windows
+
+# Or manually clean and rebuild
+npm run clean:windows
+npm run build
+```
+
+**Alternative Solutions:**
+1. Run Command Prompt as Administrator
+2. Check antivirus software isn't blocking file operations
+3. Ensure no other processes are using the `.next` directory
+4. Try building without Turbopack: `next build`
+
 #### Environment Validation Errors
 ```bash
 # Validate your environment
@@ -225,6 +283,12 @@ npm run validate-env
 
 # Check for missing variables
 cat .env.production | grep -v '^#' | grep -v '^$'
+```
+
+**Windows:**
+```cmd
+# Check for missing variables
+findstr /v "^#" .env.production | findstr /v "^$"
 ```
 
 #### Database Connection Issues
