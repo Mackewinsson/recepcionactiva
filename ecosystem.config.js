@@ -1,33 +1,45 @@
+const path = require('path')
+const fs = require('fs')
+const dotenv = require('dotenv')
+
+const defaultEnvFile = '.env.production'
+const envFile = process.env.PM2_ENV_FILE || defaultEnvFile
+const resolvedEnvPath = path.resolve(__dirname, envFile)
+
+if (fs.existsSync(resolvedEnvPath)) {
+  dotenv.config({ path: resolvedEnvPath })
+} else if (fs.existsSync(path.resolve(__dirname, '.env'))) {
+  dotenv.config({ path: path.resolve(__dirname, '.env') })
+} else {
+  dotenv.config()
+}
+
+const port = process.env.PORT || '5000'
+const appEnv = Object.assign({}, process.env, {
+  PORT: port
+})
+
+// Only set NODE_ENV if it's not already set
+if (!process.env.NODE_ENV) {
+  appEnv.NODE_ENV = 'production'
+}
+
 module.exports = {
   apps: [
     {
       name: 'recepcionactiva',
-      script: 'node_modules/next/dist/bin/next',
-      args: `start -p ${process.env.PORT || '3000'}`,
-      cwd: './',
-      env: {
-        NODE_ENV: 'production',
-        // Database configuration
-        DATABASE_URL: process.env.DATABASE_URL,
-        DB_HOST: process.env.DB_HOST,
-        DB_PORT: process.env.DB_PORT,
-        DB_USER: process.env.DB_USER,
-        DB_PASS: process.env.DB_PASS,
-        DB_NAME: process.env.DB_NAME,
-        // Network image path configuration
-        NETWORK_IMAGE_PATH: process.env.NETWORK_IMAGE_PATH,
-        // Application configuration
-        PORT: process.env.PORT || '5000',
-        APP_URL: process.env.APP_URL
-      },
-      // PM2 specific options
+      script: 'npm',
+      args: ['run', 'start'],
+      interpreter: 'none',
+      cwd: __dirname,
+      env: appEnv,
       instances: 1,
       autorestart: true,
       watch: false,
       max_memory_restart: '1G',
-      error_file: './logs/err.log',
-      out_file: './logs/out.log',
-      log_file: './logs/combined.log',
+      error_file: path.resolve(__dirname, 'logs/err.log'),
+      out_file: path.resolve(__dirname, 'logs/out.log'),
+      log_file: path.resolve(__dirname, 'logs/combined.log'),
       time: true
     }
   ]
