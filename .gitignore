@@ -49,3 +49,7 @@ next-env.d.ts
 
 # Uploaded files
 /public/uploads/
+
+# Log files
+/logs/
+*.log
