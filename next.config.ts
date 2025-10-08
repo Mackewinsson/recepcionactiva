@@ -5,13 +5,13 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'http',
-        hostname: process.env.FTP_HOST || '192.168.8.11',
+        hostname: process.env.FTP_HOST || '192.168.8.10',
         port: '',
         pathname: '/**',
       },
       {
         protocol: 'https',
-        hostname: process.env.FTP_HOST || '192.168.8.11',
+        hostname: process.env.FTP_HOST || '192.168.8.10',
         port: '',
         pathname: '/**',
       },

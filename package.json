@@ -11,7 +11,7 @@
     "docker:up": "docker-compose up -d",
     "docker:down": "docker-compose down",
     "build": "next build --turbopack",
-    "start": "next start",
+    "start": "./scripts/start.sh",
     "lint": "eslint",
     "deploy:start": "pm2 start ecosystem.config.js",
     "deploy:stop": "pm2 stop recepcionactiva",
@@ -26,7 +26,9 @@
     "ftp:stop": "docker-compose stop ftp-server ftp-http-server",
     "ftp:logs": "docker-compose logs -f ftp-server",
     "ftp:status": "docker-compose ps ftp-server ftp-http-server",
-    "create-user": "node scripts/create-user.js"
+    "create-user": "node scripts/create-user.js",
+    "validate-env": "node scripts/validate-env.js",
+    "validate-env:template": "node scripts/validate-env.js --template"
   },
   "dependencies": {
     "@prisma/adapter-mssql": "^6.16.2",
