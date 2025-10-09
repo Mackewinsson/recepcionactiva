@@ -46,18 +46,14 @@ export async function POST(request: NextRequest) {
       SELECT ENTCAB FROM CAB WHERE NUMCAB = ${orderNumber}
     ` as { ENTCAB: number }[]
 
-    let entityId: number
     let isExistingOrder = false
 
     if (orderDetails.length > 0) {
-      // Order exists - use existing order number and entity ID
-      entityId = orderDetails[0].ENTCAB
+      // Order exists - use existing order number
       isExistingOrder = true
       console.log(`✅ Order ${orderNumber} exists, using existing folder`)
     } else {
       // Order doesn't exist - we'll create a new folder with this order number
-      // For new orders, we'll use a default entity ID (you may want to adjust this logic)
-      entityId = 1 // Default entity ID for new orders
       isExistingOrder = false
       console.log(`📁 Order ${orderNumber} doesn't exist, will create new folder`)
     }
@@ -87,31 +83,31 @@ export async function POST(request: NextRequest) {
     // STEP 5: Generate file path for database storage (relative path)
     const filePathForDB = `orders/${orderNumber}/${uniqueFilename}`
 
-    // STEP 6: Get the next available ENTFOT ID and insert photo record into FOT table
-    const maxId = await prisma.$queryRaw`
-      SELECT ISNULL(MAX(ENTFOT), 0) + 1 AS NextId FROM FOT
-    ` as { NextId: number }[]
-
-    const nextId = maxId[0].NextId
-
-    await prisma.$executeRaw`
-      INSERT INTO FOT (ENTFOT, FEAFOT, NOTFOT, ALMFOT, PUEFOT)
-      VALUES (${nextId}, GETDATE(), ${filePathForDB}, 1, 1)
-    `
-
-    // STEP 7: Get the base path from PRM table (CarpetaImagenes parameter)
+    // STEP 6: Get the base path from PRM table (CarpetaSharedDoc parameter)
     const prmData = await prisma.$queryRaw`
-      SELECT VALPRM FROM PRM WHERE NOMPRM = 'CarpetaImagenes'
+      SELECT VALPRM FROM PRM WHERE NOMPRM = 'CarpetaSharedDoc'
     ` as { VALPRM: string }[]
 
-    const uncBasePath = prmData.length > 0 && prmData[0].VALPRM 
-      ? prmData[0].VALPRM 
-      : '\\\\servidor1\\Mw_Documentos'
+    // Clean the PRM value by removing any extra quotes and whitespace
+    const rawPrmValue = prmData.length > 0 ? prmData[0].VALPRM : null
+    let cleanedPrmValue = rawPrmValue ? rawPrmValue.trim() : null
+    
+    // Remove quotes from beginning and end
+    if (cleanedPrmValue) {
+      cleanedPrmValue = cleanedPrmValue.replace(/^['"]+|['"]+$/g, '')
+    }
+    
+    console.log(`🔍 PRM raw value: "${rawPrmValue}"`)
+    console.log(`🔍 PRM cleaned value: "${cleanedPrmValue}"`)
+
+    const uncBasePath = cleanedPrmValue || '\\\\servidor1\\Mw_Documentos'
+    console.log(`🔍 Final UNC base path: "${uncBasePath}"`)
 
     // Build the full UNC path
     const uncPath = `${uncBasePath}\\${orderNumber.toUpperCase()}\\${uniqueFilename}`
+    console.log(`🔍 Final UNC path: "${uncPath}"`)
 
-    // STEP 8: Insert into DOT table for MotorWin visibility
+    // STEP 7: Insert into DOT table for MotorWin visibility
     await prisma.$executeRaw`
       INSERT INTO DOT (ALBDOT, NOMDOT, LOCDOT)
       VALUES (${orderNumber}, ${uniqueFilename}, ${uncPath})
@@ -120,7 +116,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       message: `Image uploaded successfully to FTP server${isExistingOrder ? ' (existing order)' : ' (new order folder created)'}`,
-      id: nextId.toString(),
+      id: uniqueFilename,
       url: uploadResult.url,
       filename: file.name,
       filePath: filePathForDB,

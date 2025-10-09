@@ -8,12 +8,6 @@ interface OrderEntity {
   ENTCAB: number;
 }
 
-interface PhotoData {
-  id: number;
-  uploadedAt: Date;
-  url: string;
-  modifiedAt: Date | null;
-}
 
 export async function GET(request: NextRequest) {
   try {
@@ -27,42 +21,47 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    // Get the order's entity ID
+    // Check if order exists (optional - for validation)
     const orderDetails = await prisma.$queryRaw`
       SELECT ENTCAB FROM CAB WHERE NUMCAB = ${orderNumber}
     ` as OrderEntity[]
 
     if (orderDetails.length === 0) {
-      return NextResponse.json(
-        { message: 'Order not found' },
-        { status: 404 }
-      )
+      console.log(`⚠️ Order ${orderNumber} not found in CAB table, but continuing with photo listing`)
     }
 
-    const entityId = orderDetails[0].ENTCAB
-
-    // Get photos for this entity
-    const photos = await prisma.$queryRaw`
+    // Get photos from DOT table for this order
+    const dotPhotos = await prisma.$queryRaw`
       SELECT 
-        ENTFOT as id,
-        FEAFOT as uploadedAt,
-        NOTFOT as url,
-        FBJFOT as modifiedAt
-      FROM FOT 
-      WHERE ENTFOT = ${entityId} 
-        AND NOTFOT IS NOT NULL 
-        AND NOTFOT LIKE '/uploads/orders/%'
-      ORDER BY FEAFOT DESC
-    ` as PhotoData[]
+        IDEDOT as id,
+        ALBDOT as orderNumber,
+        NOMDOT as filename,
+        LOCDOT as filePath
+      FROM DOT 
+      WHERE ALBDOT = ${orderNumber}
+      ORDER BY IDEDOT DESC
+    ` as { id: number, orderNumber: string, filename: string, filePath: string }[]
 
-    // Transform database photos
-    const transformedPhotos = photos.map((photo, index) => ({
-      id: `photo-${photo.id}-${index}`,
-      url: photo.url,
-      filename: photo.url.split('/').pop() || `photo-${index + 1}.jpg`,
-      uploadedAt: photo.uploadedAt?.toISOString() || new Date().toISOString(),
-      source: 'database' // Track source for debugging
-    }))
+    // Transform DOT photos to our interface
+    const transformedPhotos = dotPhotos.map((photo, index) => {
+      // Generate URL from the DOT record
+      const baseUrl = process.env.FTP_HTTP_BASE_URL || '/uploads'
+      let photoUrl
+      if (baseUrl.startsWith('http://') || baseUrl.startsWith('https://')) {
+        photoUrl = `${baseUrl}/${photo.orderNumber.toUpperCase()}/${photo.filename}`
+      } else {
+        const origin = process.env.APP_URL || 'http://localhost:3000'
+        photoUrl = `${origin}${baseUrl}/${photo.orderNumber.toUpperCase()}/${photo.filename}`
+      }
+      
+      return {
+        id: `dot-${photo.id}-${index}`,
+        url: photoUrl,
+        filename: photo.filename,
+        uploadedAt: new Date().toISOString(), // DOT table doesn't have upload date
+        source: 'dot' // Track source for debugging
+      }
+    })
 
     // NEW: Also check FTP folder for additional files
     try {
@@ -71,11 +70,19 @@ export async function GET(request: NextRequest) {
       if (ftpResult.success && ftpResult.files && ftpResult.files.length > 0) {
         const baseUrl = process.env.FTP_HTTP_BASE_URL || '/uploads'
         
-        // Add FTP files that aren't already in database
+        // Add FTP files that aren't already in DOT table
         ftpResult.files.forEach((filename, index) => {
-          const fileUrl = `${baseUrl}/${orderNumber.toUpperCase()}/${filename}`
+          // Ensure we have a proper absolute URL
+          let fileUrl
+          if (baseUrl.startsWith('http://') || baseUrl.startsWith('https://')) {
+            fileUrl = `${baseUrl}/${orderNumber.toUpperCase()}/${filename}`
+          } else {
+            // If baseUrl is relative, make it absolute by adding the current origin
+            const origin = process.env.APP_URL || 'http://localhost:3000'
+            fileUrl = `${origin}${baseUrl}/${orderNumber.toUpperCase()}/${filename}`
+          }
           
-          // Check if this file is already in the database results
+          // Check if this file is already in the DOT table results
           const alreadyExists = transformedPhotos.some(p => p.filename === filename)
           if (!alreadyExists) {
             transformedPhotos.push({
@@ -88,15 +95,15 @@ export async function GET(request: NextRequest) {
           }
         })
         
-        console.log(`📊 Total photos: ${transformedPhotos.length} (${photos.length} from DB, ${ftpResult.files.length} from FTP)`)
+        console.log(`📊 Total photos: ${transformedPhotos.length} (${dotPhotos.length} from DOT, ${ftpResult.files.length} from FTP)`)
       } else if (!ftpResult.success) {
         // FTP failed but don't break the response - still return DB photos
-        console.warn(`⚠️ FTP listing failed: ${ftpResult.error}, returning database photos only`)
+        console.warn(`⚠️ FTP listing failed: ${ftpResult.error}, returning DOT photos only`)
       }
     } catch (ftpError) {
       // Edge case: FTP check fails completely - log but continue with DB photos
       console.error('❌ Failed to check FTP folder:', ftpError)
-      console.log('📋 Returning database photos only')
+      console.log('📋 Returning DOT photos only')
     }
 
     return NextResponse.json(transformedPhotos)
