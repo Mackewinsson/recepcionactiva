@@ -87,16 +87,22 @@ export async function POST(request: NextRequest) {
     // STEP 5: Generate file path for database storage (relative path)
     const filePathForDB = `orders/${orderNumber}/${uniqueFilename}`
 
-    // STEP 6: Insert photo record into FOT table
+    // STEP 6: Get the next available ENTFOT ID and insert photo record into FOT table
+    const maxId = await prisma.$queryRaw`
+      SELECT ISNULL(MAX(ENTFOT), 0) + 1 AS NextId FROM FOT
+    ` as { NextId: number }[]
+
+    const nextId = maxId[0].NextId
+
     await prisma.$executeRaw`
       INSERT INTO FOT (ENTFOT, FEAFOT, NOTFOT, ALMFOT, PUEFOT)
-      VALUES (${entityId}, GETDATE(), ${filePathForDB}, 1, 1)
+      VALUES (${nextId}, GETDATE(), ${filePathForDB}, 1, 1)
     `
 
     return NextResponse.json({
       success: true,
       message: `Image uploaded successfully to FTP server${isExistingOrder ? ' (existing order)' : ' (new order folder created)'}`,
-      id: uniqueFilename,
+      id: nextId.toString(),
       url: uploadResult.url,
       filename: file.name,
       filePath: filePathForDB,
