@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { PrismaClient } from '@/generated/prisma'
+import { listPhotosFromFTP } from '@/lib/ftp-service'
 
 const prisma = new PrismaClient()
 
@@ -54,13 +55,49 @@ export async function GET(request: NextRequest) {
       ORDER BY FEAFOT DESC
     ` as PhotoData[]
 
-    // Transform the results to match our interface
+    // Transform database photos
     const transformedPhotos = photos.map((photo, index) => ({
       id: `photo-${photo.id}-${index}`,
       url: photo.url,
       filename: photo.url.split('/').pop() || `photo-${index + 1}.jpg`,
-      uploadedAt: photo.uploadedAt?.toISOString() || new Date().toISOString()
+      uploadedAt: photo.uploadedAt?.toISOString() || new Date().toISOString(),
+      source: 'database' // Track source for debugging
     }))
+
+    // NEW: Also check FTP folder for additional files
+    try {
+      const ftpResult = await listPhotosFromFTP(orderNumber)
+      
+      if (ftpResult.success && ftpResult.files && ftpResult.files.length > 0) {
+        const baseUrl = process.env.FTP_HTTP_BASE_URL || '/uploads'
+        
+        // Add FTP files that aren't already in database
+        ftpResult.files.forEach((filename, index) => {
+          const fileUrl = `${baseUrl}/${orderNumber.toUpperCase()}/${filename}`
+          
+          // Check if this file is already in the database results
+          const alreadyExists = transformedPhotos.some(p => p.filename === filename)
+          if (!alreadyExists) {
+            transformedPhotos.push({
+              id: `ftp-${filename}-${index}`,
+              url: fileUrl,
+              filename: filename,
+              uploadedAt: new Date().toISOString(),
+              source: 'ftp' // Track source for debugging
+            })
+          }
+        })
+        
+        console.log(`📊 Total photos: ${transformedPhotos.length} (${photos.length} from DB, ${ftpResult.files.length} from FTP)`)
+      } else if (!ftpResult.success) {
+        // FTP failed but don't break the response - still return DB photos
+        console.warn(`⚠️ FTP listing failed: ${ftpResult.error}, returning database photos only`)
+      }
+    } catch (ftpError) {
+      // Edge case: FTP check fails completely - log but continue with DB photos
+      console.error('❌ Failed to check FTP folder:', ftpError)
+      console.log('📋 Returning database photos only')
+    }
 
     return NextResponse.json(transformedPhotos)
 

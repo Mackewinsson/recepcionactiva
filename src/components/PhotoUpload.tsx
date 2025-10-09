@@ -32,7 +32,6 @@ export default function PhotoUpload({
   const [uploading, setUploading] = useState(false)
   const [dragOver, setDragOver] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState<string | null>(null)
   const [uploadResult, setUploadResult] = useState<{success: number, errors: number} | null>(null)
   const [imageErrors, setImageErrors] = useState<Set<string>>(new Set())
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -136,48 +135,6 @@ export default function PhotoUpload({
     setImageErrors(prev => new Set(prev).add(photoId))
   }
 
-  const handleDeletePhoto = async (photoId: string) => {
-    if (isMobile) {
-      // On mobile, show confirmation dialog
-      if (showDeleteConfirm === photoId) {
-        try {
-          const response = await fetch(`/api/orders/photos/${photoId}`, {
-            method: 'DELETE',
-          })
-
-          if (response.ok) {
-            setPhotos(prev => prev.filter(photo => photo.id !== photoId))
-            setShowDeleteConfirm(null)
-          } else {
-            alert('Error al eliminar la foto')
-          }
-        } catch (error) {
-          console.error('Delete error:', error)
-          alert('Error al eliminar la foto')
-        }
-      } else {
-        setShowDeleteConfirm(photoId)
-        // Auto-hide confirmation after 3 seconds
-        setTimeout(() => setShowDeleteConfirm(null), 3000)
-      }
-    } else {
-      // Desktop: direct delete
-      try {
-        const response = await fetch(`/api/orders/photos/${photoId}`, {
-          method: 'DELETE',
-        })
-
-        if (response.ok) {
-          setPhotos(prev => prev.filter(photo => photo.id !== photoId))
-        } else {
-          alert('Error al eliminar la foto')
-        }
-      } catch (error) {
-        console.error('Delete error:', error)
-        alert('Error al eliminar la foto')
-      }
-    }
-  }
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault()
@@ -344,30 +301,6 @@ export default function PhotoUpload({
                 )}
               </div>
               
-              {/* Mobile-optimized Delete Button */}
-              <button
-                onClick={() => handleDeletePhoto(photo.id)}
-                className={`absolute top-2 right-2 bg-red-500 text-white rounded-full p-1.5 transition-all ${
-                  isMobile 
-                    ? 'opacity-100 shadow-lg' 
-                    : 'opacity-0 group-hover:opacity-100'
-                } ${
-                  showDeleteConfirm === photo.id 
-                    ? 'bg-red-600 scale-110' 
-                    : 'hover:bg-red-600'
-                }`}
-                title="Eliminar foto"
-              >
-                {showDeleteConfirm === photo.id ? (
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                ) : (
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                )}
-              </button>
 
               {/* Photo Info - Hidden on mobile to save space */}
               {!isMobile && (

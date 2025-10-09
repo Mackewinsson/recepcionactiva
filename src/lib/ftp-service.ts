@@ -149,6 +149,37 @@ class FTPService {
     }
   }
 
+  async listFiles(remotePath: string): Promise<string[]> {
+    try {
+      const upperPath = remotePath.toUpperCase()
+      
+      // Check if directory exists
+      const exists = await this.directoryExists(upperPath)
+      if (!exists) {
+        console.log(`📁 Directory does not exist: ${upperPath}`)
+        return []
+      }
+      
+      // Change to the directory
+      await this.client.cd('/')
+      await this.client.cd(upperPath)
+      
+      // List files
+      const fileList = await this.client.list()
+      
+      // Filter only files (not directories) and return names
+      const files = fileList
+        .filter(item => item.type === 1) // 1 = file, 2 = directory
+        .map(item => item.name)
+      
+      console.log(`✅ Listed ${files.length} files in ${upperPath}`)
+      return files
+    } catch (error) {
+      console.error(`❌ Error listing files in ${remotePath}:`, error)
+      return []
+    }
+  }
+
   getHttpFileUrl(remotePath: string, baseUrl?: string): string {
     if (!baseUrl || baseUrl === '/') {
       // If no base URL is provided or it's just a slash, construct a default HTTP URL using FTP host
@@ -269,6 +300,46 @@ export async function deletePhotoFromFTP(
     return {
       success: false,
       error: error instanceof Error ? error.message : 'Unknown error'
+    }
+  } finally {
+    await ftpService.disconnect()
+  }
+}
+
+// Utility function to list photos from FTP - EXACT PHP BEHAVIOR
+export async function listPhotosFromFTP(
+  orderNumber: string
+): Promise<{ success: boolean; files?: string[]; error?: string }> {
+  const ftpService = createFTPService()
+  
+  try {
+    await ftpService.connect()
+    
+    // Convert order number to uppercase
+    const upperOrderNumber = orderNumber.toUpperCase()
+    
+    // List files in the order folder
+    const files = await ftpService.listFiles(upperOrderNumber)
+    
+    // Filter only image files (handle edge case: non-image files in folder)
+    const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp', '.tiff']
+    const imageFiles = files.filter(filename => {
+      const ext = filename.toLowerCase().substring(filename.lastIndexOf('.'))
+      return imageExtensions.includes(ext)
+    })
+    
+    console.log(`📷 Found ${imageFiles.length} image files out of ${files.length} total files`)
+    
+    return {
+      success: true,
+      files: imageFiles
+    }
+  } catch (error) {
+    console.error('FTP list error:', error)
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error',
+      files: []
     }
   } finally {
     await ftpService.disconnect()
