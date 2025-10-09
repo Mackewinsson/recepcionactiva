@@ -99,6 +99,24 @@ export async function POST(request: NextRequest) {
       VALUES (${nextId}, GETDATE(), ${filePathForDB}, 1, 1)
     `
 
+    // STEP 7: Get the base path from PRM table (CarpetaImagenes parameter)
+    const prmData = await prisma.$queryRaw`
+      SELECT VALPRM FROM PRM WHERE NOMPRM = 'CarpetaImagenes'
+    ` as { VALPRM: string }[]
+
+    const uncBasePath = prmData.length > 0 && prmData[0].VALPRM 
+      ? prmData[0].VALPRM 
+      : '\\\\servidor1\\Mw_Documentos'
+
+    // Build the full UNC path
+    const uncPath = `${uncBasePath}\\${orderNumber.toUpperCase()}\\${uniqueFilename}`
+
+    // STEP 8: Insert into DOT table for MotorWin visibility
+    await prisma.$executeRaw`
+      INSERT INTO DOT (ALBDOT, NOMDOT, LOCDOT)
+      VALUES (${orderNumber}, ${uniqueFilename}, ${uncPath})
+    `
+
     return NextResponse.json({
       success: true,
       message: `Image uploaded successfully to FTP server${isExistingOrder ? ' (existing order)' : ' (new order folder created)'}`,
