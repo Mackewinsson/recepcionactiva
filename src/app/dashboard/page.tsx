@@ -2,10 +2,12 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuthStore } from '@/store/auth'
+import { useCompanyName } from '@/hooks/useCompanyName'
 
 export default function Dashboard() {
   const router = useRouter()
   const { user, isAuthenticated, logout } = useAuthStore()
+  const companyName = useCompanyName()
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -28,7 +30,7 @@ export default function Dashboard() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex items-center">
-              <h1 className="text-xl font-semibold">Dashboard - Motos Muñoz</h1>
+              <h1 className="text-xl font-semibold text-black">Dashboard - {companyName}</h1>
             </div>
             <div className="flex items-center space-x-4">
               <span className="text-gray-700">Bienvenido, {user?.name || `Usuario ${user?.userId}`}</span>

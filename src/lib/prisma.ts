@@ -1,5 +1,5 @@
 import { PrismaMssql } from '@prisma/adapter-mssql'
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from '../generated/prisma'
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined
@@ -7,11 +7,11 @@ const globalForPrisma = globalThis as unknown as {
 
 // SQL Server configuration
 const config = {
-  server: process.env.DB_HOST || '192.168.1.30',
+  server: process.env.DB_HOST || 'localhost',
   port: parseInt(process.env.DB_PORT || '1433'),
-  database: process.env.DB_NAME || 'VsolDatos',
+  database: process.env.DB_NAME || 'MotosMunozDatos',
   user: process.env.DB_USER || 'sa',
-  password: process.env.DB_PASS || '',
+  password: process.env.DB_PASS || 'sa2006Strong!',
   options: {
     encrypt: process.env.NODE_ENV === 'production', // Use encryption in production
     trustServerCertificate: true, // For development and self-signed certificates
