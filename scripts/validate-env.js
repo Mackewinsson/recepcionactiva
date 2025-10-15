@@ -61,12 +61,6 @@ const requiredVars = {
     type: 'url',
     description: 'Application base URL'
   },
-  APP_NAME: {
-    required: false,
-    type: 'string',
-    default: 'RecepcionActiva',
-    description: 'Application name'
-  },
 
   // Database Configuration
   DATABASE_URL: {
@@ -133,51 +127,26 @@ const requiredVars = {
     type: 'string',
     description: 'FTP base path'
   },
+  FTP_SECURE: {
+    required: false,
+    type: 'string',
+    allowedValues: ['true', 'false'],
+    default: 'false',
+    description: 'FTP secure connection'
+  },
   FTP_HTTP_BASE_URL: {
     required: true,
     type: 'url',
     description: 'FTP HTTP base URL'
-  },
-
-  // Security Configuration
-  JWT_SECRET: {
-    required: true,
-    type: 'string',
-    minLength: 32,
-    description: 'JWT secret key'
-  },
-  SESSION_SECRET: {
-    required: true,
-    type: 'string',
-    minLength: 32,
-    description: 'Session secret key'
   }
 };
 
 // Optional environment variables with defaults
 const optionalVars = {
-  BCRYPT_ROUNDS: {
-    type: 'number',
-    default: 12,
-    min: 10,
-    max: 15,
-    description: 'Bcrypt salt rounds'
-  },
-  LOG_LEVEL: {
+  PM2_ENV_FILE: {
     type: 'string',
-    default: 'info',
-    allowedValues: ['error', 'warn', 'info', 'debug'],
-    description: 'Log level'
-  },
-  MAX_FILE_SIZE: {
-    type: 'number',
-    default: 10485760,
-    description: 'Maximum file upload size in bytes'
-  },
-  REQUEST_TIMEOUT: {
-    type: 'number',
-    default: 30000,
-    description: 'Request timeout in milliseconds'
+    default: '.env.production',
+    description: 'PM2 environment file'
   },
   PM2_INSTANCES: {
     type: 'number',
