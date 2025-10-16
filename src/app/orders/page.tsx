@@ -118,14 +118,14 @@ export default function OrdersPage() {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-4 sm:mb-6">
-          <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Órdenes de Trabajo</h1>
-          <p className="text-sm sm:text-base text-gray-600">Busca órdenes por matrícula de vehículo</p>
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Vehículos</h1>
+          <p className="text-sm sm:text-base text-gray-600">Busca vehículos por matrícula o número de orden</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
           {/* Search Panel */}
           <div className="bg-white rounded-lg shadow-sm border p-4 sm:p-6">
-            <h2 className="text-base sm:text-lg font-semibold mb-4">🔍 Buscar por Matrícula</h2>
+            <h2 className="text-base sm:text-lg font-semibold mb-4 text-black">🚗 Vehículos</h2>
             
             <form onSubmit={handleSearch} className="mb-4">
               <div className="flex flex-col sm:flex-row gap-2">
@@ -133,7 +133,7 @@ export default function OrdersPage() {
                   type="text"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  placeholder="Ej: 2500CCC, 5422CCC..."
+                  placeholder="Ej: 2500CCC, 5422CCC, 12345..."
                   className="flex-1 px-3 py-2 sm:py-2 border-2 border-gray-400 bg-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base text-gray-900 placeholder-gray-600"
                 />
                 <button

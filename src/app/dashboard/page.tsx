@@ -58,8 +58,8 @@ export default function Dashboard() {
                   </div>
                 </div>
                 <div className="ml-4">
-                  <h3 className="text-lg font-medium text-gray-900">Órdenes de Trabajo</h3>
-                  <p className="text-sm text-gray-500">Buscar órdenes por matrícula</p>
+                  <h3 className="text-lg font-medium text-gray-900">Vehículos</h3>
+                  <p className="text-sm text-gray-500">Buscar vehículos por matrícula o número de orden</p>
                 </div>
               </div>
               <div className="mt-4">
@@ -72,28 +72,6 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* Matrículas Card */}
-            <div className="bg-white rounded-lg shadow-sm border p-6 hover:shadow-md transition-shadow">
-              <div className="flex items-center">
-                <div className="flex-shrink-0">
-                  <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
-                    <span className="text-2xl">🚗</span>
-                  </div>
-                </div>
-                <div className="ml-4">
-                  <h3 className="text-lg font-medium text-gray-900">Matrículas</h3>
-                  <p className="text-sm text-gray-500">Buscar por matrícula</p>
-                </div>
-              </div>
-              <div className="mt-4">
-                <button
-                  onClick={() => router.push('/orders')}
-                  className="w-full bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded-md text-sm font-medium"
-                >
-                  Buscar Matrícula
-                </button>
-              </div>
-            </div>
 
             {/* Clientes Card - Commented out for now */}
             {/* <div className="bg-white rounded-lg shadow-sm border p-6 hover:shadow-md transition-shadow">

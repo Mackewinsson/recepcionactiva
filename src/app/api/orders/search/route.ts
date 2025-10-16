@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json([])
     }
 
-    // Search orders by matricula (license plate) using raw SQL
+    // Search orders by matricula (license plate) or numero de orden using raw SQL
     const orders = await prisma.$queryRaw`
       SELECT TOP 20
         c.NUMCAB as numeroOrden,
@@ -28,7 +28,7 @@ export async function GET(request: NextRequest) {
       LEFT JOIN ENT e ON c.ENTCAB = e.IDEENT
       LEFT JOIN OTR o ON c.NUMCAB = o.ALBOTR
       LEFT JOIN VEH v ON o.VEHOTR = v.IDEVEH
-      WHERE v.MATVEH LIKE ${'%' + query + '%'}
+      WHERE v.MATVEH LIKE ${'%' + query + '%'} OR c.NUMCAB LIKE ${'%' + query + '%'}
       ORDER BY c.FECCAB DESC
     `
 
