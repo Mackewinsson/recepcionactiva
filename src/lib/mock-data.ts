@@ -88,6 +88,7 @@ export interface Invoice {
   
   // Pago y notas
   formaPago?: string
+  medioPago?: string
   fechaVencimiento?: string
   notas?: string
   
@@ -193,6 +194,7 @@ export const mockInvoices: Invoice[] = [
     },
     
     formaPago: 'Transferencia bancaria',
+    medioPago: 'IBAN: ES12 1234 5678 9012 3456 7890',
     fechaVencimiento: '2025-01-14',
     notas: 'Factura por servicios de reparación de vehículo',
     status: 'SENT',
@@ -276,6 +278,7 @@ export const mockInvoices: Invoice[] = [
     },
     
     formaPago: 'Efectivo',
+    medioPago: 'Pago en efectivo en taller',
     notas: 'Reparación completa del sistema de climatización',
     status: 'PAID',
     createdAt: '2024-12-14T14:20:00Z',
@@ -368,6 +371,7 @@ export const mockInvoices: Invoice[] = [
     },
     
     formaPago: 'Transferencia bancaria',
+    medioPago: 'Bizum: +34 666 123 456',
     fechaVencimiento: '2024-12-28',
     notas: 'Mantenimiento básico y limpieza',
     status: 'OVERDUE',
@@ -453,6 +457,7 @@ export const mockInvoices: Invoice[] = [
     },
     
     formaPago: 'Transferencia bancaria',
+    medioPago: 'IBAN: ES12 1234 5678 9012 3456 7890',
     fechaVencimiento: '2025-01-11',
     notas: 'Factura rectificativa por error en factura 2024-A-00001',
     status: 'DRAFT',
@@ -534,7 +539,8 @@ export const mockInvoices: Invoice[] = [
       totalFactura: 2420.00
     },
     
-    formaPago: 'Transferencia bancaria',
+    formaPago: 'Tarjeta de crédito',
+    medioPago: 'Visa **** 1234',
     fechaVencimiento: '2025-01-10',
     notas: 'Factura cancelada por cambio de servicios',
     status: 'CANCELLED',
