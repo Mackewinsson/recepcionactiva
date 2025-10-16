@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuthStore } from '@/store/auth'
 import { MockInvoiceService, Invoice } from '@/lib/mock-data'
+import LayoutWithSidebar from '@/components/LayoutWithSidebar'
 
 export default function VerFacturaPage({ params }: { params: { id: string } }) {
   const router = useRouter()
@@ -81,31 +82,36 @@ export default function VerFacturaPage({ params }: { params: { id: string } }) {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-gray-500">Cargando factura...</div>
-      </div>
+      <LayoutWithSidebar>
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+          <div className="text-gray-500">Cargando factura...</div>
+        </div>
+      </LayoutWithSidebar>
     )
   }
 
   if (error || !invoice) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="text-red-600 mb-4">{error || 'Factura no encontrada'}</div>
-          <button
-            onClick={() => router.push('/facturacion')}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md"
-          >
-            Volver a Facturación
-          </button>
+      <LayoutWithSidebar>
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+          <div className="text-center">
+            <div className="text-red-600 mb-4">{error || 'Factura no encontrada'}</div>
+            <button
+              onClick={() => router.push('/facturacion')}
+              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md"
+            >
+              Volver a Facturación
+            </button>
+          </div>
         </div>
-      </div>
+      </LayoutWithSidebar>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4">
-      <div className="max-w-4xl mx-auto">
+    <LayoutWithSidebar>
+      <div className="min-h-screen bg-gray-50 p-4">
+        <div className="max-w-4xl mx-auto">
         {/* Header Actions */}
         <div className="mb-6 flex justify-between items-center">
           <button
@@ -302,8 +308,9 @@ export default function VerFacturaPage({ params }: { params: { id: string } }) {
             </p>
           </div>
         </div>
+        </div>
       </div>
-    </div>
+    </LayoutWithSidebar>
   )
 }
 

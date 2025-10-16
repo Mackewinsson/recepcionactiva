@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import { useAuthStore } from '@/store/auth'
 import SpanishInvoiceForm from '@/components/SpanishInvoiceForm'
 import { MockInvoiceService, Invoice } from '@/lib/mock-data'
+import LayoutWithSidebar from '@/components/LayoutWithSidebar'
 
 export default function EditarFacturaPage({ params }: { params: { id: string } }) {
   const router = useRouter()
@@ -80,12 +81,14 @@ export default function EditarFacturaPage({ params }: { params: { id: string } }
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <SpanishInvoiceForm 
-        initialData={invoiceData}
-        invoiceId={parseInt(params.id)}
-        isEdit={true}
-      />
-    </div>
+    <LayoutWithSidebar>
+      <div className="min-h-screen bg-gray-50">
+        <SpanishInvoiceForm 
+          initialData={invoiceData}
+          invoiceId={parseInt(params.id)}
+          isEdit={true}
+        />
+      </div>
+    </LayoutWithSidebar>
   )
 }

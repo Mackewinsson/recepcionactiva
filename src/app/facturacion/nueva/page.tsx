@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuthStore } from '@/store/auth'
 import SpanishInvoiceForm from '@/components/SpanishInvoiceForm'
+import LayoutWithSidebar from '@/components/LayoutWithSidebar'
 
 export default function NuevaFacturaPage() {
   const router = useRouter()
@@ -19,8 +20,10 @@ export default function NuevaFacturaPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <SpanishInvoiceForm />
-    </div>
+    <LayoutWithSidebar>
+      <div className="min-h-screen bg-gray-50">
+        <SpanishInvoiceForm />
+      </div>
+    </LayoutWithSidebar>
   )
 }

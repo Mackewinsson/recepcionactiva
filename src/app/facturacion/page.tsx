@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuthStore } from '@/store/auth'
 import { MockInvoiceService, Invoice } from '@/lib/mock-data'
+import LayoutWithSidebar from '@/components/LayoutWithSidebar'
 
 export default function FacturacionPage() {
   const router = useRouter()
@@ -103,7 +104,8 @@ export default function FacturacionPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-2 sm:p-4">
+    <LayoutWithSidebar>
+      <div className="min-h-screen bg-gray-50 p-2 sm:p-4">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-4 sm:mb-6">
@@ -368,7 +370,8 @@ export default function FacturacionPage() {
           </button>
         </div>
       </div>
-    </div>
+      </div>
+    </LayoutWithSidebar>
   )
 }
 

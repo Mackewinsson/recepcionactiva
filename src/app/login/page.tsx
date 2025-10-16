@@ -75,7 +75,7 @@ export default function Login() {
       if (response.ok) {
         const user = await response.json()
         login(user)
-        router.push('/dashboard')
+        router.push('/facturacion')
       } else {
         const errorData = await response.json()
         setError(errorData.message || 'Error en el login')
