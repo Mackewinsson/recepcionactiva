@@ -72,6 +72,29 @@ export default function Dashboard() {
               </div>
             </div>
 
+            {/* Facturación Card */}
+            <div className="bg-white rounded-lg shadow-sm border p-6 hover:shadow-md transition-shadow">
+              <div className="flex items-center">
+                <div className="flex-shrink-0">
+                  <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                    <span className="text-2xl">🧾</span>
+                  </div>
+                </div>
+                <div className="ml-4">
+                  <h3 className="text-lg font-medium text-gray-900">Facturación</h3>
+                  <p className="text-sm text-gray-500">Crear y gestionar facturas</p>
+                </div>
+              </div>
+              <div className="mt-4">
+                <button
+                  onClick={() => router.push('/facturacion')}
+                  className="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm font-medium"
+                >
+                  Ver Facturas
+                </button>
+              </div>
+            </div>
+
 
             {/* Clientes Card - Commented out for now */}
             {/* <div className="bg-white rounded-lg shadow-sm border p-6 hover:shadow-md transition-shadow">
