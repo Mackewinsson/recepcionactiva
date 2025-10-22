@@ -1,9 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { PrismaClient } from '@/generated/prisma'
+import { prisma } from '@/lib/prisma'
 import { v4 as uuidv4 } from 'uuid'
 import { uploadPhotoToFTP } from '@/lib/ftp-service'
-
-const prisma = new PrismaClient()
 
 export async function POST(request: NextRequest) {
   try {

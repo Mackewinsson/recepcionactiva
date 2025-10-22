@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { PrismaClient } from '@/generated/prisma'
+import { prisma } from '@/lib/prisma'
 import { listPhotosFromFTP } from '@/lib/ftp-service'
-
-const prisma = new PrismaClient()
 
 interface OrderEntity {
   ENTCAB: number;
