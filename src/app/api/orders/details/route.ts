@@ -41,7 +41,7 @@ export async function GET(request: NextRequest) {
 
     if (!numero) {
       return NextResponse.json(
-        { message: 'Order number is required' },
+        { message: 'Número de orden es requerido' },
         { status: 400 }
       )
     }
@@ -89,7 +89,7 @@ export async function GET(request: NextRequest) {
 
     if (!orderDetails || (orderDetails as OrderDetails[]).length === 0) {
       return NextResponse.json(
-        { message: 'Order not found' },
+        { message: 'Orden no encontrada' },
         { status: 404 }
       )
     }
@@ -100,7 +100,7 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error('Order details error:', error)
     return NextResponse.json(
-      { message: 'Internal server error' },
+      { message: 'Error interno del servidor' },
       { status: 500 }
     )
   }

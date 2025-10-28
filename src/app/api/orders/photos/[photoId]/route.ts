@@ -11,7 +11,7 @@ export async function DELETE(
 
     if (!photoId) {
       return NextResponse.json(
-        { message: 'Photo ID is required' },
+        { message: 'ID de foto es requerido' },
         { status: 400 }
       )
     }
@@ -23,7 +23,7 @@ export async function DELETE(
 
     if (photoData.length === 0) {
       return NextResponse.json(
-        { message: 'Photo not found' },
+        { message: 'Foto no encontrada' },
         { status: 404 }
       )
     }
@@ -37,7 +37,7 @@ export async function DELETE(
       console.error('FTP delete failed:', deleteResult.error)
       return NextResponse.json(
         { 
-          message: deleteResult.error || 'Failed to delete photo from FTP server',
+          message: deleteResult.error || 'Error al eliminar foto del servidor FTP',
           error: 'FTP_DELETE_ERROR'
         },
         { status: 500 }
@@ -50,14 +50,14 @@ export async function DELETE(
     `
     
     return NextResponse.json({
-      message: 'Photo deleted successfully from FTP server and database',
+      message: 'Foto eliminada exitosamente del servidor FTP y base de datos',
       id: photoId
     })
 
   } catch (error) {
     console.error('Delete photo error:', error)
     return NextResponse.json(
-      { message: 'Internal server error' },
+      { message: 'Error interno del servidor' },
       { status: 500 }
     )
   }

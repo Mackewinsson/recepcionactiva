@@ -11,14 +11,14 @@ export async function POST(request: NextRequest) {
 
     if (!file) {
       return NextResponse.json(
-        { message: 'No file provided' },
+        { message: 'No se proporcionó archivo' },
         { status: 400 }
       )
     }
 
     if (!orderNumber) {
       return NextResponse.json(
-        { message: 'Order number is required' },
+        { message: 'Número de orden es requerido' },
         { status: 400 }
       )
     }
@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
     // Validate file type
     if (!file.type.startsWith('image/')) {
       return NextResponse.json(
-        { message: 'File must be an image' },
+        { message: 'El archivo debe ser una imagen' },
         { status: 400 }
       )
     }
@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
     // Validate file size (max 5MB)
     if (file.size > 5 * 1024 * 1024) {
       return NextResponse.json(
-        { message: 'File size must be less than 5MB' },
+        { message: 'El tamaño del archivo debe ser menor a 5MB' },
         { status: 400 }
       )
     }
@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
       console.error('FTP upload failed:', uploadResult.error)
       return NextResponse.json(
         { 
-          message: uploadResult.error || 'Failed to upload photo to FTP server',
+          message: uploadResult.error || 'Error al subir foto al servidor FTP',
           error: 'FTP_UPLOAD_ERROR'
         },
         { status: 500 }
@@ -113,7 +113,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      message: `Image uploaded successfully to FTP server${isExistingOrder ? ' (existing order)' : ' (new order folder created)'}`,
+      message: `Imagen subida exitosamente al servidor FTP${isExistingOrder ? ' (orden existente)' : ' (nueva carpeta de orden creada)'}`,
       id: uniqueFilename,
       url: uploadResult.url,
       filename: file.name,
@@ -125,7 +125,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Photo upload error:', error)
     return NextResponse.json(
-      { message: 'Internal server error' },
+      { message: 'Error interno del servidor' },
       { status: 500 }
     )
   }

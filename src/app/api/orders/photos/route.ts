@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
 
     if (!orderNumber) {
       return NextResponse.json(
-        { message: 'Order number is required' },
+        { message: 'Número de orden es requerido' },
         { status: 400 }
       )
     }
@@ -109,7 +109,7 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error('Get photos error:', error)
     return NextResponse.json(
-      { message: 'Internal server error' },
+      { message: 'Error interno del servidor' },
       { status: 500 }
     )
   }

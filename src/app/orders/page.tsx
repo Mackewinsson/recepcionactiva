@@ -309,7 +309,7 @@ export default function OrdersPage() {
             onClick={() => router.push('/dashboard')}
             className="w-full sm:w-auto px-4 py-2 sm:py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 active:bg-gray-800 text-sm sm:text-base font-medium"
           >
-            ← Volver al Dashboard
+            ← Volver al Inicio
           </button>
         </div>
       </div>
