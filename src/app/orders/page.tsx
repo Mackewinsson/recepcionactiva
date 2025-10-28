@@ -134,21 +134,21 @@ export default function OrdersPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-2 sm:p-4">
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen bg-gray-50 px-3 py-4 sm:px-6 sm:py-6">
+      <div className="mx-auto w-full max-w-6xl">
         {/* Header */}
         <div className="mb-4 sm:mb-6">
           <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Vehículos</h1>
           <p className="text-sm sm:text-base text-gray-600">Busca vehículos por matrícula o número de orden</p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-2 lg:items-start">
           {/* Search Panel */}
-          <div className="bg-white rounded-lg shadow-sm border p-4 sm:p-6">
+          <div className="bg-white rounded-lg shadow-sm border p-4 sm:p-6 lg:sticky lg:top-6">
             <h2 className="text-base sm:text-lg font-semibold mb-4 text-black">🚗 Vehículos</h2>
             
             <form onSubmit={handleSearch} className="mb-4">
-              <div className="flex flex-col sm:flex-row gap-2">
+              <div className="flex flex-col gap-3 sm:flex-row sm:gap-2">
                 <input
                   type="text"
                   value={searchTerm}
@@ -159,7 +159,7 @@ export default function OrdersPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="px-4 py-2 sm:py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 text-base font-medium"
+                  className="rounded-md bg-blue-600 px-4 py-2.5 text-base font-medium text-white transition hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 disabled:opacity-50"
                 >
                   {loading ? 'Buscando...' : 'Buscar'}
                 </button>
@@ -174,38 +174,51 @@ export default function OrdersPage() {
             {searchResults.length > 0 && (
               <div className="space-y-2">
                 <h3 className="font-medium text-gray-700 text-sm sm:text-base">Órdenes encontradas ({searchResults.length})</h3>
-                <div className="max-h-80 sm:max-h-96 overflow-y-auto space-y-2">
-                  {searchResults.map((order) => (
-                    <div
-                      key={order.numeroOrden}
-                      onClick={() => handleSelectOrder(order.numeroOrden)}
-                      className="p-3 border rounded-md hover:bg-gray-50 cursor-pointer transition-colors active:bg-gray-100"
-                    >
-                      <div className="flex justify-between items-start">
-                        <div className="flex-1 min-w-0">
-                          <div className="font-medium text-gray-900 text-sm sm:text-base truncate">{order.numeroOrden}</div>
-                          <div className="text-xs sm:text-sm text-gray-600 truncate">{order.cliente || 'Sin cliente'}</div>
-                          <div className="text-xs sm:text-sm text-blue-600 font-medium">
-                            🚗 {order.matricula || 'Sin matrícula'}
+                <div className="max-h-[60vh] sm:max-h-[70vh] space-y-2 overflow-y-auto pr-1">
+                  {searchResults.map((order) => {
+                    const isSelected = selectedOrder?.numeroOrden === order.numeroOrden
+                    return (
+                      <button
+                        key={order.numeroOrden}
+                        type="button"
+                        onClick={() => handleSelectOrder(order.numeroOrden)}
+                        aria-pressed={isSelected}
+                        className={`w-full rounded-lg border px-3 py-3 text-left transition hover:border-blue-200 hover:bg-blue-50/60 active:bg-blue-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 ${
+                          isSelected ? 'border-blue-500 bg-blue-50 shadow-sm' : 'border-gray-200'
+                        }`}
+                      >
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="min-w-0 flex-1">
+                            <div className="truncate text-sm font-medium text-gray-900 sm:text-base">
+                              {order.numeroOrden}
+                            </div>
+                            <div className="truncate text-xs text-gray-600 sm:text-sm">
+                              {order.cliente || 'Sin cliente'}
+                            </div>
+                            <div className="text-xs font-medium text-blue-600 sm:text-sm">
+                              🚗 {order.matricula || 'Sin matrícula'}
+                            </div>
+                            {order.nombreVehiculo && (
+                              <div className="truncate text-xs text-gray-500">{order.nombreVehiculo}</div>
+                            )}
+                            <div className="text-xs text-gray-500">
+                              {new Date(order.fecha).toLocaleDateString('es-ES')}
+                            </div>
                           </div>
-                          {order.nombreVehiculo && (
-                            <div className="text-xs text-gray-500 truncate">{order.nombreVehiculo}</div>
-                          )}
-                          <div className="text-xs text-gray-500">
-                            {new Date(order.fecha).toLocaleDateString('es-ES')}
+                          <div className="flex-shrink-0 text-right">
+                            <span
+                              className={`inline-flex items-center justify-center rounded-full px-2 py-1 text-xs font-medium ${getEstadoColor(order.estado)}`}
+                            >
+                              {getEstadoText(order.estado)}
+                            </span>
+                            <div className="mt-1 text-xs font-medium text-gray-900 sm:text-sm">
+                              {order.total ? order.total.toFixed(2) + '€' : '0.00€'}
+                            </div>
                           </div>
                         </div>
-                        <div className="text-right ml-2 flex-shrink-0">
-                          <span className={`px-2 py-1 rounded-full text-xs font-medium ${getEstadoColor(order.estado)}`}>
-                            {getEstadoText(order.estado)}
-                          </span>
-                          <div className="text-xs sm:text-sm font-medium text-gray-900 mt-1">
-                            {order.total ? order.total.toFixed(2) + '€' : '0.00€'}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+                      </button>
+                    )
+                  })}
                 </div>
               </div>
             )}
@@ -218,11 +231,20 @@ export default function OrdersPage() {
           </div>
 
           {/* Order Details Panel */}
-          <div ref={orderDetailsRef} className="bg-white rounded-lg shadow-sm border p-4 sm:p-6 transition-all duration-300">
+          <div ref={orderDetailsRef} className="bg-white rounded-lg border p-4 sm:p-6 shadow-sm transition-all duration-300 scroll-mt-24">
             <h2 className="text-base sm:text-lg font-semibold mb-4">📋 Detalles de la Orden</h2>
             
             {selectedOrder ? (
               <div className="space-y-4">
+                <div className="flex flex-wrap items-center justify-between gap-2 rounded-md bg-gray-100 px-3 py-2">
+                  <span className="text-xs font-medium text-gray-600 sm:text-sm">
+                    Orden seleccionada
+                  </span>
+                  <span className="rounded-full bg-blue-600 px-3 py-1 text-sm font-semibold text-white">
+                    #{selectedOrder.numeroOrden}
+                  </span>
+                </div>
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="text-xs sm:text-sm font-medium text-gray-500">Número de Orden</label>
@@ -327,7 +349,7 @@ export default function OrdersPage() {
         <div className="mt-4 sm:mt-6">
           <button
             onClick={() => router.push('/dashboard')}
-            className="w-full sm:w-auto px-4 py-2 sm:py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 active:bg-gray-800 text-sm sm:text-base font-medium"
+            className="w-full sm:w-auto rounded-md bg-gray-600 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-gray-700 active:bg-gray-800 sm:text-base"
           >
             ← Volver al Inicio
           </button>

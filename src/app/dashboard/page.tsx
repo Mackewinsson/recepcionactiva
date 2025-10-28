@@ -26,17 +26,17 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex items-center">
-              <h1 className="text-lg font-semibold text-black">{companyName}</h1>
+      <header className="bg-white shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center justify-between gap-3">
+              <h1 className="text-lg font-semibold text-black sm:text-xl truncate">{companyName}</h1>
             </div>
-            <div className="flex items-center space-x-4">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:space-x-4">
               <span className="text-sm text-gray-600">{user?.name || `Usuario ${user?.userId}`}</span>
               <button
                 onClick={handleLogout}
-                className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm font-medium"
+                className="inline-flex w-full justify-center rounded-md bg-red-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-red-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500 sm:w-auto sm:py-2"
               >
                 Cerrar Sesión
               </button>
@@ -45,27 +45,24 @@ export default function Dashboard() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <div className="px-4 py-6 sm:px-0">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <main className="max-w-7xl mx-auto w-full px-4 py-6 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 md:gap-6">
             
             {/* Órdenes de Trabajo Card */}
-            <div className="bg-white rounded-lg shadow-sm border p-6 hover:shadow-md transition-shadow">
-              <div className="flex items-center">
-                <div className="flex-shrink-0">
-                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                    <span className="text-2xl">📋</span>
-                  </div>
+            <div className="rounded-lg border bg-white p-5 shadow-sm transition-shadow hover:shadow-md sm:p-6">
+              <div className="flex items-center gap-4">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-blue-100">
+                  <span className="text-2xl">📋</span>
                 </div>
-                <div className="ml-4">
-                  <h3 className="text-lg font-medium text-gray-900">Vehículos</h3>
+                <div>
+                  <h3 className="text-base font-medium text-gray-900 sm:text-lg">Vehículos</h3>
                   <p className="text-sm text-gray-500">Buscar vehículos por matrícula o número de orden</p>
                 </div>
               </div>
               <div className="mt-4">
                 <button
                   onClick={() => router.push('/orders')}
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium"
+                  className="w-full rounded-md bg-blue-600 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500"
                 >
                   Ver Órdenes
                 </button>
@@ -165,31 +162,30 @@ export default function Dashboard() {
               </div>
             </div> */}
 
-          </div>
-
-          {/* Quick Stats - Commented out for now */}
-          {/* <div className="mt-8 bg-white rounded-lg shadow-sm border p-6">
-            <h2 className="text-lg font-medium text-gray-900 mb-4">Resumen Rápido</h2>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-blue-600">16</div>
-                <div className="text-sm text-gray-500">Órdenes Totales</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-yellow-600">4</div>
-                <div className="text-sm text-gray-500">Pendientes</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-blue-600">3</div>
-                <div className="text-sm text-gray-500">En Proceso</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-green-600">9</div>
-                <div className="text-sm text-gray-500">Completadas</div>
-              </div>
-            </div>
-          </div> */}
         </div>
+
+        {/* Quick Stats - Commented out for now */}
+        {/* <div className="mt-8 bg-white rounded-lg shadow-sm border p-6">
+          <h2 className="text-lg font-medium text-gray-900 mb-4">Resumen Rápido</h2>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div className="text-center">
+              <div className="text-2xl font-bold text-blue-600">16</div>
+              <div className="text-sm text-gray-500">Órdenes Totales</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-yellow-600">4</div>
+              <div className="text-sm text-gray-500">Pendientes</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-blue-600">3</div>
+              <div className="text-sm text-gray-500">En Proceso</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-green-600">9</div>
+              <div className="text-sm text-gray-500">Completadas</div>
+            </div>
+          </div>
+        </div> */}
       </main>
     </div>
   )
