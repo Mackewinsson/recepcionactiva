@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import PhotoUpload from '@/components/PhotoUpload'
 
@@ -40,6 +40,7 @@ export default function OrdersPage() {
   const [error, setError] = useState('')
   const [orderPhotos, setOrderPhotos] = useState<string[]>([])
   const router = useRouter()
+  const orderDetailsRef = useRef<HTMLDivElement>(null)
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -85,6 +86,25 @@ export default function OrdersPage() {
         setSelectedOrder(orderDetails)
         // Load photos for the selected order
         await loadOrderPhotos(orderNumber)
+        
+        // Scroll to order details panel after a short delay to ensure it's rendered
+        setTimeout(() => {
+          if (orderDetailsRef.current) {
+            // Add a temporary highlight effect
+            orderDetailsRef.current.classList.add('ring-2', 'ring-blue-500', 'ring-opacity-50')
+            
+            orderDetailsRef.current.scrollIntoView({ 
+              behavior: 'smooth', 
+              block: 'start',
+              inline: 'nearest'
+            })
+            
+            // Remove highlight after animation completes
+            setTimeout(() => {
+              orderDetailsRef.current?.classList.remove('ring-2', 'ring-blue-500', 'ring-opacity-50')
+            }, 2000)
+          }
+        }, 100)
       } else {
         setError('Error al cargar detalles de la orden')
       }
@@ -198,7 +218,7 @@ export default function OrdersPage() {
           </div>
 
           {/* Order Details Panel */}
-          <div className="bg-white rounded-lg shadow-sm border p-4 sm:p-6">
+          <div ref={orderDetailsRef} className="bg-white rounded-lg shadow-sm border p-4 sm:p-6 transition-all duration-300">
             <h2 className="text-base sm:text-lg font-semibold mb-4">📋 Detalles de la Orden</h2>
             
             {selectedOrder ? (
