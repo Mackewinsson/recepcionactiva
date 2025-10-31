@@ -26,18 +26,32 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow-sm">
+      <header className="bg-gradient-to-r from-blue-600 to-blue-700 shadow-lg">
         <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex items-center justify-between gap-3">
-              <h1 className="text-lg font-semibold text-black sm:text-xl truncate">{companyName}</h1>
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            {/* Company Section */}
+            <div className="flex items-center gap-3">
+              <div className="flex flex-col">
+                <div className="text-xs font-medium text-blue-100 uppercase tracking-wide">Empresa</div>
+                <h1 className="text-lg font-bold text-white sm:text-xl truncate">{companyName}</h1>
+              </div>
             </div>
-            <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:space-x-4">
-              <span className="text-sm text-gray-600">{user?.name || `Usuario ${user?.userId}`}</span>
+
+            {/* User Section */}
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+              <div className="flex items-center gap-4 sm:border-l sm:border-blue-500 sm:pl-4">
+                <div className="flex flex-col items-start sm:items-end">
+                  <div className="text-xs font-medium text-blue-100 uppercase tracking-wide">Usuario</div>
+                  <span className="text-sm font-semibold text-white">{user?.name || `Usuario ${user?.userId}`}</span>
+                </div>
+              </div>
               <button
                 onClick={handleLogout}
-                className="inline-flex w-full justify-center rounded-md bg-red-600 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-red-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500 sm:w-auto sm:py-2"
+                className="inline-flex items-center justify-center rounded-lg bg-white px-4 py-2 text-sm font-semibold text-red-600 shadow-md transition-all hover:bg-gray-50 hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:px-5 sm:py-2.5"
               >
+                <svg className="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
                 Cerrar Sesión
               </button>
             </div>

@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
-import { v4 as uuidv4 } from 'uuid'
 import { uploadPhotoToFTP } from '@/lib/ftp-service'
 
 export async function POST(request: NextRequest) {
@@ -56,9 +55,10 @@ export async function POST(request: NextRequest) {
       console.log(`📁 Order ${orderNumber} doesn't exist, will create new folder`)
     }
 
-    // STEP 2: Generate unique filename
+    // STEP 2: Generate unique filename with order number and random 3-digit number
     const fileExtension = file.name.split('.').pop()
-    const uniqueFilename = `${uuidv4()}.${fileExtension}`
+    const random3Digit = Math.floor(Math.random() * 1000).toString().padStart(3, '0')
+    const uniqueFilename = `${orderNumber}_${random3Digit}.${fileExtension}`
     
     // STEP 3: Convert file to buffer
     const bytes = await file.arrayBuffer()
